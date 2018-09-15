@@ -28,6 +28,10 @@
             android:name=".ui.activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity android:name=".ui.activities.PlantActivity" />
+
+        <activity android:name=".ui.activities.SettingsActivity" />
+
     </application>
 
 </manifest>
