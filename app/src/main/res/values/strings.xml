@@ -1,4 +1,8 @@
 <resources>
-    <string name="app_name">WaterEver-FloatingActionButton</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">WaterEver</string>
+    <string name="action_settings">设置</string>
+
+    <string name="dialog_permission_message">需要读写内存卡权限才能使用该APP</string>
+    <string name="dialog_continue">继续</string>
+    <string name="dialog_exit">退出</string>
 </resources>
