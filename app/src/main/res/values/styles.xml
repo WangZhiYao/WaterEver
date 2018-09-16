@@ -22,4 +22,24 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="MatisseStyle" parent="Matisse.Dracula">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="toolbar">@style/AppTheme.AppBarOverlay</item>
+        <item name="album.thumbnail.placeholder">@color/colorAccent</item>
+        <item name="item.checkCircle.backgroundColor">@color/colorAccent</item>
+        <item name="page.bg">@color/colorPrimary</item>
+        <item name="bottomToolbar.bg">@color/colorPrimary</item>
+        <item name="bottomToolbar.preview.textColor">@color/colorWhite</item>
+        <item name="bottomToolbar.apply.textColor">@drawable/selector_matisse_apply</item>
+        <item name="preview.bottomToolbar.back.textColor">@color/colorWhite</item>
+        <item name="preview.bottomToolbar.apply.textColor">@drawable/selector_matisse_apply</item>
+        <item name="android:listPopupWindowStyle">@style/Popup.MatisseStyle</item>
+        <item name="listPopupWindowStyle">@style/Popup.MatisseStyle</item>
+    </style>
+
+    <style name="Popup.MatisseStyle" parent="Widget.AppCompat.ListPopupWindow">
+        <item name="android:popupBackground">@color/colorPrimary</item>
+    </style>
+
 </resources>
