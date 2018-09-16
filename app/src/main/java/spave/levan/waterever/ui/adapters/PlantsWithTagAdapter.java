@@ -3,11 +3,12 @@ package spave.levan.waterever.ui.adapters;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import spave.levan.waterever.db.DBHelper;
 import spave.levan.waterever.model.Plant;
 
 /**
@@ -16,14 +17,16 @@ import spave.levan.waterever.model.Plant;
  * @author WangZhiYao
  * @date 2018/9/16
  */
-public class PlantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class PlantsWithTagAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
+    private DBHelper mDBHelper;
     private List<Plant> mPlantList;
 
-    public PlantsAdapter(Context context) {
+    public PlantsWithTagAdapter(Context context) {
         mContext = context;
-        mPlantList = new ArrayList<>();
+        mDBHelper = new DBHelper();
+        mPlantList = mDBHelper.queryAllPlantsSortByTime();
     }
 
     public void addPlant(Plant plant) {
@@ -50,5 +53,12 @@ public class PlantsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public int getItemCount() {
         return mPlantList.size();
+    }
+
+    class PlantsWithTagViewHolder extends RecyclerView.ViewHolder {
+
+        public PlantsWithTagViewHolder(View itemView) {
+            super(itemView);
+        }
     }
 }
