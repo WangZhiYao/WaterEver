@@ -2,6 +2,8 @@ package spave.levan.waterever.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +19,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import spave.levan.waterever.Constants;
 import spave.levan.waterever.R;
+import spave.levan.waterever.db.DBHelper;
+import spave.levan.waterever.model.Plant;
+import spave.levan.waterever.ui.adapters.PlantListAdapter;
+import spave.levan.waterever.ui.widget.IntervalItemDecoration;
 import spave.levan.waterever.utils.PhotoUtils;
+import spave.levan.waterever.utils.UIUtils;
 import top.zibin.luban.OnCompressListener;
 
 /**
@@ -32,8 +39,15 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.main_Toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.main_RecyclerView)
+    RecyclerView mPlantRecyclerView;
+
+    private DBHelper mDBHelper;
 
     private List<String> mSelectedPhotoPath;
+
+    private List<Plant> mPlantList;
+    private PlantListAdapter mPlantsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +60,16 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initData() {
+        mDBHelper = new DBHelper();
         mSelectedPhotoPath = new ArrayList<>();
+        mPlantList = mDBHelper.queryAllPlantsSortByTime();
+        mPlantsAdapter = new PlantListAdapter(this);
+        mPlantsAdapter.setPlantList(mPlantList);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        mPlantRecyclerView.setLayoutManager(gridLayoutManager);
+        mPlantRecyclerView.setAdapter(mPlantsAdapter);
+        mPlantRecyclerView.addItemDecoration(new IntervalItemDecoration(UIUtils.dp2px(4)));
     }
 
     @Override
@@ -88,6 +111,16 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void onSuccess(File file) {
                         mSelectedPhotoPath.add(file.getAbsolutePath());
+
+                        Plant plant = new Plant();
+                        plant.setPlantId(System.currentTimeMillis());
+                        plant.setCover(file.getAbsolutePath());
+                        plant.setName(file.getName());
+                        plant.setTime(file.lastModified());
+                        mDBHelper.addPlant(plant);
+
+                        mPlantList = mDBHelper.queryAllPlantsSortByTime();
+                        mPlantsAdapter.setPlantList(mPlantList);
                     }
 
                     @Override

@@ -1,6 +1,5 @@
 package spave.levan.waterever.ui.activities;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -16,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import spave.levan.waterever.BuildConfig;
+import spave.levan.waterever.Constants;
 import spave.levan.waterever.R;
 
 /**
@@ -25,11 +25,6 @@ import spave.levan.waterever.R;
  * @date 2018/9/15
  */
 public class SplashActivity extends BaseActivity {
-
-    private static final int REQUEST_CODE_EXTERNAL_STORAGE = 9502;
-
-    private static final String[] PERMISSIONS = {Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     private AlertDialog mRequestPermissionDialog;
 
@@ -42,13 +37,13 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (checkPermission(PERMISSIONS)) {
+        if (checkPermission(Constants.PERMISSIONS)) {
             startMainActivity();
             return;
         }
 
         if (mRequestPermissionDialog == null || !mRequestPermissionDialog.isShowing()) {
-            showRequestPermissionDialog(PERMISSIONS);
+            showRequestPermissionDialog(Constants.PERMISSIONS);
         }
     }
 
@@ -86,7 +81,7 @@ public class SplashActivity extends BaseActivity {
                     if (!shouldShowRequestPermissions.isEmpty()) {
                         ActivityCompat.requestPermissions(SplashActivity.this,
                                 shouldShowRequestPermissions.toArray(new String[shouldShowRequestPermissions.size()]),
-                                REQUEST_CODE_EXTERNAL_STORAGE);
+                                Constants.REQUEST_CODE_EXTERNAL_STORAGE);
 
                         return;
                     }
@@ -105,7 +100,7 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_CODE_EXTERNAL_STORAGE) {
+        if (requestCode == Constants.REQUEST_CODE_EXTERNAL_STORAGE) {
             List<String> deniedPermissions = new ArrayList<>();
 
             for (int i = 0; i < permissions.length; i++) {

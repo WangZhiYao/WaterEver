@@ -13,10 +13,10 @@ import io.realm.annotations.PrimaryKey;
 public class GrowthRecord extends RealmObject {
 
     public static final int ACTION_WATER = 0;
-    public static final int ACTION_FEED = 1;
+    public static final int ACTION_FERTILIZED = 1;
     public static final int ACTION_CHANGE_POT = 2;
-    public static final int ACTION_EXPELED_PARASITE = 3;
-    public static final int ACTION_DEGERM = 4;
+    public static final int ACTION_ANTHELMINTIC = 3;
+    public static final int ACTION_STERILIZED = 4;
 
     @PrimaryKey
     private long growthRecordId;
