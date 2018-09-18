@@ -3,6 +3,7 @@ package spave.levan.waterever.ui.activities;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import butterknife.ButterKnife;
 import spave.levan.waterever.R;
 
 /**
@@ -17,5 +18,7 @@ public class SettingsActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        ButterKnife.bind(this);
+
     }
 }
