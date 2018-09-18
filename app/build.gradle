@@ -60,4 +60,6 @@ dependencies {
     implementation 'com.zhihu.android:matisse:0.5.2-beta2'
     // Luban
     implementation 'top.zibin:Luban:1.1.8'
+    // PhotoView
+    implementation 'com.github.chrisbanes:PhotoView:2.1.4'
 }

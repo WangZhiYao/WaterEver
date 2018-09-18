@@ -16,4 +16,8 @@ public class Constants {
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     public static final int REQUEST_CODE_SELECT_PHOTO = 9502;
+
+    public static final String EXTRA_PHOTO_PATH_LIST = "PHOTO_PATH_LIST";
+
+    public static final String EXTRA_PHOTO_POSITION = "PHOTO_POSITION";
 }

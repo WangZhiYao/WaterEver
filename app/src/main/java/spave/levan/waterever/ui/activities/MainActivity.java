@@ -2,6 +2,7 @@ package spave.levan.waterever.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -20,6 +21,7 @@ import spave.levan.waterever.Constants;
 import spave.levan.waterever.R;
 import spave.levan.waterever.db.DBHelper;
 import spave.levan.waterever.model.Plant;
+import spave.levan.waterever.ui.widget.AddNewPlantDialogView;
 import spave.levan.waterever.utils.PhotoUtils;
 import top.zibin.luban.OnCompressListener;
 
@@ -29,7 +31,7 @@ import top.zibin.luban.OnCompressListener;
  * @author WangZhiYao
  * @date 2018/9/15
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements AddNewPlantDialogView.OnAddNewPlantClickListener {
 
     private static final String TAG = "MainActivity";
 
@@ -39,10 +41,10 @@ public class MainActivity extends BaseActivity {
     RecyclerView mPlantRecyclerView;
 
     private DBHelper mDBHelper;
-
     private List<String> mSelectedPhotoPath;
-
     private List<Plant> mPlantList;
+
+    private AlertDialog mAddNewPlantDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,28 +89,39 @@ public class MainActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.REQUEST_CODE_SELECT_PHOTO && resultCode == RESULT_OK) {
-
-            List<String> selectedPhotoPath = Matisse.obtainPathResult(data);
-
-            if (!selectedPhotoPath.isEmpty()) {
-                PhotoUtils.compressPhoto(this, selectedPhotoPath, new OnCompressListener() {
-                    @Override
-                    public void onStart() {
-
-                    }
-
-                    @Override
-                    public void onSuccess(File file) {
-                        mSelectedPhotoPath.add(file.getAbsolutePath());
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-                });
-            }
+            showAddNewPlantDialog(Matisse.obtainPathResult(data));
         }
+    }
+
+    private void showAddNewPlantDialog(List<String> selectedPhotoPath) {
+        AddNewPlantDialogView addNewPlantDialogView = new AddNewPlantDialogView(this);
+        addNewPlantDialogView.setPhotoList(selectedPhotoPath);
+        addNewPlantDialogView.setOnAddNewPlantClickListener(this);
+
+        mAddNewPlantDialog = new AlertDialog.Builder(this)
+                .setView(addNewPlantDialogView)
+                .create();
+        mAddNewPlantDialog.show();
+    }
+
+    @Override
+    public void onAddNewPlantClick(String plantName, List<String> photoPathList) {
+        PhotoUtils.compressPhoto(this, photoPathList, new OnCompressListener() {
+            @Override
+            public void onStart() {
+
+            }
+
+            @Override
+            public void onSuccess(File file) {
+                mSelectedPhotoPath.add(file.getAbsolutePath());
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
     }
 }
