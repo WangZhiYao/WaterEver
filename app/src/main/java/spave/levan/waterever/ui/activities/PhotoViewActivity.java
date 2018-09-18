@@ -108,8 +108,7 @@ public class PhotoViewActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.menu_Delete:
-                mPhotoPathList.remove(mPhotoPosition);
-                mPhotoViewAdapter.remove(mPhotoPosition);
+                //mPhotoViewAdapter.remove(mPhotoPosition);
                 break;
             default:
                 break;

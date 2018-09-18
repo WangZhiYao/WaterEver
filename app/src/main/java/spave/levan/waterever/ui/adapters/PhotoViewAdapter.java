@@ -44,6 +44,9 @@ public class PhotoViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void remove(int position) {
         mPhotoPathList.remove(position);
         notifyItemRemoved(position);
+        if (position != mPhotoPathList.size()) {
+            notifyItemRangeRemoved(position, mPhotoPathList.size() - position);
+        }
     }
 
     @NonNull

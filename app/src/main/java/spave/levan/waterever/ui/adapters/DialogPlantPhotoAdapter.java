@@ -44,6 +44,14 @@ public class DialogPlantPhotoAdapter extends RecyclerView.Adapter<RecyclerView.V
         notifyDataSetChanged();
     }
 
+    public void remove(int position) {
+        mPhotoPathList.remove(position);
+        notifyItemRemoved(position);
+        if (position != mPhotoPathList.size()) {
+            notifyItemRangeRemoved(position, mPhotoPathList.size() - position);
+        }
+    }
+
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }

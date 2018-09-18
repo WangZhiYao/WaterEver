@@ -72,7 +72,7 @@ public class AddNewPlantDialogView extends ConstraintLayout implements View.OnCl
         mPlantPhotoAdapter.setOnItemLongClickListener(position -> {
             if (position <= mPhotoPathList.size() - 1) {
                 mPhotoPathList.remove(position);
-                mPlantPhotoAdapter.setPhotoPathList(mPhotoPathList);
+                mPlantPhotoAdapter.remove(position);
             }
             return false;
         });
