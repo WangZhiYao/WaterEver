@@ -10,6 +10,10 @@ import android.Manifest;
  */
 public class Constants {
 
+    public static final String LEANCLOUD_APP_ID = "0esqkfhdDyCUpqb19IsFS2hW-gzGzoHsz";
+
+    public static final String LEANCLOUD_APP_KEY = "223K0Ga0mqFiuVO7jlvI1sQ0";
+
     public static final int REQUEST_CODE_EXTERNAL_STORAGE = 9603;
 
     public static final String[] PERMISSIONS = {Manifest.permission.READ_EXTERNAL_STORAGE,

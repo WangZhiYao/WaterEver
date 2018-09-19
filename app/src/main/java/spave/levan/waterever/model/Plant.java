@@ -24,6 +24,8 @@ public class Plant extends RealmObject {
     private RealmList<GrowthRecord> growthRecordList;
     private long time;
 
+    private String avObjectId;
+
     public long getPlantId() {
         return plantId;
     }
@@ -78,5 +80,13 @@ public class Plant extends RealmObject {
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    public void setAvObjectId(String avObjectId) {
+        this.avObjectId = avObjectId;
+    }
+
+    public String getAvObjectId() {
+        return avObjectId;
     }
 }

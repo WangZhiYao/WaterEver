@@ -25,6 +25,8 @@ public class GrowthRecord extends RealmObject {
     private RealmList<String> photoPathList = new RealmList<>();
     private long time;
 
+    private String avObjectId;
+
     public long getGrowthRecordId() {
         return growthRecordId;
     }
@@ -63,5 +65,13 @@ public class GrowthRecord extends RealmObject {
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    public void setAvObjectId(String avObjectId) {
+        this.avObjectId = avObjectId;
+    }
+
+    public String getAvObjectId() {
+        return avObjectId;
     }
 }
