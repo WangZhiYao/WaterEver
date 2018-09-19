@@ -17,6 +17,8 @@ public class Constants {
 
     public static final int REQUEST_CODE_SELECT_PHOTO = 9502;
 
+    public static final int REQUEST_CODE_PHOTO_VIEW = 9704;
+
     public static final String EXTRA_PHOTO_PATH_LIST = "PHOTO_PATH_LIST";
 
     public static final String EXTRA_PHOTO_POSITION = "PHOTO_POSITION";

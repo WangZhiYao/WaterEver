@@ -31,7 +31,8 @@ import top.zibin.luban.OnCompressListener;
  * @author WangZhiYao
  * @date 2018/9/15
  */
-public class MainActivity extends BaseActivity implements AddNewPlantDialogView.OnAddNewPlantClickListener {
+public class MainActivity extends BaseActivity implements AddNewPlantDialogView.OnAddNewPlantClickListener,
+        AddNewPlantDialogView.OnPhotoClickListener {
 
     private static final String TAG = "MainActivity";
 
@@ -41,9 +42,11 @@ public class MainActivity extends BaseActivity implements AddNewPlantDialogView.
     RecyclerView mPlantRecyclerView;
 
     private DBHelper mDBHelper;
-    private List<String> mSelectedPhotoPath;
     private List<Plant> mPlantList;
 
+    private List<String> mSelectedPhotoPath;
+
+    private AddNewPlantDialogView mAddNewPlantDialogView;
     private AlertDialog mAddNewPlantDialog;
 
     @Override
@@ -58,8 +61,9 @@ public class MainActivity extends BaseActivity implements AddNewPlantDialogView.
 
     private void initData() {
         mDBHelper = new DBHelper();
-        mSelectedPhotoPath = new ArrayList<>();
         mPlantList = mDBHelper.queryAllPlantsSortByTime();
+
+        mSelectedPhotoPath = new ArrayList<>();
     }
 
     @Override
@@ -91,15 +95,29 @@ public class MainActivity extends BaseActivity implements AddNewPlantDialogView.
         if (requestCode == Constants.REQUEST_CODE_SELECT_PHOTO && resultCode == RESULT_OK) {
             showAddNewPlantDialog(Matisse.obtainPathResult(data));
         }
+
+        if (requestCode == Constants.REQUEST_CODE_PHOTO_VIEW && resultCode == RESULT_OK) {
+            List<String> selectedPhotoPath = data.getStringArrayListExtra(Constants.EXTRA_PHOTO_PATH_LIST);
+
+            if (selectedPhotoPath != null) {
+                if (selectedPhotoPath.isEmpty()) {
+                    mAddNewPlantDialog.dismiss();
+                    return;
+                }
+
+                mAddNewPlantDialogView.setPhotoList(selectedPhotoPath);
+            }
+        }
     }
 
     private void showAddNewPlantDialog(List<String> selectedPhotoPath) {
-        AddNewPlantDialogView addNewPlantDialogView = new AddNewPlantDialogView(this);
-        addNewPlantDialogView.setPhotoList(selectedPhotoPath);
-        addNewPlantDialogView.setOnAddNewPlantClickListener(this);
+        mAddNewPlantDialogView = new AddNewPlantDialogView(this);
+        mAddNewPlantDialogView.setPhotoList(selectedPhotoPath);
+        mAddNewPlantDialogView.setOnAddNewPlantClickListener(this);
+        mAddNewPlantDialogView.setOnPhotoClickListener(this);
 
         mAddNewPlantDialog = new AlertDialog.Builder(this)
-                .setView(addNewPlantDialogView)
+                .setView(mAddNewPlantDialogView)
                 .create();
         mAddNewPlantDialog.show();
     }
@@ -115,7 +133,6 @@ public class MainActivity extends BaseActivity implements AddNewPlantDialogView.
             @Override
             public void onSuccess(File file) {
                 mSelectedPhotoPath.add(file.getAbsolutePath());
-
             }
 
             @Override
@@ -123,5 +140,12 @@ public class MainActivity extends BaseActivity implements AddNewPlantDialogView.
 
             }
         });
+    }
+
+    @Override
+    public void onPhotoClick(List<String> photoPathList, int position) {
+        startActivityForResult(new Intent(this, PhotoViewActivity.class)
+                .putExtra(Constants.EXTRA_PHOTO_PATH_LIST, new ArrayList<>(photoPathList))
+                .putExtra(Constants.EXTRA_PHOTO_POSITION, position), Constants.REQUEST_CODE_PHOTO_VIEW);
     }
 }

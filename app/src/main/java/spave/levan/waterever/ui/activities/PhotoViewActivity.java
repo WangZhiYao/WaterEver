@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,12 +28,17 @@ import spave.levan.waterever.ui.adapters.PhotoViewAdapter;
  */
 public class PhotoViewActivity extends BaseActivity {
 
+    private static final String TAG = "PhotoViewActivity";
+
     @BindView(R.id.photoView_RecyclerView)
     RecyclerView mRecyclerView;
+
+    private ActionBar mActionBar;
 
     private int mPhotoPosition;
     private List<String> mPhotoPathList;
     private PhotoViewAdapter mPhotoViewAdapter;
+    private LinearLayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,41 +64,37 @@ public class PhotoViewActivity extends BaseActivity {
     }
 
     private void initView() {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(String.format("%s/%s", mPhotoPosition + 1, mPhotoPathList.size()));
+        mActionBar = getSupportActionBar();
+        if (mActionBar != null) {
+            mActionBar.setHomeButtonEnabled(true);
+            mActionBar.setDisplayHomeAsUpEnabled(true);
+            mActionBar.setTitle(String.format("%s/%s", mPhotoPosition + 1, mPhotoPathList.size()));
         }
 
-        mPhotoViewAdapter = new PhotoViewAdapter(this);
-        mPhotoViewAdapter.setPhotoPathList(mPhotoPathList);
+        mPhotoViewAdapter = new PhotoViewAdapter(R.layout.item_photo_view);
+        mPhotoViewAdapter.addData(mPhotoPathList);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this,
-                LinearLayoutManager.HORIZONTAL, false));
+        mLayoutManager = new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mPhotoViewAdapter);
         mRecyclerView.scrollToPosition(mPhotoPosition);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (actionBar != null) {
-                    if (mPhotoPosition + 1 <= mPhotoPathList.size()) {
-                        actionBar.setTitle(String.format("%s/%s", mPhotoPosition + 1,
-                                mPhotoPathList.size()));
+                mPhotoPosition = mLayoutManager.findFirstVisibleItemPosition();
+                if (mActionBar != null) {
+                    if (mPhotoPosition + 1 <= mPhotoViewAdapter.getData().size()) {
+                        mActionBar.setTitle(String.format("%s/%s", mPhotoPosition + 1,
+                                mPhotoViewAdapter.getData().size()));
                     }
                 }
             }
         });
 
-        PagerSnapHelper pagerSnapHelper = new PagerSnapHelper() {
-            @Override
-            public int findTargetSnapPosition(RecyclerView.LayoutManager layoutManager, int velocityX, int velocityY) {
-                mPhotoPosition = super.findTargetSnapPosition(layoutManager, velocityX, velocityY);
-                return mPhotoPosition;
-            }
-        };
-        pagerSnapHelper.attachToRecyclerView(mRecyclerView);
+        new PagerSnapHelper().attachToRecyclerView(mRecyclerView);
     }
 
     @Override
@@ -108,7 +110,23 @@ public class PhotoViewActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.menu_Delete:
-                //mPhotoViewAdapter.remove(mPhotoPosition);
+
+                mPhotoViewAdapter.remove(mPhotoPosition);
+
+                setResult(RESULT_OK, new Intent()
+                        .putStringArrayListExtra(Constants.EXTRA_PHOTO_PATH_LIST,
+                                new ArrayList<>(mPhotoViewAdapter.getData())));
+
+                if (mPhotoViewAdapter.getData().isEmpty()) {
+                    finish();
+                }
+
+                if (mActionBar != null) {
+                    if (mPhotoPosition + 1 <= mPhotoViewAdapter.getData().size()) {
+                        mActionBar.setTitle(String.format("%s/%s", mPhotoPosition + 1,
+                                mPhotoViewAdapter.getData().size()));
+                    }
+                }
                 break;
             default:
                 break;
