@@ -19,7 +19,7 @@ public class AVGrowthRecord extends AVObject {
     private static final String NOTE = "note";
     private static final String ACTION_LIST = "actionList";
     private static final String PHOTO_PATH_LIST = "photoPathList";
-    private static final String TIME = "time";
+    private static final String CREATED_TIME = "createdTime";
 
     public long getGrowthRecordId() {
         return getLong(GROWTH_RECORD_ID);
@@ -53,11 +53,11 @@ public class AVGrowthRecord extends AVObject {
         put(PHOTO_PATH_LIST, photoPathList);
     }
 
-    public long getTime() {
-        return getLong(TIME);
+    public long getCreatedTime() {
+        return getLong(CREATED_TIME);
     }
 
-    public void setTime(long time) {
-        put(TIME, time);
+    public void setCreatedTime(long createdTime) {
+        put(CREATED_TIME, createdTime);
     }
 }

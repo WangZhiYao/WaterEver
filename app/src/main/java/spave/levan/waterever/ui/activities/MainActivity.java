@@ -23,6 +23,7 @@ import spave.levan.waterever.R;
 import spave.levan.waterever.db.DBHelper;
 import spave.levan.waterever.model.GrowthRecord;
 import spave.levan.waterever.model.Plant;
+import spave.levan.waterever.service.UploadService;
 import spave.levan.waterever.ui.widget.AddNewPlantDialogView;
 import spave.levan.waterever.utils.PhotoUtils;
 import top.zibin.luban.OnCompressListener;
@@ -62,6 +63,9 @@ public class MainActivity extends BaseActivity implements AddNewPlantDialogView.
     private void initData() {
         mDBHelper = new DBHelper();
         mPlantList = mDBHelper.queryAllPlantsSortByTime();
+
+        Intent intent = new Intent(this, UploadService.class);
+        startService(intent);
     }
 
     @Override
@@ -155,7 +159,8 @@ public class MainActivity extends BaseActivity implements AddNewPlantDialogView.
 
         GrowthRecord growthRecord = new GrowthRecord();
         growthRecord.setGrowthRecordId(System.currentTimeMillis());
-        growthRecord.setTime(System.currentTimeMillis());
+        growthRecord.setCreatedTime(System.currentTimeMillis());
+        growthRecord.setLastUpdateTime(System.currentTimeMillis());
 
         RealmList<String> photoPathRealmList = new RealmList<>();
         photoPathRealmList.addAll(photoPathList);
@@ -163,7 +168,8 @@ public class MainActivity extends BaseActivity implements AddNewPlantDialogView.
         growthRecord.setPhotoPathList(photoPathRealmList);
 
         plant.setGrowthRecordList(new RealmList<>(growthRecord));
-        plant.setTime(System.currentTimeMillis());
+        plant.setCreatedTime(System.currentTimeMillis());
+        plant.setLastUpdateTime(System.currentTimeMillis());
 
         mDBHelper.addPlant(plant);
         mAddNewPlantDialog.dismiss();

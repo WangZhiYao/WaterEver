@@ -5,6 +5,7 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmList;
+import io.realm.RealmResults;
 import io.realm.Sort;
 import spave.levan.waterever.model.GrowthRecord;
 import spave.levan.waterever.model.Plant;
@@ -46,16 +47,16 @@ public class DBHelper {
                 .findFirst();
     }
 
-    public List<Plant> queryAllPlantsSortByTime() {
+    public RealmResults<Plant> queryAllPlantsSortByTime() {
         return mRealm.where(Plant.class)
-                .sort("time", Sort.DESCENDING)
+                .sort("createdTime", Sort.DESCENDING)
                 .findAll();
     }
 
-    public List<Plant> queryPlantsByTagSortByTime(String tag) {
+    public RealmResults<Plant> queryPlantsByTagSortByTime(String tag) {
         return mRealm.where(Plant.class)
                 .equalTo("tag", tag)
-                .sort("time", Sort.DESCENDING)
+                .sort("createdTime", Sort.DESCENDING)
                 .findAll();
     }
 

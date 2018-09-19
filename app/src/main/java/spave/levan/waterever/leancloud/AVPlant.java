@@ -22,7 +22,7 @@ public class AVPlant extends AVObject {
     private static final String TAG = "tag";
     private static final String STATUS = "status";
     private static final String GROWTH_RECORD_LIST = "growthRecordList";
-    private static final String TIME = "time";
+    private static final String CREATED_TIME = "createdTime";
 
     public User getUser() {
         return getAVUser(USER);
@@ -80,11 +80,11 @@ public class AVPlant extends AVObject {
         put(GROWTH_RECORD_LIST, growthRecordList);
     }
 
-    public long getTime() {
-        return getLong(TIME);
+    public long getCreatedTime() {
+        return getLong(CREATED_TIME);
     }
 
-    public void setTime(long time) {
-        put(TIME, time);
+    public void setCreatedTime(long createdTime) {
+        put(CREATED_TIME, createdTime);
     }
 }

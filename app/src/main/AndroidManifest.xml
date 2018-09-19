@@ -34,6 +34,7 @@
 
         <activity android:name=".ui.activities.PhotoViewActivity" />
 
+        <service android:name=".service.UploadService" />
     </application>
 
 </manifest>

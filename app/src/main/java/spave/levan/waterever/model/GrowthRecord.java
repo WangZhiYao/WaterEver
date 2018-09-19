@@ -23,9 +23,11 @@ public class GrowthRecord extends RealmObject {
     private String note;
     private RealmList<Integer> actionList = new RealmList<>();
     private RealmList<String> photoPathList = new RealmList<>();
-    private long time;
+    private long createdTime;
 
     private String avObjectId;
+    private long lastUpdateTime;
+    private long lastUploadTime;
 
     public long getGrowthRecordId() {
         return growthRecordId;
@@ -59,12 +61,12 @@ public class GrowthRecord extends RealmObject {
         this.photoPathList = photoPathList;
     }
 
-    public long getTime() {
-        return time;
+    public long getCreatedTime() {
+        return createdTime;
     }
 
-    public void setTime(long time) {
-        this.time = time;
+    public void setCreatedTime(long createdTime) {
+        this.createdTime = createdTime;
     }
 
     public void setAvObjectId(String avObjectId) {
@@ -73,5 +75,21 @@ public class GrowthRecord extends RealmObject {
 
     public String getAvObjectId() {
         return avObjectId;
+    }
+
+    public long getLastUpdateTime() {
+        return lastUpdateTime;
+    }
+
+    public void setLastUpdateTime(long lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public long getLastUploadTime() {
+        return lastUploadTime;
+    }
+
+    public void setLastUploadTime(long lastUploadTime) {
+        this.lastUploadTime = lastUploadTime;
     }
 }

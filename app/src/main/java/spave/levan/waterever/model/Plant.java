@@ -22,9 +22,11 @@ public class Plant extends RealmObject {
     private String tag;
     private int status;
     private RealmList<GrowthRecord> growthRecordList;
-    private long time;
+    private long createdTime;
 
     private String avObjectId;
+    private long lastUpdateTime;
+    private long lastUploadTime;
 
     public long getPlantId() {
         return plantId;
@@ -74,12 +76,12 @@ public class Plant extends RealmObject {
         this.growthRecordList = growthRecordList;
     }
 
-    public long getTime() {
-        return time;
+    public long getCreatedTime() {
+        return createdTime;
     }
 
-    public void setTime(long time) {
-        this.time = time;
+    public void setCreatedTime(long createdTime) {
+        this.createdTime = createdTime;
     }
 
     public void setAvObjectId(String avObjectId) {
@@ -88,5 +90,25 @@ public class Plant extends RealmObject {
 
     public String getAvObjectId() {
         return avObjectId;
+    }
+
+    public long getLastUpdateTime() {
+        return lastUpdateTime;
+    }
+
+    public void setLastUpdateTime(long lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public long getLastUploadTime() {
+        return lastUploadTime;
+    }
+
+    public void setLastUploadTime(long lastUploadTime) {
+        this.lastUploadTime = lastUploadTime;
+    }
+
+    public boolean isNeedUpload() {
+        return lastUpdateTime > lastUploadTime;
     }
 }
