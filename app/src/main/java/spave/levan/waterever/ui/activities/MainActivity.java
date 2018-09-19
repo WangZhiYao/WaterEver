@@ -17,9 +17,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.realm.RealmList;
 import spave.levan.waterever.Constants;
 import spave.levan.waterever.R;
 import spave.levan.waterever.db.DBHelper;
+import spave.levan.waterever.model.GrowthRecord;
 import spave.levan.waterever.model.Plant;
 import spave.levan.waterever.ui.widget.AddNewPlantDialogView;
 import spave.levan.waterever.utils.PhotoUtils;
@@ -44,8 +46,6 @@ public class MainActivity extends BaseActivity implements AddNewPlantDialogView.
     private DBHelper mDBHelper;
     private List<Plant> mPlantList;
 
-    private List<String> mSelectedPhotoPath;
-
     private AddNewPlantDialogView mAddNewPlantDialogView;
     private AlertDialog mAddNewPlantDialog;
 
@@ -62,8 +62,6 @@ public class MainActivity extends BaseActivity implements AddNewPlantDialogView.
     private void initData() {
         mDBHelper = new DBHelper();
         mPlantList = mDBHelper.queryAllPlantsSortByTime();
-
-        mSelectedPhotoPath = new ArrayList<>();
     }
 
     @Override
@@ -124,6 +122,9 @@ public class MainActivity extends BaseActivity implements AddNewPlantDialogView.
 
     @Override
     public void onAddNewPlantClick(String plantName, List<String> photoPathList) {
+
+        List<String> compressedPhotoPathList = new ArrayList<>();
+
         PhotoUtils.compressPhoto(this, photoPathList, new OnCompressListener() {
             @Override
             public void onStart() {
@@ -132,7 +133,10 @@ public class MainActivity extends BaseActivity implements AddNewPlantDialogView.
 
             @Override
             public void onSuccess(File file) {
-                mSelectedPhotoPath.add(file.getAbsolutePath());
+                compressedPhotoPathList.add(file.getAbsolutePath());
+                if (compressedPhotoPathList.size() == photoPathList.size()) {
+                    addNewPlant(plantName, compressedPhotoPathList);
+                }
             }
 
             @Override
@@ -140,6 +144,29 @@ public class MainActivity extends BaseActivity implements AddNewPlantDialogView.
 
             }
         });
+    }
+
+    private void addNewPlant(String plantName, List<String> photoPathList) {
+        Plant plant = new Plant();
+        plant.setPlantId(System.currentTimeMillis());
+        plant.setName(plantName);
+        plant.setCover(photoPathList.get(0));
+        plant.setStatus(Plant.STATUS_ALIVE);
+
+        GrowthRecord growthRecord = new GrowthRecord();
+        growthRecord.setGrowthRecordId(System.currentTimeMillis());
+        growthRecord.setTime(System.currentTimeMillis());
+
+        RealmList<String> photoPathRealmList = new RealmList<>();
+        photoPathRealmList.addAll(photoPathList);
+
+        growthRecord.setPhotoPathList(photoPathRealmList);
+
+        plant.setGrowthRecordList(new RealmList<>(growthRecord));
+        plant.setTime(System.currentTimeMillis());
+
+        mDBHelper.addPlant(plant);
+        mAddNewPlantDialog.dismiss();
     }
 
     @Override
