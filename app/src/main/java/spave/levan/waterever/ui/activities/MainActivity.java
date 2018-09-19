@@ -5,18 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVFile;
-import com.avos.avoscloud.SaveCallback;
 import com.zhihu.matisse.Matisse;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,8 +21,6 @@ import io.realm.RealmList;
 import spave.levan.waterever.Constants;
 import spave.levan.waterever.R;
 import spave.levan.waterever.db.DBHelper;
-import spave.levan.waterever.leancloud.AVGrowthRecord;
-import spave.levan.waterever.leancloud.AVPlant;
 import spave.levan.waterever.model.GrowthRecord;
 import spave.levan.waterever.model.Plant;
 import spave.levan.waterever.ui.widget.AddNewPlantDialogView;
@@ -172,42 +165,7 @@ public class MainActivity extends BaseActivity implements AddNewPlantDialogView.
         plant.setGrowthRecordList(new RealmList<>(growthRecord));
         plant.setTime(System.currentTimeMillis());
 
-
-        AVPlant avPlant = new AVPlant();
-        avPlant.setPlantId(plant.getPlantId());
-        avPlant.setName(plant.getName());
-        avPlant.setCover(plant.getCover());
-        avPlant.setStatus(plant.getStatus());
-
-        AVGrowthRecord avGrowthRecord = new AVGrowthRecord();
-        avGrowthRecord.setGrowthRecordId(growthRecord.getGrowthRecordId());
-        avGrowthRecord.setTime(growthRecord.getTime());
-
-        List<AVFile> avPhotoPathList = new ArrayList<>();
-        for (String photoPath : photoPathList) {
-            try {
-                AVFile photo = AVFile.withAbsoluteLocalPath(photoPath, photoPath);
-                photo.save();
-                avPhotoPathList.add(photo);
-            } catch (Exception ex) {
-                Log.d(TAG, "addNewPlant: " + ex);
-            }
-        }
-
-        avGrowthRecord.setPhotoPathList(avPhotoPathList);
-        avGrowthRecord.saveEventually();
-
-        avPlant.setGrowthRecordList(Collections.singletonList(avGrowthRecord));
-        avPlant.setTime(plant.getTime());
-
-        avPlant.saveEventually(new SaveCallback() {
-            @Override
-            public void done(AVException e) {
-                plant.setAvObjectId(avPlant.getObjectId());
-                mDBHelper.addPlant(plant);
-            }
-        });
-
+        mDBHelper.addPlant(plant);
         mAddNewPlantDialog.dismiss();
     }
 
