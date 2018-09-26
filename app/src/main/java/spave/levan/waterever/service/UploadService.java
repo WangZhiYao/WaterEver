@@ -7,17 +7,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVFile;
-import com.avos.avoscloud.SaveCallback;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
 import spave.levan.waterever.db.DBHelper;
-import spave.levan.waterever.leancloud.AVPlant;
 import spave.levan.waterever.model.GrowthRecord;
 import spave.levan.waterever.model.Plant;
 import spave.levan.waterever.utils.StringUtils;
@@ -74,35 +68,19 @@ public class UploadService extends Service {
             List<GrowthRecord> growthRecordList = plant.getGrowthRecordList();
             for (GrowthRecord growthRecord : growthRecordList) {
                 List<String> photoPathList = growthRecord.getPhotoPathList();
-                List<AVFile> photoList = new ArrayList<>();
+
                 for (String photoPath : photoPathList) {
                     if (!StringUtils.isNullOrEmpty(photoPath)) {
                         try {
-                            AVFile avFile = AVFile.withAbsoluteLocalPath(photoPath, photoPath);
-                            avFile.saveInBackground(new SaveCallback() {
-                                @Override
-                                public void done(AVException e) {
-                                    if (e != null) {
-                                        Log.e(TAG, "done: ", e);
-                                        return;
-                                    }
 
-                                    photoList.add(avFile);
-                                }
-                            });
                         } catch (Exception ex) {
                             Log.e(TAG, "uploadData: ", ex);
                         }
                     }
                 }
-            }
 
-            AVPlant avPlant = new AVPlant();
-            //avPlant.setUser();
-            avPlant.setPlantId(plant.getPlantId());
-            avPlant.setName(plant.getName());
-            avPlant.setCover(plant.getCover());
-            avPlant.setStatus(plant.getStatus());
+
+            }
         }
     }
 }
