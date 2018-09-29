@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity implements AddPlantDialog.OnAddNe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

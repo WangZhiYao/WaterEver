@@ -56,16 +56,20 @@ public class ProgressDialog extends Dialog {
     }
 
     public void setTitle(String title) {
-        if (!StringUtils.isNullOrEmpty(title)) {
-            mTvTitle.setVisibility(View.VISIBLE);
-            mTvTitle.setText(title);
+        if (StringUtils.isNullOrEmpty(title)) {
+            return;
         }
+
+        mTvTitle.setVisibility(View.VISIBLE);
+        mTvTitle.setText(title);
     }
 
     public void setMessage(String message) {
-        if (!StringUtils.isNullOrEmpty(message)) {
-            mTvMessage.setVisibility(View.VISIBLE);
-            mTvMessage.setText(message);
+        if (StringUtils.isNullOrEmpty(message)) {
+            return;
         }
+
+        mTvMessage.setVisibility(View.VISIBLE);
+        mTvMessage.setText(message);
     }
 }

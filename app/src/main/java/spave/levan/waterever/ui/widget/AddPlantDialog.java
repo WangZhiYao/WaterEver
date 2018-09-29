@@ -90,12 +90,13 @@ public class AddPlantDialog extends Dialog implements BaseQuickAdapter.OnItemCli
     public void onAddPlantClicked() {
         if (mOnAddNewPlantClickListener != null) {
             String plantName = mEtPlantName.getText().toString();
-            if (!StringUtils.isNullOrEmpty(plantName)) {
-                mOnAddNewPlantClickListener.onAddNewPlantClicked(plantName, mDialogPlantPhotoAdapter.getData());
+
+            if (StringUtils.isNullOrEmpty(plantName)) {
+                mEtPlantName.setHint(R.string.dialog_must_enter_plant_name);
                 return;
             }
 
-            mEtPlantName.setHint(R.string.dialog_must_enter_plant_name);
+            mOnAddNewPlantClickListener.onAddNewPlantClicked(plantName, mDialogPlantPhotoAdapter.getData());
         }
     }
 

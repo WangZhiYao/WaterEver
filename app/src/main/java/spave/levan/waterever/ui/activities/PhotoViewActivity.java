@@ -27,15 +27,12 @@ import spave.levan.waterever.ui.adapters.PhotoViewAdapter;
  */
 public class PhotoViewActivity extends BaseActivity {
 
-    private static final String TAG = "PhotoViewActivity";
-
     @BindView(R.id.photoView_RecyclerView)
     RecyclerView mRecyclerView;
 
     private ActionBar mActionBar;
 
     private int mPhotoPosition;
-    private List<String> mPhotoPathList;
     private PhotoViewAdapter mPhotoViewAdapter;
     private LinearLayoutManager mLayoutManager;
 
@@ -50,16 +47,19 @@ public class PhotoViewActivity extends BaseActivity {
     }
 
     private void initData() {
-
         Intent intent = getIntent();
 
-        mPhotoPathList = intent.getStringArrayListExtra(Constants.EXTRA_PHOTO_PATH_LIST);
+        List<String> photoPathList = intent.getStringArrayListExtra(Constants.EXTRA_PHOTO_PATH_LIST);
         mPhotoPosition = intent.getIntExtra(Constants.EXTRA_PHOTO_POSITION, 0);
 
-        if (mPhotoPathList == null || mPhotoPathList.isEmpty()) {
+        if (photoPathList == null || photoPathList.isEmpty()) {
             showToast(R.string.photo_view_wrong_photo_path);
             finish();
+            return;
         }
+
+        mPhotoViewAdapter = new PhotoViewAdapter(R.layout.item_photo_view);
+        mPhotoViewAdapter.addData(photoPathList);
     }
 
     private void initView() {
@@ -67,11 +67,8 @@ public class PhotoViewActivity extends BaseActivity {
         if (mActionBar != null) {
             mActionBar.setHomeButtonEnabled(true);
             mActionBar.setDisplayHomeAsUpEnabled(true);
-            mActionBar.setTitle(String.format("%s/%s", mPhotoPosition + 1, mPhotoPathList.size()));
+            setActionBarTitle();
         }
-
-        mPhotoViewAdapter = new PhotoViewAdapter(R.layout.item_photo_view);
-        mPhotoViewAdapter.addData(mPhotoPathList);
 
         mLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false);
@@ -84,12 +81,7 @@ public class PhotoViewActivity extends BaseActivity {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 mPhotoPosition = mLayoutManager.findFirstVisibleItemPosition();
-                if (mActionBar != null) {
-                    if (mPhotoPosition + 1 <= mPhotoViewAdapter.getData().size()) {
-                        mActionBar.setTitle(String.format("%s/%s", mPhotoPosition + 1,
-                                mPhotoViewAdapter.getData().size()));
-                    }
-                }
+                setActionBarTitle();
             }
         });
 
@@ -109,7 +101,6 @@ public class PhotoViewActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.menu_Delete:
-
                 mPhotoViewAdapter.remove(mPhotoPosition);
 
                 setResult(RESULT_OK, new Intent()
@@ -118,18 +109,23 @@ public class PhotoViewActivity extends BaseActivity {
 
                 if (mPhotoViewAdapter.getData().isEmpty()) {
                     finish();
+                    return false;
                 }
 
-                if (mActionBar != null) {
-                    if (mPhotoPosition + 1 <= mPhotoViewAdapter.getData().size()) {
-                        mActionBar.setTitle(String.format("%s/%s", mPhotoPosition + 1,
-                                mPhotoViewAdapter.getData().size()));
-                    }
-                }
+                setActionBarTitle();
                 break;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setActionBarTitle() {
+        if (mActionBar != null) {
+            if (mPhotoPosition + 1 <= mPhotoViewAdapter.getData().size()) {
+                mActionBar.setTitle(String.format("%s/%s", mPhotoPosition + 1,
+                        mPhotoViewAdapter.getData().size()));
+            }
+        }
     }
 }
