@@ -1,2 +1,2 @@
 # WaterEver
-An Android application which reminds me to water my succulent plants
+Record the growth of my succulent plant 
