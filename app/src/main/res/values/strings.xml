@@ -9,6 +9,7 @@
     <string name="dialog_exit">退出</string>
     <string name="dialog_add_new_plant">添加新植物</string>
     <string name="dialog_plant_name_hint">请输入植物名</string>
+    <string name="dialog_must_enter_plant_name">必须输入植物名！</string>
 
     <string name="photo_view_wrong_photo_path">图片位置有误</string>
 </resources>

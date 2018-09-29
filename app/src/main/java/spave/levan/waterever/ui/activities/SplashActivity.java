@@ -37,7 +37,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (checkPermission(Constants.PERMISSIONS)) {
+        if (checkPermission()) {
             startMainActivity();
             return;
         }
@@ -52,12 +52,12 @@ public class SplashActivity extends BaseActivity {
         finish();
     }
 
-    private boolean checkPermission(String[] permissions) {
+    private boolean checkPermission() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
         }
 
-        for (String permission : permissions) {
+        for (String permission : Constants.PERMISSIONS) {
             if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
@@ -71,18 +71,18 @@ public class SplashActivity extends BaseActivity {
                 .setCancelable(false)
                 .setMessage(getString(R.string.dialog_permission_message))
                 .setPositiveButton(getString(R.string.dialog_continue), (dialogInterface, i) -> {
-                    List<String> shouldShowRequestPermissions = new ArrayList<>();
+                    List<String> shouldShowRequestPermissionList = new ArrayList<>();
                     for (String permission : permissions) {
                         if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
-                            shouldShowRequestPermissions.add(permission);
+                            shouldShowRequestPermissionList.add(permission);
                         }
                     }
 
-                    if (!shouldShowRequestPermissions.isEmpty()) {
-                        ActivityCompat.requestPermissions(SplashActivity.this,
-                                shouldShowRequestPermissions.toArray(new String[shouldShowRequestPermissions.size()]),
+                    if (!shouldShowRequestPermissionList.isEmpty()) {
+                        String[] shouldShowRequestPermissions = new String[shouldShowRequestPermissionList.size()];
+                        ActivityCompat.requestPermissions(this,
+                                shouldShowRequestPermissionList.toArray(shouldShowRequestPermissions),
                                 Constants.REQUEST_CODE_EXTERNAL_STORAGE);
-
                         return;
                     }
 
@@ -90,6 +90,8 @@ public class SplashActivity extends BaseActivity {
                 })
                 .setNegativeButton(getString(R.string.dialog_exit), (dialogInterface, i) -> finish())
                 .show();
+
+
     }
 
     private void startSystemSetting() {
@@ -101,18 +103,19 @@ public class SplashActivity extends BaseActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == Constants.REQUEST_CODE_EXTERNAL_STORAGE) {
-            List<String> deniedPermissions = new ArrayList<>();
+            List<String> deniedPermissionList = new ArrayList<>();
 
             for (int i = 0; i < permissions.length; i++) {
                 if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
                     if (!ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[i])) {
-                        deniedPermissions.add(permissions[i]);
+                        deniedPermissionList.add(permissions[i]);
                     }
                 }
             }
 
-            if (!deniedPermissions.isEmpty()) {
-                showRequestPermissionDialog(deniedPermissions.toArray(new String[deniedPermissions.size()]));
+            if (!deniedPermissionList.isEmpty()) {
+                String[] deniedPermissions = new String[deniedPermissionList.size()];
+                showRequestPermissionDialog(deniedPermissionList.toArray(deniedPermissions));
                 return;
             }
 

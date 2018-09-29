@@ -9,7 +9,6 @@ import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +57,7 @@ public class PhotoViewActivity extends BaseActivity {
         mPhotoPosition = intent.getIntExtra(Constants.EXTRA_PHOTO_POSITION, 0);
 
         if (mPhotoPathList == null || mPhotoPathList.isEmpty()) {
-            Toast.makeText(this, R.string.photo_view_wrong_photo_path, Toast.LENGTH_SHORT).show();
+            showToast(R.string.photo_view_wrong_photo_path);
             finish();
         }
     }

@@ -2,7 +2,6 @@ package spave.levan.waterever.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -24,7 +23,7 @@ import spave.levan.waterever.db.DBHelper;
 import spave.levan.waterever.model.GrowthRecord;
 import spave.levan.waterever.model.Plant;
 import spave.levan.waterever.service.UploadService;
-import spave.levan.waterever.ui.widget.AddNewPlantDialogView;
+import spave.levan.waterever.ui.widget.AddPlantDialog;
 import spave.levan.waterever.utils.PhotoUtils;
 import top.zibin.luban.OnCompressListener;
 
@@ -34,8 +33,8 @@ import top.zibin.luban.OnCompressListener;
  * @author WangZhiYao
  * @date 2018/9/15
  */
-public class MainActivity extends BaseActivity implements AddNewPlantDialogView.OnAddNewPlantClickListener,
-        AddNewPlantDialogView.OnPhotoClickListener {
+public class MainActivity extends BaseActivity implements AddPlantDialog.OnAddNewPlantClickListener,
+        AddPlantDialog.OnPhotoClickListener {
 
     private static final String TAG = "MainActivity";
 
@@ -47,8 +46,7 @@ public class MainActivity extends BaseActivity implements AddNewPlantDialogView.
     private DBHelper mDBHelper;
     private List<Plant> mPlantList;
 
-    private AddNewPlantDialogView mAddNewPlantDialogView;
-    private AlertDialog mAddNewPlantDialog;
+    private AddPlantDialog mAddPlantDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,43 +101,40 @@ public class MainActivity extends BaseActivity implements AddNewPlantDialogView.
 
             if (selectedPhotoPath != null) {
                 if (selectedPhotoPath.isEmpty()) {
-                    mAddNewPlantDialog.dismiss();
+                    mAddPlantDialog.dismiss();
                     return;
                 }
 
-                mAddNewPlantDialogView.setPhotoList(selectedPhotoPath);
+                mAddPlantDialog.setPhotoList(selectedPhotoPath);
             }
         }
     }
 
     private void showAddNewPlantDialog(List<String> selectedPhotoPath) {
-        mAddNewPlantDialogView = new AddNewPlantDialogView(this);
-        mAddNewPlantDialogView.setPhotoList(selectedPhotoPath);
-        mAddNewPlantDialogView.setOnAddNewPlantClickListener(this);
-        mAddNewPlantDialogView.setOnPhotoClickListener(this);
-
-        mAddNewPlantDialog = new AlertDialog.Builder(this)
-                .setView(mAddNewPlantDialogView)
-                .create();
-        mAddNewPlantDialog.show();
+        mAddPlantDialog = new AddPlantDialog(this);
+        mAddPlantDialog.setPhotoList(selectedPhotoPath);
+        mAddPlantDialog.setOnPhotoClickListener(this);
+        mAddPlantDialog.setOnAddNewPlantClickListener(this);
+        mAddPlantDialog.show();
     }
 
     @Override
-    public void onAddNewPlantClick(String plantName, List<String> photoPathList) {
+    public void onAddNewPlantClicked(String plantName, List<String> photoPathList) {
 
         List<String> compressedPhotoPathList = new ArrayList<>();
 
         PhotoUtils.compressPhoto(this, photoPathList, new OnCompressListener() {
             @Override
             public void onStart() {
-
+                showProgress(null, "请稍候...");
             }
 
             @Override
             public void onSuccess(File file) {
                 compressedPhotoPathList.add(file.getAbsolutePath());
                 if (compressedPhotoPathList.size() == photoPathList.size()) {
-                    addNewPlant(plantName, compressedPhotoPathList);
+                    //addNewPlant(plantName, compressedPhotoPathList);
+                    hideProgress();
                 }
             }
 
@@ -172,11 +167,11 @@ public class MainActivity extends BaseActivity implements AddNewPlantDialogView.
         plant.setLastUpdateTime(System.currentTimeMillis());
 
         mDBHelper.addPlant(plant);
-        mAddNewPlantDialog.dismiss();
+        mAddPlantDialog.dismiss();
     }
 
     @Override
-    public void onPhotoClick(List<String> photoPathList, int position) {
+    public void onPhotoClicked(List<String> photoPathList, int position) {
         startActivityForResult(new Intent(this, PhotoViewActivity.class)
                 .putExtra(Constants.EXTRA_PHOTO_PATH_LIST, new ArrayList<>(photoPathList))
                 .putExtra(Constants.EXTRA_PHOTO_POSITION, position), Constants.REQUEST_CODE_PHOTO_VIEW);

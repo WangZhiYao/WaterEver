@@ -26,7 +26,6 @@ public class PhotoViewAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         if (!StringUtils.isNullOrEmpty(item)) {
             GlideApp.with(helper.itemView.getContext())
                     .load(item)
-                    .centerCrop()
                     .transition(new DrawableTransitionOptions().crossFade())
                     .into((PhotoView) helper.getView(R.id.item_PhotoView));
         }
