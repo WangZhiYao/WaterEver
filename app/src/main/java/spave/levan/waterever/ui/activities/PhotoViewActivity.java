@@ -103,8 +103,7 @@ public class PhotoViewActivity extends BaseActivity {
             case R.id.menu_Delete:
                 mPhotoViewAdapter.remove(mPhotoPosition);
 
-                setResult(RESULT_OK, new Intent()
-                        .putStringArrayListExtra(Constants.EXTRA_PHOTO_PATH_LIST,
+                setResult(RESULT_OK, new Intent().putStringArrayListExtra(Constants.EXTRA_PHOTO_PATH_LIST,
                                 new ArrayList<>(mPhotoViewAdapter.getData())));
 
                 if (mPhotoViewAdapter.getData().isEmpty()) {

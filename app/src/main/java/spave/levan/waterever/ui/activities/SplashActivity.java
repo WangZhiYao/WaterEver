@@ -1,22 +1,20 @@
 package spave.levan.waterever.ui.activities;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import cn.bmob.v3.BmobUser;
 import spave.levan.waterever.BuildConfig;
 import spave.levan.waterever.Constants;
 import spave.levan.waterever.R;
+import spave.levan.waterever.utils.PermissionListener;
+import spave.levan.waterever.utils.PermissionManager;
 
 /**
  * 佛祖保佑 永无BUG
@@ -26,66 +24,57 @@ import spave.levan.waterever.R;
  */
 public class SplashActivity extends BaseActivity {
 
+    private PermissionManager mPermissionManager;
     private AlertDialog mRequestPermissionDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        requestPermission(Constants.PERMISSIONS);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (checkPermission()) {
-            startMainActivity();
-            return;
-        }
+    private void requestPermission(String... permissions) {
+        mPermissionManager = PermissionManager.with(this)
+                .addRequestCode(Constants.REQUEST_CODE_EXTERNAL_STORAGE)
+                .permissions(permissions)
+                .setPermissionsListener(new PermissionListener() {
+                    @Override
+                    public void onGranted() {
+                        //startMainActivity();
+                        Toast.makeText(SplashActivity.this, "onGranted", Toast.LENGTH_SHORT).show();
+                    }
 
-        if (mRequestPermissionDialog == null || !mRequestPermissionDialog.isShowing()) {
-            showRequestPermissionDialog(Constants.PERMISSIONS);
-        }
+                    @Override
+                    public void onDenied() {
+                        startSystemSetting();
+                    }
+
+                    @Override
+                    public void onShowRationale(String[] permissions) {
+                        showRequestPermissionDialog();
+                    }
+                })
+                .request();
     }
 
     private void startMainActivity() {
-        startActivity(new Intent(this, MainActivity.class));
+        if (BmobUser.getCurrentUser() == null) {
+            startActivity(new Intent(this, SignUpActivity.class));
+        } else {
+            startActivity(new Intent(this, MainActivity.class));
+        }
         finish();
     }
 
-    private boolean checkPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            for (String permission : Constants.PERMISSIONS) {
-                if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
-    private void showRequestPermissionDialog(String[] permissions) {
+    private void showRequestPermissionDialog() {
         mRequestPermissionDialog = new AlertDialog.Builder(this)
                 .setCancelable(false)
                 .setMessage(getString(R.string.dialog_permission_message))
                 .setPositiveButton(getString(R.string.dialog_continue), (dialogInterface, i) -> {
-                    List<String> shouldShowRequestPermissionList = new ArrayList<>();
-
-                    for (String permission : permissions) {
-                        if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
-                            shouldShowRequestPermissionList.add(permission);
-                        }
-                    }
-
-                    if (shouldShowRequestPermissionList.isEmpty()) {
-                        startSystemSetting();
-                        return;
-                    }
-
-                    String[] shouldShowRequestPermissions = new String[shouldShowRequestPermissionList.size()];
-                    ActivityCompat.requestPermissions(this,
-                            shouldShowRequestPermissionList.toArray(shouldShowRequestPermissions),
-                            Constants.REQUEST_CODE_EXTERNAL_STORAGE);
+                    mPermissionManager.setIsPositive(true);
+                    mPermissionManager.request();
                 })
                 .setNegativeButton(getString(R.string.dialog_exit), (dialogInterface, i) -> finish())
                 .show();
@@ -99,27 +88,14 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == Constants.REQUEST_CODE_EXTERNAL_STORAGE) {
-            List<String> deniedPermissionList = new ArrayList<>();
-
-            for (int i = 0; i < permissions.length; i++) {
-                if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                    if (!ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[i])) {
-                        deniedPermissionList.add(permissions[i]);
-                    }
-                }
-            }
-
-            if (deniedPermissionList.isEmpty()) {
-                startMainActivity();
-                return;
-            }
-
-            String[] deniedPermissions = new String[deniedPermissionList.size()];
-            showRequestPermissionDialog(deniedPermissionList.toArray(deniedPermissions));
-        }
-
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case Constants.REQUEST_CODE_EXTERNAL_STORAGE:
+                mPermissionManager.onPermissionResult(permissions, grantResults);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

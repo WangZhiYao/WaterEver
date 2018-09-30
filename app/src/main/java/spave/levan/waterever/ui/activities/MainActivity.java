@@ -145,7 +145,7 @@ public class MainActivity extends BaseActivity implements AddPlantDialog.OnAddNe
         });
     }
 
-    private void addNewPlant(String plantName, List<String> photoPathList) {
+    private void addPlant(String plantName, List<String> photoPathList) {
         Plant plant = new Plant();
         plant.setPlantId(System.currentTimeMillis());
         plant.setName(plantName);
