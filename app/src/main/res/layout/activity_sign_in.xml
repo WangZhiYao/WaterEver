@@ -5,42 +5,52 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/signUp.Email"
+        android:id="@+id/signIn.Email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:hint="@string/sign_up_email"
+        android:hint="@string/sign_in_email"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/signUp.Password"
+        android:id="@+id/signIn.Password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:hint="@string/sign_up_password"
+        android:hint="@string/sign_in_password"
         android:inputType="textPassword"
         android:maxLength="16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/signUp.Email" />
+        app:layout_constraintTop_toBottomOf="@id/signIn.Email" />
+
+    <TextView
+        android:id="@+id/signIn.SignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/sign_in_sign_up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/signIn.Password" />
 
     <Button
-        android:id="@+id/signUp.SignUp"
+        android:id="@+id/signIn.SignIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:hint="@string/sign_up_sign_up"
+        android:hint="@string/sign_in_sign_in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/signUp.Password" />
+        app:layout_constraintTop_toBottomOf="@id/signIn.SignUp" />
 
 </android.support.constraint.ConstraintLayout>

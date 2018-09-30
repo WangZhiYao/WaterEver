@@ -3,7 +3,6 @@ package spave.levan.waterever.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -29,8 +28,6 @@ public class PhotoViewActivity extends BaseActivity {
 
     @BindView(R.id.photoView_RecyclerView)
     RecyclerView mRecyclerView;
-
-    private ActionBar mActionBar;
 
     private int mPhotoPosition;
     private PhotoViewAdapter mPhotoViewAdapter;
@@ -63,12 +60,8 @@ public class PhotoViewActivity extends BaseActivity {
     }
 
     private void initView() {
-        mActionBar = getSupportActionBar();
-        if (mActionBar != null) {
-            mActionBar.setHomeButtonEnabled(true);
-            mActionBar.setDisplayHomeAsUpEnabled(true);
-            setActionBarTitle();
-        }
+        canGoBack();
+        setActionBarTitle();
 
         mLayoutManager = new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false);
@@ -104,7 +97,7 @@ public class PhotoViewActivity extends BaseActivity {
                 mPhotoViewAdapter.remove(mPhotoPosition);
 
                 setResult(RESULT_OK, new Intent().putStringArrayListExtra(Constants.EXTRA_PHOTO_PATH_LIST,
-                                new ArrayList<>(mPhotoViewAdapter.getData())));
+                        new ArrayList<>(mPhotoViewAdapter.getData())));
 
                 if (mPhotoViewAdapter.getData().isEmpty()) {
                     finish();
@@ -120,11 +113,9 @@ public class PhotoViewActivity extends BaseActivity {
     }
 
     private void setActionBarTitle() {
-        if (mActionBar != null) {
-            if (mPhotoPosition + 1 <= mPhotoViewAdapter.getData().size()) {
-                mActionBar.setTitle(String.format("%s/%s", mPhotoPosition + 1,
-                        mPhotoViewAdapter.getData().size()));
-            }
+        if (mPhotoPosition + 1 <= mPhotoViewAdapter.getData().size()) {
+            setTitle(String.format("%s/%s", mPhotoPosition + 1,
+                    mPhotoViewAdapter.getData().size()));
         }
     }
 }

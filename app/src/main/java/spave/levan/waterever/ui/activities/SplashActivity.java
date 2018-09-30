@@ -7,7 +7,6 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.widget.Toast;
 
 import cn.bmob.v3.BmobUser;
 import spave.levan.waterever.BuildConfig;
@@ -42,8 +41,7 @@ public class SplashActivity extends BaseActivity {
                 .setPermissionsListener(new PermissionListener() {
                     @Override
                     public void onGranted() {
-                        //startMainActivity();
-                        Toast.makeText(SplashActivity.this, "onGranted", Toast.LENGTH_SHORT).show();
+                        startMainActivity();
                     }
 
                     @Override
@@ -61,7 +59,7 @@ public class SplashActivity extends BaseActivity {
 
     private void startMainActivity() {
         if (BmobUser.getCurrentUser() == null) {
-            startActivity(new Intent(this, SignUpActivity.class));
+            startActivity(new Intent(this, SignInActivity.class));
         } else {
             startActivity(new Intent(this, MainActivity.class));
         }

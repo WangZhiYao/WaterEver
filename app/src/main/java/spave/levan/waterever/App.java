@@ -2,6 +2,7 @@ package spave.levan.waterever;
 
 import android.app.Application;
 
+import cn.bmob.v3.Bmob;
 import io.realm.Realm;
 
 /**
@@ -21,6 +22,8 @@ public class App extends Application {
         mInstance = this;
 
         Realm.init(this);
+
+        Bmob.initialize(this, Constants.BMOB_APPLICATION_ID);
     }
 
     public static App getInstance() {

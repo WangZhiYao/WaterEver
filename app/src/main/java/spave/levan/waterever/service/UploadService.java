@@ -78,8 +78,6 @@ public class UploadService extends Service {
                         }
                     }
                 }
-
-
             }
         }
     }
