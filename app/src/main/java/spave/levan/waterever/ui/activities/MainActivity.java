@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -11,18 +12,25 @@ import com.zhihu.matisse.Matisse;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.realm.RealmList;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.datatype.BmobRelation;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UploadBatchListener;
 import spave.levan.waterever.Constants;
 import spave.levan.waterever.R;
-import spave.levan.waterever.db.DBHelper;
 import spave.levan.waterever.model.GrowthRecord;
 import spave.levan.waterever.model.Plant;
-import spave.levan.waterever.service.UploadService;
+import spave.levan.waterever.model.PlantPhoto;
+import spave.levan.waterever.model.User;
 import spave.levan.waterever.ui.widget.AddPlantDialog;
 import spave.levan.waterever.utils.PhotoUtils;
 import top.zibin.luban.OnCompressListener;
@@ -43,9 +51,6 @@ public class MainActivity extends BaseActivity implements AddPlantDialog.OnAddNe
     @BindView(R.id.main_RecyclerView)
     RecyclerView mPlantRecyclerView;
 
-    private DBHelper mDBHelper;
-    private List<Plant> mPlantList;
-
     private AddPlantDialog mAddPlantDialog;
 
     @Override
@@ -59,11 +64,31 @@ public class MainActivity extends BaseActivity implements AddPlantDialog.OnAddNe
     }
 
     private void initData() {
-        mDBHelper = new DBHelper();
-        mPlantList = mDBHelper.queryAllPlantsSortByTime();
+        getUserPlants(0, 20);
+    }
 
-        Intent intent = new Intent(this, UploadService.class);
-        startService(intent);
+    private void getUserPlants(int page, int limit) {
+        BmobQuery<Plant> plantBmobQuery = new BmobQuery<>();
+        plantBmobQuery.addWhereEqualTo("user", User.getCurrentUser())
+                .setLimit(limit).setSkip(page * limit)
+                .order("-createdAt")
+                .findObjects(new FindListener<Plant>() {
+                    @Override
+                    public void done(List<Plant> list, BmobException e) {
+                        if (e != null) {
+                            showToast(e.getMessage());
+                            return;
+                        }
+
+                        if (list == null) {
+                            return;
+                        }
+
+                        for (Plant plant : list) {
+                            Log.d(TAG, "done: " + plant.getName());
+                        }
+                    }
+                });
     }
 
     @Override
@@ -133,8 +158,7 @@ public class MainActivity extends BaseActivity implements AddPlantDialog.OnAddNe
             public void onSuccess(File file) {
                 compressedPhotoPathList.add(file.getAbsolutePath());
                 if (compressedPhotoPathList.size() == photoPathList.size()) {
-                    //addNewPlant(plantName, compressedPhotoPathList);
-                    hideProgress();
+                    addPlant(plantName, compressedPhotoPathList);
                 }
             }
 
@@ -146,28 +170,82 @@ public class MainActivity extends BaseActivity implements AddPlantDialog.OnAddNe
     }
 
     private void addPlant(String plantName, List<String> photoPathList) {
-        Plant plant = new Plant();
-        plant.setPlantId(System.currentTimeMillis());
-        plant.setName(plantName);
-        plant.setCover(photoPathList.get(0));
-        plant.setStatus(Plant.STATUS_ALIVE);
+        String[] photoPaths = new String[photoPathList.size()];
+        BmobRelation growthRecordRelation = new BmobRelation();
+        BmobRelation photoRelation = new BmobRelation();
 
-        GrowthRecord growthRecord = new GrowthRecord();
-        growthRecord.setGrowthRecordId(System.currentTimeMillis());
-        growthRecord.setCreatedTime(System.currentTimeMillis());
-        growthRecord.setLastUpdateTime(System.currentTimeMillis());
+        BmobFile.uploadBatch(photoPathList.toArray(photoPaths), new UploadBatchListener() {
+            @Override
+            public void onSuccess(List<BmobFile> plantPhotoFileList, List<String> plantPhotoUrlList) {
+                if (plantPhotoFileList.size() == photoPathList.size()) {
 
-        RealmList<String> photoPathRealmList = new RealmList<>();
-        photoPathRealmList.addAll(photoPathList);
+                    for (int i = 0; i < plantPhotoFileList.size(); i++) {
 
-        growthRecord.setPhotoPathList(photoPathRealmList);
+                        int index = i;
 
-        plant.setGrowthRecordList(new RealmList<>(growthRecord));
-        plant.setCreatedTime(System.currentTimeMillis());
-        plant.setLastUpdateTime(System.currentTimeMillis());
+                        PlantPhoto plantPhoto = new PlantPhoto();
+                        plantPhoto.setPhoto(plantPhotoFileList.get(i));
+                        plantPhoto.save(new SaveListener<String>() {
+                            @Override
+                            public void done(String s, BmobException e) {
+                                if (e != null) {
+                                    showToast(e.getMessage());
+                                    return;
+                                }
 
-        mDBHelper.addPlant(plant);
-        mAddPlantDialog.dismiss();
+                                photoRelation.add(plantPhoto);
+
+                                if (index == plantPhotoFileList.size() - 1) {
+                                    GrowthRecord growthRecord = new GrowthRecord();
+                                    growthRecord.setNote("测试Note");
+                                    growthRecord.setActions(Collections.singletonList(GrowthRecord.ACTION_WATER));
+                                    growthRecord.setPhotos(photoRelation);
+                                    growthRecord.save(new SaveListener<String>() {
+                                        @Override
+                                        public void done(String s, BmobException e) {
+                                            if (e != null) {
+                                                showToast(e.getMessage());
+                                                return;
+                                            }
+
+                                            Plant plant = new Plant();
+                                            plant.setUser(User.getCurrentUser(User.class));
+                                            plant.setTag("测试");
+                                            plant.setStatus(Plant.STATUS_ALIVE);
+                                            plant.setName(plantName);
+                                            plant.setCover(plantPhotoFileList.get(0));
+                                            growthRecordRelation.add(growthRecord);
+                                            plant.setGrowthRecords(growthRecordRelation);
+                                            plant.save(new SaveListener<String>() {
+                                                @Override
+                                                public void done(String s, BmobException e) {
+                                                    if (e != null) {
+                                                        showToast(e.getMessage());
+                                                    }
+
+                                                    hideProgress();
+                                                    mAddPlantDialog.dismiss();
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+
+            @Override
+            public void onProgress(int i, int i1, int i2, int i3) {
+
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                showToast(i + ":" + s);
+            }
+        });
     }
 
     @Override

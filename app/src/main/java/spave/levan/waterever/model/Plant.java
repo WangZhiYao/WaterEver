@@ -1,8 +1,8 @@
 package spave.levan.waterever.model;
 
-import io.realm.RealmList;
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.datatype.BmobRelation;
 
 /**
  * 佛祖保佑 永无BUG
@@ -10,30 +10,24 @@ import io.realm.annotations.PrimaryKey;
  * @author WangZhiYao
  * @date 2018/9/15
  */
-public class Plant extends RealmObject {
+public class Plant extends BmobObject {
 
     public static final int STATUS_ALIVE = 0;
     public static final int STATUS_DIED = 1;
 
-    @PrimaryKey
-    private long plantId;
+    private User user;
     private String name;
-    private String cover;
+    private BmobFile cover;
     private String tag;
     private int status;
-    private RealmList<GrowthRecord> growthRecordList;
-    private long createdTime;
+    private BmobRelation growthRecords;
 
-    private String avObjectId;
-    private long lastUpdateTime;
-    private long lastUploadTime;
-
-    public long getPlantId() {
-        return plantId;
+    public User getUser() {
+        return user;
     }
 
-    public void setPlantId(long plantId) {
-        this.plantId = plantId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {
@@ -44,11 +38,11 @@ public class Plant extends RealmObject {
         this.name = name;
     }
 
-    public String getCover() {
+    public BmobFile getCover() {
         return cover;
     }
 
-    public void setCover(String cover) {
+    public void setCover(BmobFile cover) {
         this.cover = cover;
     }
 
@@ -68,47 +62,11 @@ public class Plant extends RealmObject {
         this.status = status;
     }
 
-    public RealmList<GrowthRecord> getGrowthRecordList() {
-        return growthRecordList;
+    public BmobRelation getGrowthRecords() {
+        return growthRecords;
     }
 
-    public void setGrowthRecordList(RealmList<GrowthRecord> growthRecordList) {
-        this.growthRecordList = growthRecordList;
-    }
-
-    public long getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(long createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public void setAvObjectId(String avObjectId) {
-        this.avObjectId = avObjectId;
-    }
-
-    public String getAvObjectId() {
-        return avObjectId;
-    }
-
-    public long getLastUpdateTime() {
-        return lastUpdateTime;
-    }
-
-    public void setLastUpdateTime(long lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
-    }
-
-    public long getLastUploadTime() {
-        return lastUploadTime;
-    }
-
-    public void setLastUploadTime(long lastUploadTime) {
-        this.lastUploadTime = lastUploadTime;
-    }
-
-    public boolean isNeedUpload() {
-        return lastUpdateTime > lastUploadTime;
+    public void setGrowthRecords(BmobRelation growthRecords) {
+        this.growthRecords = growthRecords;
     }
 }

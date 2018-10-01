@@ -1,7 +1,5 @@
 apply plugin: 'com.android.application'
 
-apply plugin: 'realm-android'
-
 static def releaseTime() {
     return new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("Asia/Shanghai"))
 }
@@ -15,9 +13,6 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        ndk {
-            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
-        }
     }
     buildTypes {
         release {
@@ -50,7 +45,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    //Bmob
+    // Bmob
     implementation 'cn.bmob.android:bmob-sdk:3.6.6'
     // ButterKnife
     implementation 'com.jakewharton:butterknife:8.8.1'

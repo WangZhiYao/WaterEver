@@ -12,11 +12,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
 import spave.levan.waterever.Constants;
 import spave.levan.waterever.R;
+import spave.levan.waterever.model.User;
 import spave.levan.waterever.utils.RegexUtils;
 
 /**
@@ -78,9 +78,9 @@ public class SignInActivity extends BaseActivity {
     }
 
     private void attemptSignIn(String email, String password) {
-        BmobUser.loginByAccount(email, password, new LogInListener<BmobUser>() {
+        User.loginByAccount(email, password, new LogInListener<User>() {
             @Override
-            public void done(BmobUser bmobUser, BmobException e) {
+            public void done(User user, BmobException e) {
                 if (e != null) {
                     showToast(e.getMessage());
                     return;

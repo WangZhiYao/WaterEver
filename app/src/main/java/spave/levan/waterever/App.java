@@ -3,7 +3,6 @@ package spave.levan.waterever;
 import android.app.Application;
 
 import cn.bmob.v3.Bmob;
-import io.realm.Realm;
 
 /**
  * 佛祖保佑 永无BUG
@@ -20,8 +19,6 @@ public class App extends Application {
         super.onCreate();
 
         mInstance = this;
-
-        Realm.init(this);
 
         Bmob.initialize(this, Constants.BMOB_APPLICATION_ID);
     }

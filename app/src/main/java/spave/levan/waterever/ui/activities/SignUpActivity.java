@@ -10,11 +10,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
-import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import spave.levan.waterever.Constants;
 import spave.levan.waterever.R;
+import spave.levan.waterever.model.User;
 import spave.levan.waterever.utils.RegexUtils;
 
 /**
@@ -63,13 +63,13 @@ public class SignUpActivity extends BaseActivity {
         mEmail = mSignUpEmail.getText().toString().trim();
         mPassword = mSignUpPassword.getText().toString().trim();
 
-        BmobUser user = new BmobUser();
+        User user = new User();
         user.setUsername(mEmail);
         user.setPassword(mPassword);
         user.setEmail(mEmail);
-        user.signUp(new SaveListener<BmobUser>() {
+        user.signUp(new SaveListener<User>() {
             @Override
-            public void done(BmobUser bmobUser, BmobException e) {
+            public void done(User user, BmobException e) {
                 if (e != null) {
                     showToast(e.getMessage());
                     return;
