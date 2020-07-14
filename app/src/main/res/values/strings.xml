@@ -1,28 +1,14 @@
 <resources>
     <string name="app_name">WaterEver</string>
+    <string name="navigation_drawer_open">打开侧边菜单</string>
+    <string name="navigation_drawer_close">关闭侧边菜单</string>
+    <string name="nav_header_title">WaterEver</string>
+    <string name="nav_header_subtitle">Made with ❤ by 339</string>
 
-    <string name="activity_sign_in">登录</string>
-    <string name="activity_sign_up">注册</string>
+    <string name="menu_home">主页</string>
+    <string name="menu_record">记录</string>
+    <string name="menu_reminder">提醒</string>
+    <string name="menu_settings">设置</string>
+
     <string name="activity_settings">设置</string>
-
-    <string name="action_settings">设置</string>
-    <string name="action_delete">删除</string>
-
-    <string name="dialog_permission_message">需要读写内存卡权限才能使用该APP</string>
-    <string name="dialog_continue">继续</string>
-    <string name="dialog_exit">退出</string>
-    <string name="dialog_add_new_plant">添加新植物</string>
-    <string name="dialog_plant_name_hint">请输入植物名</string>
-    <string name="dialog_must_enter_plant_name">必须输入植物名！</string>
-
-    <string name="photo_view_wrong_photo_path">图片位置有误</string>
-
-    <string name="sign_up_email">请输入邮箱</string>
-    <string name="sign_up_password">请输入密码</string>
-    <string name="sign_up_sign_up">注册</string>
-
-    <string name="sign_in_email">请输入邮箱</string>
-    <string name="sign_in_password">请输入密码</string>
-    <string name="sign_in_sign_up">点击此处注册</string>
-    <string name="sign_in_sign_in">登录</string>
 </resources>

@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="spave.levan.waterever">
+    package="me.zhiyao.waterever">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:name=".App"
+        android:name=".WaterEverApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.activities.SplashActivity"
+            android:name=".ui.main.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.FullScreen">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,24 +26,8 @@
         </activity>
 
         <activity
-            android:name=".ui.activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".ui.activities.PlantActivity" />
-
-        <activity
-            android:name=".ui.activities.SettingsActivity"
+            android:name=".ui.settings.SettingsActivity"
             android:label="@string/activity_settings" />
-
-        <activity android:name=".ui.activities.PhotoViewActivity" />
-
-        <activity
-            android:name=".ui.activities.SignInActivity"
-            android:label="@string/activity_sign_in" />
-
-        <activity
-            android:name=".ui.activities.SignUpActivity"
-            android:label="@string/activity_sign_up" />
 
     </application>
 
