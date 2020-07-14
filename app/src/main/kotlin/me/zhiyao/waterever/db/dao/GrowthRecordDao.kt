@@ -8,4 +8,4 @@ import androidx.room.Dao
  * @date 2020/7/13
  */
 @Dao
-interface PlantRecordDao
+interface GrowthRecordDao

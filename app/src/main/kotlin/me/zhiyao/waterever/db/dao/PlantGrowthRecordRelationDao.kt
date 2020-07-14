@@ -5,7 +5,7 @@ import androidx.room.Dao
 /**
  *
  * @author WangZhiYao
- * @date 2020/7/13
+ * @date 2020/7/14
  */
 @Dao
-interface CategoryDao
+interface PlantGrowthRecordRelationDao

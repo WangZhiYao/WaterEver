@@ -7,15 +7,16 @@ import androidx.room.PrimaryKey
 /**
  *
  * @author WangZhiYao
- * @date 2020/7/13
+ * @date 2020/7/14
  */
-@Entity(tableName = "category")
-data class Category(
-
-    val name: String
+@Entity(
+    tableName = "image"
+)
+data class Image(
+    val path: String
 ) {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "category_id")
-    var id: Long = 0
+    @ColumnInfo(name = "image_id")
+    var imageId: Long = 0
 }

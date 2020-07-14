@@ -9,9 +9,10 @@ import androidx.room.PrimaryKey
  * @author WangZhiYao
  * @date 2020/6/28
  */
-@Entity(tableName = "plant")
+@Entity(
+    tableName = "plant"
+)
 data class Plant(
-
     var name: String,
     var remarks: String?,
     var state: Int,
@@ -21,5 +22,5 @@ data class Plant(
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "plant_id")
-    var id: Long = 0
+    var plantId: Long = 0
 }

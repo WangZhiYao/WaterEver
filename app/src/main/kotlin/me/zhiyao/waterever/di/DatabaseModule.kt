@@ -22,7 +22,7 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 object DatabaseModule {
 
-    private const val DB_NAME = "water_ever.db"
+    private const val DB_NAME = "WaterEver.db"
 
     @Provides
     @Singleton
@@ -42,18 +42,18 @@ object DatabaseModule {
     }
 
     @Provides
-    fun provideCategoryDao(database: AppDatabase): CategoryDao {
-        return database.categoryDao()
-    }
-
-    @Provides
     fun providePlantCategoryDao(database: AppDatabase): PlantCategoryDao {
         return database.plantCategoryDao()
     }
 
     @Provides
-    fun providePlantRecordDao(database: AppDatabase): PlantRecordDao {
-        return database.plantRecordDao()
+    fun provideGrowthRecordDao(database: AppDatabase): GrowthRecordDao {
+        return database.growthRecordDao()
+    }
+
+    @Provides
+    fun provideImageDao(database: AppDatabase): ImageDao {
+        return database.imageDao()
     }
 
     @Provides
@@ -64,5 +64,25 @@ object DatabaseModule {
     @Provides
     fun provideReminderPeriodDao(database: AppDatabase): ReminderPeriodDao {
         return database.reminderPeriodDao()
+    }
+
+    @Provides
+    fun providePlantCategoryRelationDao(database: AppDatabase): PlantCategoryRelationDao {
+        return database.plantCategoryRelationDao()
+    }
+
+    @Provides
+    fun providePlantGrowthRecordRelationDao(database: AppDatabase): PlantGrowthRecordRelationDao {
+        return database.plantGrowthRecordRelationDao()
+    }
+
+    @Provides
+    fun provideGrowthRecordImageRelationDao(database: AppDatabase): GrowthRecordImageRelationDao {
+        return database.growthRecordImageRelationDao()
+    }
+
+    @Provides
+    fun provideReminderPeriodRelationDao(database: AppDatabase): ReminderPeriodRelationDao {
+        return database.reminderPeriodRelationDao()
     }
 }
