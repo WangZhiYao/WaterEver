@@ -47,13 +47,13 @@ object DatabaseModule {
     }
 
     @Provides
-    fun provideGrowthRecordDao(database: AppDatabase): GrowthRecordDao {
-        return database.growthRecordDao()
+    fun provideGrowthRecordDao(database: AppDatabase): PlantGrowthRecordDao {
+        return database.plantGrowthRecordDao()
     }
 
     @Provides
-    fun provideImageDao(database: AppDatabase): ImageDao {
-        return database.imageDao()
+    fun provideImageDao(database: AppDatabase): PlantImageDao {
+        return database.plantImageDao()
     }
 
     @Provides
@@ -64,25 +64,5 @@ object DatabaseModule {
     @Provides
     fun provideReminderPeriodDao(database: AppDatabase): ReminderPeriodDao {
         return database.reminderPeriodDao()
-    }
-
-    @Provides
-    fun providePlantCategoryRelationDao(database: AppDatabase): PlantCategoryRelationDao {
-        return database.plantCategoryRelationDao()
-    }
-
-    @Provides
-    fun providePlantGrowthRecordRelationDao(database: AppDatabase): PlantGrowthRecordRelationDao {
-        return database.plantGrowthRecordRelationDao()
-    }
-
-    @Provides
-    fun provideGrowthRecordImageRelationDao(database: AppDatabase): GrowthRecordImageRelationDao {
-        return database.growthRecordImageRelationDao()
-    }
-
-    @Provides
-    fun provideReminderPeriodRelationDao(database: AppDatabase): ReminderPeriodRelationDao {
-        return database.reminderPeriodRelationDao()
     }
 }

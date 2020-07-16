@@ -5,16 +5,16 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import me.zhiyao.waterever.db.model.Plant
-import me.zhiyao.waterever.db.model.PlantCategory
+import me.zhiyao.waterever.db.model.Reminder
 
 /**
  *
  * @author WangZhiYao
- * @date 2020/7/13
+ * @date 2020/7/15
  */
 @Entity(
-    tableName = "plant_category_relation",
-    primaryKeys = ["plant_id", "plant_category_id"],
+    tableName = "plant_reminder_relation",
+    primaryKeys = ["plant_id", "reminder_id"],
     foreignKeys = [
         ForeignKey(
             entity = Plant::class,
@@ -23,21 +23,21 @@ import me.zhiyao.waterever.db.model.PlantCategory
             onDelete = ForeignKey.CASCADE
         ),
         ForeignKey(
-            entity = PlantCategory::class,
-            parentColumns = ["plant_category_id"],
-            childColumns = ["plant_category_id"],
+            entity = Reminder::class,
+            parentColumns = ["reminder_id"],
+            childColumns = ["reminder_id"],
             onDelete = ForeignKey.CASCADE
         )
     ],
     indices = [
         Index(value = ["plant_id"]),
-        Index(value = ["plant_category_id"]),
-        Index(value = ["plant_id", "plant_category_id"], unique = true)
+        Index(value = ["reminder_id"]),
+        Index(value = ["plant_id", "reminder_id"], unique = true)
     ]
 )
-data class PlantCategoryRelation(
+class PlantReminderRelation(
     @ColumnInfo(name = "plant_id")
     val plantId: Long,
-    @ColumnInfo(name = "plant_category_id")
-    val plantCategoryId: Long
+    @ColumnInfo(name = "reminder_id")
+    val reminderId: Long
 )

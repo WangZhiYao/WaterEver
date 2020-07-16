@@ -5,7 +5,7 @@ package me.zhiyao.waterever.constants
  * @author WangZhiYao
  * @date 2020/7/13
  */
-enum class RecordType(private val id: Int) {
+enum class PlantGrowthRecordType(private val id: Int) {
 
     WATERING(1),
     CHANGE_SOIL(2),
@@ -17,7 +17,7 @@ enum class RecordType(private val id: Int) {
     }
 
     companion object {
-        fun getRecordType(id: Int): RecordType? {
+        fun getPlantGrowthRecordType(id: Int): PlantGrowthRecordType? {
             for (value in values()) {
                 if (value.getId() == id) {
                     return value

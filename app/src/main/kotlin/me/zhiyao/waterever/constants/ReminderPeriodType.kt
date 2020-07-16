@@ -5,7 +5,7 @@ package me.zhiyao.waterever.constants
  * @author WangZhiYao
  * @date 2020/7/14
  */
-enum class PeriodType(private val id: Int) {
+enum class ReminderPeriodType(private val id: Int) {
 
     FIXED(1),
     CUSTOMIZED(2);
@@ -15,7 +15,7 @@ enum class PeriodType(private val id: Int) {
     }
 
     companion object {
-        fun getPeriodType(id: Int): PeriodType? {
+        fun getReminderPeriodType(id: Int): ReminderPeriodType? {
             for (value in values()) {
                 if (value.getId() == id) {
                     return value

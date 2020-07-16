@@ -15,7 +15,7 @@ enum class PlantState(private val id: Int) {
     }
 
     companion object {
-        fun getState(id: Int): PlantState? {
+        fun getPlantState(id: Int): PlantState? {
             for (value in values()) {
                 if (value.getId() == id) {
                     return value

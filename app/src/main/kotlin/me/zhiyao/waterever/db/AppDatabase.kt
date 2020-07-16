@@ -2,12 +2,14 @@ package me.zhiyao.waterever.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import me.zhiyao.waterever.db.converters.PlantGrowthRecordTypeConverter
+import me.zhiyao.waterever.db.converters.PlantStateConverter
+import me.zhiyao.waterever.db.converters.ReminderPeriodTypeConverter
+import me.zhiyao.waterever.db.converters.ReminderTypeConverter
 import me.zhiyao.waterever.db.dao.*
 import me.zhiyao.waterever.db.model.*
-import me.zhiyao.waterever.db.model.relations.GrowthRecordImageRelation
 import me.zhiyao.waterever.db.model.relations.PlantCategoryRelation
-import me.zhiyao.waterever.db.model.relations.PlantGrowthRecordRelation
-import me.zhiyao.waterever.db.model.relations.ReminderPeriodRelation
 
 /**
  *
@@ -18,17 +20,20 @@ import me.zhiyao.waterever.db.model.relations.ReminderPeriodRelation
     entities = [
         Plant::class,
         PlantCategory::class,
-        GrowthRecord::class,
-        Image::class,
+        PlantGrowthRecord::class,
+        PlantImage::class,
         Reminder::class,
         ReminderPeriod::class,
-        PlantCategoryRelation::class,
-        PlantGrowthRecordRelation::class,
-        GrowthRecordImageRelation::class,
-        ReminderPeriodRelation::class
+        PlantCategoryRelation::class
     ],
     version = 1,
     exportSchema = false
+)
+@TypeConverters(
+    PlantStateConverter::class,
+    PlantGrowthRecordTypeConverter::class,
+    ReminderTypeConverter::class,
+    ReminderPeriodTypeConverter::class
 )
 abstract class AppDatabase : RoomDatabase() {
 
@@ -36,9 +41,9 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun plantCategoryDao(): PlantCategoryDao
 
-    abstract fun growthRecordDao(): GrowthRecordDao
+    abstract fun plantGrowthRecordDao(): PlantGrowthRecordDao
 
-    abstract fun imageDao(): ImageDao
+    abstract fun plantImageDao(): PlantImageDao
 
     abstract fun reminderDao(): ReminderDao
 
@@ -46,9 +51,4 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun plantCategoryRelationDao(): PlantCategoryRelationDao
 
-    abstract fun plantGrowthRecordRelationDao(): PlantGrowthRecordRelationDao
-
-    abstract fun growthRecordImageRelationDao(): GrowthRecordImageRelationDao
-
-    abstract fun reminderPeriodRelationDao(): ReminderPeriodRelationDao
 }
