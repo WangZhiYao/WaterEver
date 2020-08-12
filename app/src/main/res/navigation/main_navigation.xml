@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_record"
-        android:name="me.zhiyao.waterever.ui.main.record.RecordFragment"
-        android:label="@string/menu_record"
-        tools:layout="@layout/fragment_record" />
+        android:id="@+id/nav_plant"
+        android:name="me.zhiyao.waterever.ui.main.plant.PlantFragment"
+        android:label="@string/menu_plant"
+        tools:layout="@layout/fragment_plant" />
 
     <fragment
         android:id="@+id/nav_reminder"

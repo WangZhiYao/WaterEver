@@ -9,8 +9,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import me.zhiyao.waterever.db.AppDatabase
-import me.zhiyao.waterever.db.dao.*
+import me.zhiyao.waterever.data.db.AppDatabase
 import javax.inject.Singleton
 
 /**
@@ -34,35 +33,5 @@ object DatabaseModule {
                 }
             })
             .build()
-    }
-
-    @Provides
-    fun providePlantDao(database: AppDatabase): PlantDao {
-        return database.plantDao()
-    }
-
-    @Provides
-    fun providePlantCategoryDao(database: AppDatabase): PlantCategoryDao {
-        return database.plantCategoryDao()
-    }
-
-    @Provides
-    fun provideGrowthRecordDao(database: AppDatabase): PlantGrowthRecordDao {
-        return database.plantGrowthRecordDao()
-    }
-
-    @Provides
-    fun provideImageDao(database: AppDatabase): PlantImageDao {
-        return database.plantImageDao()
-    }
-
-    @Provides
-    fun provideReminderDao(database: AppDatabase): ReminderDao {
-        return database.reminderDao()
-    }
-
-    @Provides
-    fun provideReminderPeriodDao(database: AppDatabase): ReminderPeriodDao {
-        return database.reminderPeriodDao()
     }
 }

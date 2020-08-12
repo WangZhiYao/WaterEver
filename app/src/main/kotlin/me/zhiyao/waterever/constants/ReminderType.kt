@@ -3,13 +3,13 @@ package me.zhiyao.waterever.constants
 /**
  *
  * @author WangZhiYao
- * @date 2020/7/13
+ * @date 2020/8/11
  */
-enum class ReminderType(private val id: Int) {
+enum class ReminderType constructor(private val id: Int) {
 
     WATERING(1),
-    CHANGE_SOIL(2),
-    FERTILIZE(3);
+    FERTILIZE(2),
+    CHANGE_SOIL(3);
 
     fun getId(): Int {
         return id

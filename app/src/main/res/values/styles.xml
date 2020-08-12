@@ -25,9 +25,9 @@
         <item name="item.checkCircle.backgroundColor">@color/colorAccent</item>
         <item name="page.bg">@color/colorPrimary</item>
         <item name="bottomToolbar.bg">@color/colorPrimary</item>
-        <item name="bottomToolbar.preview.textColor">@color/colorWhite</item>
+        <item name="bottomToolbar.preview.textColor">@android:color/white</item>
         <item name="bottomToolbar.apply.textColor">@drawable/selector_matisse_apply</item>
-        <item name="preview.bottomToolbar.back.textColor">@color/colorWhite</item>
+        <item name="preview.bottomToolbar.back.textColor">@android:color/white</item>
         <item name="preview.bottomToolbar.apply.textColor">@drawable/selector_matisse_apply</item>
         <item name="android:listPopupWindowStyle">@style/Popup.MatisseStyle</item>
         <item name="listPopupWindowStyle">@style/Popup.MatisseStyle</item>

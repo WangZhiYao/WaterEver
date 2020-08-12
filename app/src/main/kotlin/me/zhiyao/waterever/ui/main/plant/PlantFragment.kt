@@ -1,4 +1,4 @@
-package me.zhiyao.waterever.ui.main.reminder
+package me.zhiyao.waterever.ui.main.plant
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import me.zhiyao.waterever.databinding.FragmentReminderBinding
+import me.zhiyao.waterever.databinding.FragmentPlantBinding
 import me.zhiyao.waterever.ui.base.BaseFragment
 
 /**
@@ -15,17 +15,17 @@ import me.zhiyao.waterever.ui.base.BaseFragment
  * @date 2020/6/28
  */
 @AndroidEntryPoint
-class ReminderFragment : BaseFragment() {
+class PlantFragment : BaseFragment() {
 
-    private val viewModel by viewModels<ReminderViewModel>()
-    private lateinit var binding: FragmentReminderBinding
+    private val viewModel by viewModels<PlantViewModel>()
+    private lateinit var binding: FragmentPlantBinding
 
     override fun setRootView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentReminderBinding.inflate(inflater, container, false)
+        binding = FragmentPlantBinding.inflate(inflater, container, false)
         return binding.root
     }
 
