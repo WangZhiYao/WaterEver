@@ -6,7 +6,7 @@
     <string name="nav_header_subtitle">Made with ❤ by 339</string>
 
     <string name="menu_home">主页</string>
-    <string name="menu_plant">所有植物</string>
+    <string name="menu_plant_list">所有植物</string>
     <string name="menu_reminder">提醒</string>
     <string name="menu_more">更多</string>
     <string name="menu_settings">设置</string>

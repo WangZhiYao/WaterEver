@@ -41,7 +41,7 @@ class MainActivity : BaseActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home,
-                R.id.nav_plant,
+                R.id.nav_plant_list,
                 R.id.nav_reminder,
                 R.id.nav_settings
             ), binding.drawerLayout

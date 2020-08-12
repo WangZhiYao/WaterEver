@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import me.zhiyao.waterever.databinding.FragmentPlantBinding
+import me.zhiyao.waterever.databinding.FragmentPlantListBinding
 import me.zhiyao.waterever.ui.base.BaseFragment
 
 /**
@@ -15,17 +15,17 @@ import me.zhiyao.waterever.ui.base.BaseFragment
  * @date 2020/6/28
  */
 @AndroidEntryPoint
-class PlantFragment : BaseFragment() {
+class PlantListFragment : BaseFragment() {
 
-    private val viewModel by viewModels<PlantViewModel>()
-    private lateinit var binding: FragmentPlantBinding
+    private val viewModel by viewModels<PlantListViewModel>()
+    private lateinit var binding: FragmentPlantListBinding
 
     override fun setRootView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentPlantBinding.inflate(inflater, container, false)
+        binding = FragmentPlantListBinding.inflate(inflater, container, false)
         return binding.root
     }
 
