@@ -15,12 +15,12 @@ import me.zhiyao.waterever.data.db.model.relations.PlantTagRelation
 @Database(
     entities = [
         Plant::class,
-        PlantCategory::class,
-        PlantGrowthRecord::class,
-        PlantTag::class,
+        Image::class,
+        GrowthRecord::class,
+        Category::class,
+        Tag::class,
         PlantTagRelation::class,
-        PlantImage::class,
-        PlantReminder::class
+        Reminder::class
     ],
     version = 1,
     exportSchema = false
@@ -32,15 +32,15 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun plantDao(): PlantDao
 
-    abstract fun plantGrowthRecordDao(): GrowthRecordDao
+    abstract fun imageDao(): ImageDao
 
-    abstract fun plantCategoryDao(): CategoryDao
+    abstract fun growthRecordDao(): GrowthRecordDao
 
-    abstract fun plantTagDao(): TagDao
+    abstract fun categoryDao(): CategoryDao
 
-    abstract fun plantTagRelationshipDao(): PlantTagRelationshipDao
+    abstract fun tagDao(): TagDao
 
-    abstract fun plantImageDao(): ImageDao
+    abstract fun plantTagRelationshipDao(): PlantTagRelationDao
 
-    //abstract fun plantReminderDao(): ReminderDao
+    abstract fun reminderDao(): ReminderDao
 }

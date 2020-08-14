@@ -12,15 +12,15 @@ import me.zhiyao.waterever.constants.PlantState
     tableName = "plants",
     foreignKeys = [
         ForeignKey(
-            entity = PlantCategory::class,
-            parentColumns = ["plant_category_id"],
-            childColumns = ["plant_category_id"],
+            entity = Category::class,
+            parentColumns = ["category_id"],
+            childColumns = ["category_id"],
             onDelete = ForeignKey.SET_NULL,
             onUpdate = ForeignKey.CASCADE
         )
     ],
     indices = [
-        Index(value = ["plant_category_id"])
+        Index(value = ["category_id"])
     ]
 )
 data class Plant(
@@ -28,8 +28,8 @@ data class Plant(
     var state: PlantState,
     @ColumnInfo(name = "feature_image")
     var featureImage: String?,
-    @ColumnInfo(name = "plant_category_id")
-    var plantCategoryId: Long?,
+    @ColumnInfo(name = "category_id")
+    var categoryId: Long?,
     var description: String?,
     @ColumnInfo(name = "create_time")
     val createTime: Long

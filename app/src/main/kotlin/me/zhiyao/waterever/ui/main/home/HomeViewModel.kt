@@ -1,7 +1,12 @@
 package me.zhiyao.waterever.ui.main.home
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.paging.PagingData
+import me.zhiyao.waterever.data.repo.GrowthRecordRepository
+import me.zhiyao.waterever.ui.main.home.entity.HomeItem
 
 /**
  *
@@ -9,5 +14,9 @@ import androidx.lifecycle.ViewModel
  * @date 2020/6/28
  */
 class HomeViewModel @ViewModelInject constructor(
+    private val growthRecordRepository: GrowthRecordRepository
+) : ViewModel() {
 
-) : ViewModel()
+    val growthRecordList: LiveData<PagingData<HomeItem>> =
+        growthRecordRepository.getHomeItemList().asLiveData()
+}

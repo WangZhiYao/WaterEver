@@ -1,15 +1,15 @@
 package me.zhiyao.waterever.data.db.model
 
 import androidx.room.*
-import me.zhiyao.waterever.constants.GrowthRecordType
+import me.zhiyao.waterever.constants.ReminderType
 
 /**
  *
  * @author WangZhiYao
- * @date 2020/8/10
+ * @date 2020/8/11
  */
 @Entity(
-    tableName = "plant_growth_records",
+    tableName = "reminders",
     foreignKeys = [
         ForeignKey(
             entity = Plant::class,
@@ -23,17 +23,14 @@ import me.zhiyao.waterever.constants.GrowthRecordType
         Index(value = ["plant_id"])
     ]
 )
-data class PlantGrowthRecord(
+data class Reminder(
     @ColumnInfo(name = "plant_id")
     val plantId: Long,
-    @ColumnInfo(name = "record_type")
-    val recordType: GrowthRecordType,
-    var description: String?,
-    @ColumnInfo(name = "create_Time")
-    val createTime: Long
+    @ColumnInfo(name = "reminder_type")
+    val reminderType: ReminderType
 ) {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "plant_growth_record_id")
+    @ColumnInfo(name = "reminder_id")
     var id: Long = 0
 }

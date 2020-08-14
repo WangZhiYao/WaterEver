@@ -9,12 +9,12 @@ import androidx.room.PrimaryKey
  * @author WangZhiYao
  * @date 2020/7/13
  */
-@Entity(tableName = "plant_categories")
-data class PlantCategory(
+@Entity(tableName = "categories")
+data class Category(
     val name: String
 ) {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "plant_category_id")
+    @ColumnInfo(name = "category_id")
     var id: Long = 0
 }

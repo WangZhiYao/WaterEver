@@ -1,6 +1,7 @@
 package me.zhiyao.waterever.data.db.dao
 
 import androidx.room.Dao
+import me.zhiyao.waterever.data.db.model.Image
 
 /**
  *
@@ -8,4 +9,4 @@ import androidx.room.Dao
  * @date 2020/8/10
  */
 @Dao
-interface ImageDao
+interface ImageDao : BaseDao<Image>

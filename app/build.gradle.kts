@@ -76,9 +76,9 @@ dependencies {
     kapt("androidx.hilt:hilt-compiler:1.0.0-alpha02")
 
     // Room
-    implementation("androidx.room:room-runtime:2.2.5")
-    kapt("androidx.room:room-compiler:2.2.5")
-    implementation("androidx.room:room-ktx:2.2.5")
+    implementation("androidx.room:room-runtime:2.3.0-alpha02")
+    kapt("androidx.room:room-compiler:2.3.0-alpha02")
+    implementation("androidx.room:room-ktx:2.3.0-alpha02")
 
     // LiveData + ViewModel
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")

@@ -13,7 +13,7 @@ enum class GrowthRecordType(private val id: Int) {
     WATERING(1),
     CHANGE_SOIL(2),
     FERTILIZE(3),
-    GROWTH(4);
+    PHOTOS(4);
 
     fun getId(): Int {
         return id
@@ -32,10 +32,10 @@ enum class GrowthRecordType(private val id: Int) {
 
         fun GrowthRecordType.toRecordType(context: Context): String? {
             return when (this) {
-                WATERING -> context.getString(R.string.plant_growth_record_type_watering)
-                CHANGE_SOIL -> context.getString(R.string.plant_growth_record_type_change_soil)
-                FERTILIZE -> context.getString(R.string.plant_growth_record_type_fertilize)
-                GROWTH -> context.getString(R.string.plant_growth_record_type_growth)
+                WATERING -> context.getString(R.string.growth_record_type_watering)
+                CHANGE_SOIL -> context.getString(R.string.growth_record_type_change_soil)
+                FERTILIZE -> context.getString(R.string.growth_record_type_fertilize)
+                PHOTOS -> context.getString(R.string.growth_record_type_photos)
             }
         }
     }

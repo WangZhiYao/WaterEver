@@ -9,12 +9,12 @@ import androidx.room.PrimaryKey
  * @author WangZhiYao
  * @date 2020/8/10
  */
-@Entity(tableName = "plant_tags")
-data class PlantTag(
+@Entity(tableName = "tags")
+data class Tag(
     val name: String
 ) {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "plant_tag_id")
+    @ColumnInfo(name = "tag_id")
     var id: Long = 0
 }

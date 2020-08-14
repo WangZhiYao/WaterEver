@@ -14,11 +14,12 @@
     <string name="activity_settings">设置</string>
 
     <string name="home_plant_recent_record">最近活动：%s</string>
+    <string name="home_plant_no_record">最近没有活动</string>
 
-    <string name="plant_growth_record_type_watering">浇水</string>
-    <string name="plant_growth_record_type_change_soil">换土</string>
-    <string name="plant_growth_record_type_fertilize">施肥</string>
-    <string name="plant_growth_record_type_growth">记录</string>
+    <string name="growth_record_type_watering">浇水</string>
+    <string name="growth_record_type_change_soil">换土</string>
+    <string name="growth_record_type_fertilize">施肥</string>
+    <string name="growth_record_type_photos">照片</string>
 
     <string name="time_unit_day">天</string>
     <string name="time_unit_hour">小时</string>
@@ -29,6 +30,5 @@
     <string name="time_interval_hour">%d小时前</string>
     <string name="time_interval_minute">%d分钟前</string>
     <string name="time_interval_second">%d秒前</string>
-    <string name="home_plant_no_record">最近没有活动</string>
 
 </resources>

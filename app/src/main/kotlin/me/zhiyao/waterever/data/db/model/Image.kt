@@ -8,30 +8,29 @@ import androidx.room.*
  * @date 2020/8/10
  */
 @Entity(
-    tableName = "plant_images",
+    tableName = "images",
     foreignKeys = [
         ForeignKey(
-            entity = PlantGrowthRecord::class,
-            parentColumns = ["plant_growth_record_id"],
-            childColumns = ["plant_growth_record_id"],
+            entity = GrowthRecord::class,
+            parentColumns = ["growth_record_id"],
+            childColumns = ["growth_record_id"],
             onDelete = ForeignKey.CASCADE,
             onUpdate = ForeignKey.CASCADE
         )
     ],
     indices = [
-        Index(value = ["plant_growth_record_id"])
+        Index(value = ["growth_record_id"])
     ]
 )
-data class PlantImage(
-    @ColumnInfo(name = "plant_growth_record_id")
-    val plantGrowthRecordId: Long?,
+data class Image(
+    @ColumnInfo(name = "growth_record_id")
+    val growthRecordId: Long?,
     val path: String,
-    var feature: Boolean,
     @ColumnInfo(name = "create_time")
     val createTime: Long
 ) {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "plant_image_id")
+    @ColumnInfo(name = "image_id")
     var id: Long = 0
 }

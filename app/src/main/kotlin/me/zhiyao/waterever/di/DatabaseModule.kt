@@ -10,6 +10,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import me.zhiyao.waterever.data.db.AppDatabase
+import me.zhiyao.waterever.data.db.dao.GrowthRecordDao
+import me.zhiyao.waterever.data.db.ioThread
 import javax.inject.Singleton
 
 /**
@@ -29,9 +31,18 @@ object DatabaseModule {
         return Room.databaseBuilder(appContext, AppDatabase::class.java, DB_NAME)
             .addCallback(object : RoomDatabase.Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
-                    // TODO: 2020/7/13 添加初始数据
+                    super.onCreate(db)
+                    ioThread {
+                        // TODO: 2020/7/13 添加初始数据
+                    }
                 }
             })
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideGrowthRecordDao(appDatabase: AppDatabase): GrowthRecordDao {
+        return appDatabase.growthRecordDao()
     }
 }
