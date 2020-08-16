@@ -11,13 +11,13 @@ import me.zhiyao.waterever.ui.base.BaseActivity
  */
 class SettingsActivity : BaseActivity() {
 
-    private lateinit var binding: ActivitySettingsBinding
+    private lateinit var mBinding: ActivitySettingsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySettingsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        showBack()
+        mBinding = ActivitySettingsBinding.inflate(layoutInflater)
+        setContentView(mBinding.root)
     }
+
+    override fun showBack(): Boolean = true
 }

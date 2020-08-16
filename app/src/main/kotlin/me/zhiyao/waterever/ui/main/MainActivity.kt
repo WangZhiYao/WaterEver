@@ -3,16 +3,19 @@ package me.zhiyao.waterever.ui.main
 import android.os.Bundle
 import android.view.Menu
 import androidx.activity.viewModels
+import androidx.core.view.GravityCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import me.zhiyao.waterever.R
 import me.zhiyao.waterever.databinding.ActivityMainBinding
 import me.zhiyao.waterever.ui.base.BaseActivity
+import me.zhiyao.waterever.ui.plant.NewPlantActivity
+import me.zhiyao.waterever.ui.record.NewGrowthRecordActivity
+import me.zhiyao.waterever.ui.reminder.NewReminderActivity
 
 /**
  *
@@ -33,10 +36,10 @@ class MainActivity : BaseActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.appBarMain.toolbar)
 
-        binding.appBarMain.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        initView()
+    }
+
+    private fun initView() {
         val navController = findNavController(R.id.nav_host_fragment)
         appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -48,7 +51,15 @@ class MainActivity : BaseActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
+
+        binding.appBarMain.mainMenu.setOnMenuItemClickListener(
+            onAddPlantClicked = { NewPlantActivity.start(this@MainActivity) },
+            onAddGrowthRecordClicked = { NewGrowthRecordActivity.start(this@MainActivity) },
+            onAddReminderClicked = { NewReminderActivity.start(this@MainActivity) }
+        )
     }
+
+    override fun showBack(): Boolean = false
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
@@ -58,5 +69,19 @@ class MainActivity : BaseActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        when {
+            binding.drawerLayout.isDrawerOpen(GravityCompat.START) -> {
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            binding.appBarMain.mainMenu.isMenuOpening() -> {
+                binding.appBarMain.mainMenu.closeMenu()
+            }
+            else -> {
+                super.onBackPressed()
+            }
+        }
     }
 }

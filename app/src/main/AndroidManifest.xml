@@ -25,6 +25,12 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.plant.NewPlantActivity" />
+
+        <activity android:name=".ui.record.NewGrowthRecordActivity" />
+
+        <activity android:name=".ui.reminder.NewReminderActivity" />
+
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:label="@string/activity_settings" />

@@ -40,7 +40,7 @@ abstract class AppDatabase : RoomDatabase() {
 
     abstract fun tagDao(): TagDao
 
-    abstract fun plantTagRelationshipDao(): PlantTagRelationDao
+    abstract fun plantTagRelationDao(): PlantTagRelationDao
 
     abstract fun reminderDao(): ReminderDao
 }
