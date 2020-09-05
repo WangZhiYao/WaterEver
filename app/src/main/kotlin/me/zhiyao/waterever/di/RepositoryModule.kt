@@ -4,9 +4,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import me.zhiyao.waterever.data.db.dao.GrowthRecordDao
+import me.zhiyao.waterever.data.db.dao.*
 import me.zhiyao.waterever.data.mapper.HomeItemMapper
-import me.zhiyao.waterever.data.repo.GrowthRecordRepository
+import me.zhiyao.waterever.data.repo.PlantRepository
 import javax.inject.Singleton
 
 /**
@@ -20,8 +20,20 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideGrowthRecordRepository(growthRecordDao: GrowthRecordDao)
-            : GrowthRecordRepository {
-        return GrowthRecordRepository(growthRecordDao, HomeItemMapper())
+    fun providePlantRepository(
+        plantDao: PlantDao,
+        categoryDao: CategoryDao,
+        tagDao: TagDao,
+        growthRecordDao: GrowthRecordDao,
+        plantTagRelationDao: PlantTagRelationDao
+    ): PlantRepository {
+        return PlantRepository(
+            plantDao,
+            categoryDao,
+            tagDao,
+            growthRecordDao,
+            plantTagRelationDao,
+            HomeItemMapper()
+        )
     }
 }

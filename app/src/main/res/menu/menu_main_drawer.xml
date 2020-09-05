@@ -7,24 +7,24 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_home"
-            android:title="@string/menu_home" />
+            android:title="@string/main_menu_home" />
         <item
             android:id="@+id/nav_plant_list"
             android:icon="@drawable/ic_menu_plant_list"
-            android:title="@string/menu_plant_list" />
+            android:title="@string/main_menu_plant_list" />
         <item
             android:id="@+id/nav_reminder"
             android:icon="@drawable/ic_menu_reminder"
-            android:title="@string/menu_reminder" />
+            android:title="@string/main_menu_reminder" />
     </group>
 
     <group android:checkableBehavior="none">
-        <item android:title="@string/menu_more">
+        <item android:title="@string/main_menu_more">
             <menu>
                 <item
                     android:id="@+id/nav_settings"
                     android:icon="@drawable/ic_menu_settings"
-                    android:title="@string/menu_settings" />
+                    android:title="@string/main_menu_settings" />
             </menu>
         </item>
     </group>

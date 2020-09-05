@@ -16,11 +16,6 @@ import me.zhiyao.waterever.data.db.model.GrowthRecord
 interface GrowthRecordDao : BaseDao<GrowthRecord> {
 
     @Transaction
-    @Query(
-        "SELECT * FROM (SELECT * FROM categories INNER JOIN plants " +
-                "ON plants.category_id = categories.category_id) t " +
-                "INNER JOIN growth_records ON t.plant_id = growth_records.plant_id " +
-                "ORDER BY growth_records.create_time DESC"
-    )
+    @Query("SELECT * FROM (SELECT * FROM categories INNER JOIN plants ON plants.category_id = categories.category_id) t INNER JOIN growth_records ON t.plant_id = growth_records.plant_id ORDER BY growth_records.create_time DESC")
     fun plantGrowthRecordList(): PagingSource<Int, PlantGrowthRecord>
 }

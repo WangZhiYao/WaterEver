@@ -17,17 +17,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        /*kapt {
-            arguments {
-                arg("room.schemaLocation", "$projectDir/schemas")
-            }
-        }*/
     }
 
     sourceSets {
         map { it.java.srcDir("src/${it.name}/kotlin") }
     }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -37,13 +32,16 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+
     buildFeatures {
         viewBinding = true
     }
@@ -53,17 +51,17 @@ dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     testImplementation("junit:junit:4.13")
-    androidTestImplementation("androidx.test.ext:junit:1.1.1")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
+    androidTestImplementation("androidx.test.ext:junit:1.1.2")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 
-    implementation(kotlin("stdlib", version = "1.3.72"))
-    implementation(kotlin("stdlib-jdk8", version = "1.3.72"))
+    implementation(kotlin("stdlib", version = "1.4.0"))
+    implementation(kotlin("stdlib-jdk8", version = "1.4.0"))
 
     // Androidx
     implementation("androidx.core:core-ktx:1.3.1")
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.constraintlayout:constraintlayout:1.1.3")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.1")
 
     // Google
     implementation("com.google.android:flexbox:2.0.1")
@@ -84,7 +82,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
 
     // Paging
-    implementation("androidx.paging:paging-runtime-ktx:3.0.0-alpha04")
+    implementation("androidx.paging:paging-runtime-ktx:3.0.0-alpha05")
 
     // Navigation
     implementation("androidx.navigation:navigation-fragment:2.3.0")
@@ -97,4 +95,18 @@ dependencies {
 
     // Matisse
     implementation("com.zhihu.android:matisse:0.5.3-beta3")
+
+    // PhotoView
+    implementation("com.github.chrisbanes:PhotoView:2.3.0")
+
+    // Material Dialogs
+    implementation("com.afollestad.material-dialogs:core:3.3.0")
+    implementation("com.afollestad.material-dialogs:input:3.3.0")
+    implementation("com.afollestad.material-dialogs:color:3.3.0")
+    implementation("com.afollestad.material-dialogs:datetime:3.3.0")
+    implementation("com.afollestad.material-dialogs:bottomsheets:3.3.0")
+    implementation("com.afollestad.material-dialogs:lifecycle:3.3.0")
+
+    // UCrop
+    implementation("com.github.yalantis:ucrop:2.2.6")
 }

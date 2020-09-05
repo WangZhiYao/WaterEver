@@ -17,23 +17,16 @@ import me.zhiyao.waterever.ui.base.BaseFragment
 @AndroidEntryPoint
 class PlantListFragment : BaseFragment() {
 
-    private val viewModel by viewModels<PlantListViewModel>()
     private lateinit var binding: FragmentPlantListBinding
 
-    override fun setRootView(
+    private val viewModel by viewModels<PlantListViewModel>()
+
+    override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPlantListBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun initView() {
-
-    }
-
-    override fun initData() {
-
     }
 }

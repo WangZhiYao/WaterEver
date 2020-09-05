@@ -1,17 +1,64 @@
 <resources>
     <string name="app_name">WaterEver</string>
-    <string name="navigation_drawer_open">打开侧边菜单</string>
-    <string name="navigation_drawer_close">关闭侧边菜单</string>
+
     <string name="nav_header_title">WaterEver</string>
     <string name="nav_header_subtitle">Made with ❤ by 339</string>
 
-    <string name="menu_home">主页</string>
-    <string name="menu_plant_list">所有植物</string>
-    <string name="menu_reminder">提醒</string>
-    <string name="menu_more">更多</string>
-    <string name="menu_settings">设置</string>
+    <string name="main_menu_home">主页</string>
+    <string name="main_menu_plant_list">所有植物</string>
+    <string name="main_menu_reminder">提醒</string>
+    <string name="main_menu_more">更多</string>
+    <string name="main_menu_settings">设置</string>
 
-    <string name="activity_settings">设置</string>
+    <string name="new_plant_label">新植物</string>
+    <string name="new_plant_next_step">下一步</string>
+    <string name="new_plant_category">分类</string>
+    <string name="new_plant_no_category">未分类</string>
+    <string name="new_plant_no_tag">无标签</string>
+    <string name="new_plant_complete">完成</string>
+    <string name="new_plant_failed">添加植物失败</string>
+
+    <string name="new_plant_name_label">名称(1/5)</string>
+    <string name="new_plant_name">植物名称</string>
+    <string name="new_plant_name_can_not_be_empty">请填写植物名</string>
+
+    <string name="new_plant_feature_image_label">图片(2/5)</string>
+    <string name="new_plant_feature_image_skip">跳过</string>
+    <string name="new_plant_feature_image_next_step">下一步</string>
+
+    <string name="new_plant_category_label">分类(3/5)</string>
+    <string name="new_plant_category_empty_notice">暂无标签，点击右上角添加</string>
+    <string name="new_plant_category_skip">跳过</string>
+    <string name="new_plant_category_next_step">下一步</string>
+
+    <string name="new_plant_tag_label">标签(4/5)</string>
+    <string name="new_plant_tag_empty_notice">暂无标签，点击右上角添加</string>
+    <string name="new_plant_tag_skip">跳过</string>
+    <string name="new_plant_tag_next_step">下一步</string>
+
+    <string name="new_plant_description_label">备注(5/5)</string>
+    <string name="new_plant_description">添加备注</string>
+    <string name="new_plant_description_complete">完成</string>
+
+    <string name="categories_label">分类</string>
+    <string name="categories_empty_notice">暂无分类，点击右上角添加</string>
+    <string name="categories_new">新增分类</string>
+    <string name="categories_already_exist">已存在该分类，请不要重复创建</string>
+    <string name="categories_delete">删除</string>
+
+    <string name="dialog_categories_new">新增分类</string>
+    <string name="dialog_categories_add">添加</string>
+
+    <string name="tags_label">标签</string>
+    <string name="tags_empty_notice">暂无标签，点击右上角添加</string>
+    <string name="tags_new">新增标签</string>
+    <string name="tags_already_exist">已存在该标签，请不要重复创建</string>
+    <string name="tags_delete">删除</string>
+
+    <string name="dialog_tags_new">新增标签</string>
+    <string name="dialog_tags_add">添加</string>
+
+    <string name="settings_label">设置</string>
 
     <string name="home_plant_recent_record">最近活动：%s</string>
     <string name="home_plant_no_record">最近没有活动</string>
@@ -30,5 +77,13 @@
     <string name="time_interval_hour">%d小时前</string>
     <string name="time_interval_minute">%d分钟前</string>
     <string name="time_interval_second">%d秒前</string>
+
+    <string name="external_storage_required">需要获取读取存储权限才可以获取相册图片</string>
+    <string name="permissions_permit">授予权限</string>
+    <string name="permissions_denied">获取权限失败</string>
+    <string name="external_storage_not_available">未获取读取权限无法获取图片</string>
+
+    <string name="error_unknown">未知错误</string>
+    <string name="new_plant_success">添加新植物成功</string>
 
 </resources>

@@ -7,9 +7,10 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.animation.addListener
+import androidx.core.animation.doOnEnd
+import androidx.core.animation.doOnStart
 import me.zhiyao.waterever.databinding.LayoutMainMenuBinding
-import me.zhiyao.waterever.utils.dp2px
+import me.zhiyao.waterever.exts.dp2px
 import kotlin.math.sqrt
 
 /**
@@ -29,30 +30,24 @@ class MainMenu @JvmOverloads constructor(
     private val radius = 120.dp2px(context).toFloat()
     private val duration: Long = 300
 
-    private val mOpenMenuAnimatorSet = AnimatorSet()
-    private val mCloseMenuAnimatorSet = AnimatorSet()
+    private val openMenuAnimatorSet = AnimatorSet()
+    private val closeMenuAnimatorSet = AnimatorSet()
 
-    private var mOnMenuItemClickListener: OnMenuItemClickListener? = null
+    private var onMenuItemClickListener: OnMenuItemClickListener? = null
 
     init {
         binding.fabMain.setOnClickListener { toggle() }
         binding.fabAddPlant.setOnClickListener {
-            run {
-                mOnMenuItemClickListener?.onAddPlantClicked()
-                closeMenu()
-            }
+            onMenuItemClickListener?.onAddPlantClicked()
+            closeMenu(false)
         }
         binding.fabAddGrowthRecord.setOnClickListener {
-            run {
-                mOnMenuItemClickListener?.onAddGrowthRecordClicked()
-                closeMenu()
-            }
+            onMenuItemClickListener?.onAddGrowthRecordClicked()
+            closeMenu(false)
         }
         binding.fabAddReminder.setOnClickListener {
-            run {
-                mOnMenuItemClickListener?.onAddReminderClicked()
-                closeMenu()
-            }
+            onMenuItemClickListener?.onAddReminderClicked()
+            closeMenu(false)
         }
 
         val mainOpenAnimator =
@@ -88,21 +83,15 @@ class MainMenu @JvmOverloads constructor(
             -radius
         )
 
-        mOpenMenuAnimatorSet.playTogether(
+        openMenuAnimatorSet.playTogether(
             mainOpenAnimator,
             plantOpenAnimator,
             recordOpenXAnimator,
             recordOpenYAnimator,
             reminderOpenAnimator
         )
-        mOpenMenuAnimatorSet.duration = duration
-        mOpenMenuAnimatorSet.addListener(onStart = {
-            run {
-                binding.fabAddPlant.visibility = View.VISIBLE
-                binding.fabAddGrowthRecord.visibility = View.VISIBLE
-                binding.fabAddReminder.visibility = View.VISIBLE
-            }
-        })
+        openMenuAnimatorSet.duration = duration
+        openMenuAnimatorSet.doOnStart { setMenuStatus(true) }
 
         val mainCloseAnimator =
             ObjectAnimator.ofFloat(
@@ -137,21 +126,15 @@ class MainMenu @JvmOverloads constructor(
             0f
         )
 
-        mCloseMenuAnimatorSet.playTogether(
+        closeMenuAnimatorSet.playTogether(
             mainCloseAnimator,
             plantCloseAnimator,
             recordCloseXAnimator,
             recordCloseYAnimator,
             reminderCloseAnimator
         )
-        mCloseMenuAnimatorSet.duration = duration
-        mCloseMenuAnimatorSet.addListener(onEnd = {
-            run {
-                binding.fabAddPlant.visibility = View.GONE
-                binding.fabAddGrowthRecord.visibility = View.GONE
-                binding.fabAddReminder.visibility = View.GONE
-            }
-        })
+        closeMenuAnimatorSet.duration = duration
+        closeMenuAnimatorSet.doOnEnd { setMenuStatus(false) }
     }
 
     inline fun setOnMenuItemClickListener(
@@ -159,17 +142,15 @@ class MainMenu @JvmOverloads constructor(
         crossinline onAddGrowthRecordClicked: () -> Unit = {},
         crossinline onAddReminderClicked: () -> Unit = {}
     ) {
-        val listener = object : OnMenuItemClickListener {
+        setOnMenuItemClickListener(object : OnMenuItemClickListener {
             override fun onAddPlantClicked() = onAddPlantClicked()
             override fun onAddGrowthRecordClicked() = onAddGrowthRecordClicked()
             override fun onAddReminderClicked() = onAddReminderClicked()
-        }
-
-        setOnMenuItemClickListener(listener)
+        })
     }
 
     fun setOnMenuItemClickListener(onMenuItemClickListener: OnMenuItemClickListener) {
-        mOnMenuItemClickListener = onMenuItemClickListener
+        this.onMenuItemClickListener = onMenuItemClickListener
     }
 
     fun isMenuOpening(): Boolean {
@@ -180,23 +161,35 @@ class MainMenu @JvmOverloads constructor(
         if (!isMenuOpening) {
             openMenu()
         } else {
-            closeMenu()
+            closeMenu(true)
         }
     }
 
-    private fun openMenu() {
-        isMenuOpening = true
-        mOpenMenuAnimatorSet.start()
+    fun openMenu() {
+        openMenuAnimatorSet.start()
     }
 
-    fun closeMenu() {
-        isMenuOpening = false
-        mCloseMenuAnimatorSet.start()
+    fun closeMenu(animated: Boolean) {
+        closeMenuAnimatorSet.start()
+        if (!animated) {
+            closeMenuAnimatorSet.end()
+        }
+    }
+
+    private fun setMenuStatus(opened: Boolean) {
+        isMenuOpening = opened
+        val visibility = if (opened) View.VISIBLE else View.GONE
+        binding.fabAddPlant.visibility = visibility
+        binding.fabAddGrowthRecord.visibility = visibility
+        binding.fabAddReminder.visibility = visibility
     }
 
     interface OnMenuItemClickListener {
+
         fun onAddPlantClicked()
+
         fun onAddGrowthRecordClicked()
+
         fun onAddReminderClicked()
     }
 }

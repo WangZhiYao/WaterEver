@@ -1,21 +1,15 @@
-package me.zhiyao.waterever.utils
+package me.zhiyao.waterever.exts
 
 import android.content.Context
-import android.util.TypedValue
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import me.zhiyao.waterever.R
-import me.zhiyao.waterever.databinding.ItemEmptyBinding
-import me.zhiyao.waterever.ui.widgets.EmptyViewHolder
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.math.roundToInt
 
 /**
  *
  * @author WangZhiYao
- * @date 2020/7/19
+ * @date 2020/8/18
  */
 const val YYYY_MM_DD = "yyyy.MM.dd"
 
@@ -43,28 +37,4 @@ fun Long.toTimeInterval(context: Context): String {
 fun Long.toDateString(pattern: String): String {
     val sdf = SimpleDateFormat(pattern, Locale.getDefault())
     return sdf.format(Date(this))
-}
-
-fun Int.dp2px(context: Context): Int {
-    return TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_DIP,
-        this.toFloat(), context.resources.displayMetrics
-    ).roundToInt()
-}
-
-fun Int.sp2px(context: Context): Int {
-    return TypedValue.applyDimension(
-        TypedValue.COMPLEX_UNIT_SP,
-        this.toFloat(), context.resources.displayMetrics
-    ).roundToInt()
-}
-
-fun ViewGroup.emptyViewHolder(): EmptyViewHolder {
-    return EmptyViewHolder(
-        ItemEmptyBinding.inflate(
-            LayoutInflater.from(this.context),
-            this,
-            false
-        )
-    )
 }

@@ -17,23 +17,16 @@ import me.zhiyao.waterever.ui.base.BaseFragment
 @AndroidEntryPoint
 class ReminderFragment : BaseFragment() {
 
-    private val viewModel by viewModels<ReminderViewModel>()
     private lateinit var binding: FragmentReminderBinding
 
-    override fun setRootView(
+    private val viewModel by viewModels<ReminderViewModel>()
+
+    override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentReminderBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun initView() {
-
-    }
-
-    override fun initData() {
-
     }
 }

@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -13,28 +13,22 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 
-    <style name="MatisseStyle" parent="Matisse.Dracula">
+    <style name="MatisseStyle" parent="Matisse.Zhihu">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="toolbar">@style/AppTheme.AppBarOverlay</item>
         <item name="album.thumbnail.placeholder">@color/colorAccent</item>
         <item name="item.checkCircle.backgroundColor">@color/colorAccent</item>
-        <item name="page.bg">@color/colorPrimary</item>
+        <item name="page.bg">@android:color/white</item>
         <item name="bottomToolbar.bg">@color/colorPrimary</item>
-        <item name="bottomToolbar.preview.textColor">@android:color/white</item>
+        <item name="bottomToolbar.preview.textColor">@drawable/selector_matisse_preview</item>
         <item name="bottomToolbar.apply.textColor">@drawable/selector_matisse_apply</item>
         <item name="preview.bottomToolbar.back.textColor">@android:color/white</item>
         <item name="preview.bottomToolbar.apply.textColor">@drawable/selector_matisse_apply</item>
-        <item name="android:listPopupWindowStyle">@style/Popup.MatisseStyle</item>
-        <item name="listPopupWindowStyle">@style/Popup.MatisseStyle</item>
-    </style>
-
-    <style name="Popup.MatisseStyle" parent="Widget.AppCompat.ListPopupWindow">
-        <item name="android:popupBackground">@color/colorPrimary</item>
     </style>
 
 </resources>

@@ -9,12 +9,12 @@ import me.zhiyao.waterever.databinding.ItemHomeChangeSoilBinding
 import me.zhiyao.waterever.databinding.ItemHomeFertilizeBinding
 import me.zhiyao.waterever.databinding.ItemHomePhotosBinding
 import me.zhiyao.waterever.databinding.ItemHomeWateringBinding
+import me.zhiyao.waterever.exts.emptyViewHolder
 import me.zhiyao.waterever.ui.main.home.entity.HomeItem
 import me.zhiyao.waterever.ui.main.home.viewholder.HomeChangeSoilViewHolder
 import me.zhiyao.waterever.ui.main.home.viewholder.HomeFertilizeViewHolder
 import me.zhiyao.waterever.ui.main.home.viewholder.HomePhotosViewHolder
 import me.zhiyao.waterever.ui.main.home.viewholder.HomeWateringViewHolder
-import me.zhiyao.waterever.utils.emptyViewHolder
 
 /**
  *
@@ -22,9 +22,7 @@ import me.zhiyao.waterever.utils.emptyViewHolder
  * @date 2020/8/13
  */
 class HomeItemAdapter :
-    PagingDataAdapter<HomeItem, RecyclerView.ViewHolder>(
-        HomeItem.diffCallback
-    ) {
+    PagingDataAdapter<HomeItem, RecyclerView.ViewHolder>(HomeItemComparator) {
 
     companion object {
         private const val VIEW_TYPE_WATERING = 1
@@ -62,18 +60,14 @@ class HomeItemAdapter :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         getItem(position)?.let { homeItem ->
             when (homeItem.growthRecord.recordType) {
-                GrowthRecordType.WATERING -> {
+                GrowthRecordType.WATERING ->
                     (holder as HomeWateringViewHolder).bind(homeItem)
-                }
-                GrowthRecordType.CHANGE_SOIL -> {
+                GrowthRecordType.CHANGE_SOIL ->
                     (holder as HomeChangeSoilViewHolder).bind(homeItem)
-                }
-                GrowthRecordType.FERTILIZE -> {
+                GrowthRecordType.FERTILIZE ->
                     (holder as HomeFertilizeViewHolder).bind(homeItem)
-                }
-                GrowthRecordType.PHOTOS -> {
+                GrowthRecordType.PHOTOS ->
                     (holder as HomeWateringViewHolder).bind(homeItem)
-                }
             }
         }
     }

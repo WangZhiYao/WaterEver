@@ -13,7 +13,7 @@
         android:layout_marginTop="@dimen/margin_8dp"
         android:layout_marginEnd="@dimen/margin_8dp"
         android:background="@android:color/white"
-        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:cardCornerRadius="@dimen/home_card_corner_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/iv_plant_feature"
+                android:id="@+id/iv_plant_feature_image"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="@dimen/margin_16dp"
@@ -44,8 +44,8 @@
                 android:textColor="@color/colorText"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iv_plant_feature"
-                app:layout_constraintTop_toTopOf="@id/iv_plant_feature"
+                app:layout_constraintStart_toEndOf="@id/iv_plant_feature_image"
+                app:layout_constraintTop_toTopOf="@id/iv_plant_feature_image"
                 tools:text="Title goes here" />
 
             <TextView
@@ -55,7 +55,7 @@
                 android:layout_marginEnd="@dimen/margin_16dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                app:layout_constraintBottom_toBottomOf="@id/iv_plant_feature"
+                app:layout_constraintBottom_toBottomOf="@id/iv_plant_feature_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tv_plant_name"
                 tools:text="@tools:sample/lorem" />
@@ -69,7 +69,7 @@
                 app:layout_constraintDimensionRatio="16:9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_plant_feature"
+                app:layout_constraintTop_toBottomOf="@id/iv_plant_feature_image"
                 tools:src="@tools:sample/backgrounds/scenic" />
 
             <TextView

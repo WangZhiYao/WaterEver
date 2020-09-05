@@ -25,7 +25,17 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.plant.NewPlantActivity" />
+        <activity
+            android:name=".ui.plant.create.NewPlantActivity"
+            android:label="@string/new_plant_label" />
+
+        <activity
+            android:name=".ui.category.CategoriesActivity"
+            android:label="@string/categories_label" />
+
+        <activity
+            android:name=".ui.tag.TagsActivity"
+            android:label="@string/tags_label" />
 
         <activity android:name=".ui.record.NewGrowthRecordActivity" />
 
@@ -33,7 +43,13 @@
 
         <activity
             android:name=".ui.settings.SettingsActivity"
-            android:label="@string/activity_settings" />
+            android:label="@string/settings_label" />
+
+        <!-- UCrop -->
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
     </application>
 

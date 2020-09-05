@@ -12,11 +12,17 @@ import androidx.room.Update
 interface BaseDao<T> {
 
     @Insert
-    fun insert(arg: T): Long
+    suspend fun insert(arg: T): Long
+
+    @Insert
+    suspend fun insertBatch(arg: List<T>)
 
     @Update
-    fun update(arg: T)
+    suspend fun update(arg: T)
 
     @Delete
-    fun delete(arg: T)
+    suspend fun delete(arg: T)
+
+    @Delete
+    suspend fun deleteBatch(arg: List<T>)
 }

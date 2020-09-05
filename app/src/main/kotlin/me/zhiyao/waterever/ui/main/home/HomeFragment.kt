@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,30 +20,34 @@ import me.zhiyao.waterever.ui.main.home.adapter.HomeItemAdapter
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
 
-    private val mViewModel by viewModels<HomeViewModel>()
-    private lateinit var mBinding: FragmentHomeBinding
+    private lateinit var binding: FragmentHomeBinding
 
-    private lateinit var mHomeItemAdapter: HomeItemAdapter
+    private val viewModel by viewModels<HomeViewModel>()
 
-    override fun setRootView(
+    private lateinit var adapter: HomeItemAdapter
+
+    override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mBinding = FragmentHomeBinding.inflate(inflater, container, false)
-        return mBinding.root
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        initView()
+        initData()
+        return binding.root
     }
 
-    override fun initView() {
-        mHomeItemAdapter = HomeItemAdapter()
-        mBinding.rvHome.layoutManager = LinearLayoutManager(context)
-        mBinding.rvHome.adapter = mHomeItemAdapter
+    private fun initView() {
+        binding.rvHome.layoutManager = LinearLayoutManager(context)
+
+        adapter = HomeItemAdapter()
+        binding.rvHome.adapter = adapter
     }
 
-    override fun initData() {
-        mViewModel.growthRecordList.observe(this, Observer {
+    private fun initData() {
+        viewModel.growthRecordList.observe(this, { homeItemList ->
             lifecycleScope.launchWhenCreated {
-                mHomeItemAdapter.submitData(it)
+                adapter.submitData(homeItemList)
             }
         })
     }

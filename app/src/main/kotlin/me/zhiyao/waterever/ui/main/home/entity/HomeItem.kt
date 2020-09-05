@@ -1,6 +1,5 @@
 package me.zhiyao.waterever.ui.main.home.entity
 
-import androidx.recyclerview.widget.DiffUtil
 import me.zhiyao.waterever.data.db.model.*
 
 /**
@@ -14,22 +13,4 @@ data class HomeItem(
     val tagList: List<Tag>?,
     val growthRecord: GrowthRecord,
     val imageList: List<Image>?
-) {
-    companion object {
-        val diffCallback = object : DiffUtil.ItemCallback<HomeItem>() {
-            override fun areItemsTheSame(
-                oldItem: HomeItem,
-                newItem: HomeItem
-            ): Boolean {
-                return oldItem.plant.id == newItem.plant.id
-            }
-
-            override fun areContentsTheSame(
-                oldItem: HomeItem,
-                newItem: HomeItem
-            ): Boolean {
-                return oldItem.plant.id == newItem.plant.id
-            }
-        }
-    }
-}
+)
