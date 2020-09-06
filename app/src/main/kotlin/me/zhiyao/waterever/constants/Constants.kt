@@ -11,7 +11,7 @@ object Constants {
 
     const val IMAGE_AUTHORITY = "me.zhiyao.waterever.fileprovider"
 
-    val TEMP_FEATURE_IMAGE_DIR = FileOperator.getCachePath("temp_feature_image")
+    val CACHE_DIR = FileOperator.getCacheDir()
 
     const val TEMP_FEATURE_IMAGE_NAME = "temp_feature_image.jpg"
 

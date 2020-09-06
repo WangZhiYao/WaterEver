@@ -144,7 +144,7 @@ class NewPlantFeatureImageFragment : BaseFragment(), PermissionManager.OnPermiss
                 Uri.fromFile(File(sourcePath)),
                 Uri.fromFile(
                     File(
-                        Constants.TEMP_FEATURE_IMAGE_DIR,
+                        Constants.CACHE_DIR,
                         Constants.TEMP_FEATURE_IMAGE_NAME
                     )
                 )
