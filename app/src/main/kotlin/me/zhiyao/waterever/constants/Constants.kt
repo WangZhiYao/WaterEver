@@ -13,5 +13,7 @@ object Constants {
 
     val TEMP_FEATURE_IMAGE_DIR = FileOperator.getCachePath("temp_feature_image")
 
+    const val TEMP_FEATURE_IMAGE_NAME = "temp_feature_image.jpg"
+
     val FEATURE_IMAGE_DIR = FileOperator.getFilesPath("feature_image")
 }

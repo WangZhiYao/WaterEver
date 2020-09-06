@@ -145,7 +145,7 @@ class NewPlantFeatureImageFragment : BaseFragment(), PermissionManager.OnPermiss
                 Uri.fromFile(
                     File(
                         Constants.TEMP_FEATURE_IMAGE_DIR,
-                        "${System.currentTimeMillis()}.jpg"
+                        Constants.TEMP_FEATURE_IMAGE_NAME
                     )
                 )
             )
