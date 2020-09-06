@@ -17,19 +17,21 @@ import com.google.android.material.snackbar.Snackbar
 import com.yalantis.ucrop.UCrop
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
+import com.zhihu.matisse.engine.impl.GlideEngine
+import com.zhihu.matisse.internal.entity.CaptureStrategy
 import dagger.hilt.android.AndroidEntryPoint
 import me.zhiyao.waterever.R
 import me.zhiyao.waterever.config.GlideApp
-import me.zhiyao.waterever.config.GlideEngine
+import me.zhiyao.waterever.constants.Constants
 import me.zhiyao.waterever.constants.RequestCode
 import me.zhiyao.waterever.databinding.FragmentNewPlantFeatureImageBinding
 import me.zhiyao.waterever.exts.checkSelfPermissionCompat
 import me.zhiyao.waterever.exts.requestPermissionsCompat
-import me.zhiyao.waterever.exts.shouldShowRequestPermissionRationaleCompat
 import me.zhiyao.waterever.exts.showSnackBar
 import me.zhiyao.waterever.log.Logger
 import me.zhiyao.waterever.ui.base.BaseFragment
 import me.zhiyao.waterever.ui.plant.create.NewPlantViewModel
+import me.zhiyao.waterever.utils.PermissionManager
 import java.io.File
 
 /**
@@ -38,7 +40,7 @@ import java.io.File
  * @date 2020/9/3
  */
 @AndroidEntryPoint
-class NewPlantFeatureImageFragment : BaseFragment() {
+class NewPlantFeatureImageFragment : BaseFragment(), PermissionManager.OnPermissionListener {
 
     companion object {
         private const val TAG = "NewPlantFeatureImageFragment"
@@ -47,6 +49,8 @@ class NewPlantFeatureImageFragment : BaseFragment() {
     private lateinit var binding: FragmentNewPlantFeatureImageBinding
 
     private val viewModel by activityViewModels<NewPlantViewModel>()
+
+    private var permissionManager: PermissionManager? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -75,18 +79,20 @@ class NewPlantFeatureImageFragment : BaseFragment() {
     }
 
     private fun attemptToShowImageSelector() {
-        if (checkSelfPermissionCompat(Manifest.permission.READ_EXTERNAL_STORAGE) ==
-            PackageManager.PERMISSION_GRANTED
+        if (checkSelfPermissionCompat(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+            && checkSelfPermissionCompat(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
         ) {
             openImageSelector()
         } else {
-            requestExternalStoragePermission()
+            requestPermission()
         }
     }
 
     private fun openImageSelector() {
         Matisse.from(this)
             .choose(MimeType.ofImage())
+            .capture(true)
+            .captureStrategy(CaptureStrategy(true, Constants.IMAGE_AUTHORITY))
             .maxSelectable(1)
             .spanCount(3)
             .theme(R.style.MatisseStyle)
@@ -94,27 +100,17 @@ class NewPlantFeatureImageFragment : BaseFragment() {
             .forResult(RequestCode.IMAGE_SELECTION)
     }
 
-    private fun requestExternalStoragePermission() {
-        if (shouldShowRequestPermissionRationaleCompat(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            binding.root.showSnackBar(
-                R.string.external_storage_required,
-                Snackbar.LENGTH_INDEFINITE, R.string.permissions_permit
-            ) {
-                requestPermissionsCompat(
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                    RequestCode.READ_WRITE_EXTERNAL_STORAGE
-                )
-            }
-        } else {
-            binding.root.showSnackBar(
-                R.string.external_storage_not_available,
-                Snackbar.LENGTH_SHORT
+    private fun requestPermission() {
+        permissionManager = PermissionManager.with(this)
+            .permissions(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA
             )
-            requestPermissionsCompat(
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                RequestCode.READ_WRITE_EXTERNAL_STORAGE
-            )
-        }
+            .requestCode(RequestCode.READ_WRITE_EXTERNAL_STORAGE)
+            .setOnPermissionListener(this)
+
+        permissionManager!!.request()
     }
 
     private fun openImageCrop(sourcePath: String) {
@@ -146,7 +142,12 @@ class NewPlantFeatureImageFragment : BaseFragment() {
 
             UCrop.of(
                 Uri.fromFile(File(sourcePath)),
-                Uri.fromFile(File(requireContext().cacheDir, "plant_feature_temp"))
+                Uri.fromFile(
+                    File(
+                        Constants.TEMP_FEATURE_IMAGE_DIR,
+                        "${System.currentTimeMillis()}.jpg"
+                    )
+                )
             )
                 .withAspectRatio(1f, 1f)
                 .withOptions(options)
@@ -170,14 +171,26 @@ class NewPlantFeatureImageFragment : BaseFragment() {
         permissions: Array<String>,
         grantResults: IntArray
     ) {
-        if (requestCode == RequestCode.READ_WRITE_EXTERNAL_STORAGE) {
-            if (checkSelfPermissionCompat(Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                PackageManager.PERMISSION_GRANTED
-            ) {
-                openImageSelector()
-            } else {
-                binding.root.showSnackBar(R.string.permissions_denied, Snackbar.LENGTH_SHORT)
-            }
+        permissionManager?.onPermissionResult(permissions.toMutableList(), grantResults)
+    }
+
+    override fun onGranted() {
+        openImageSelector()
+    }
+
+    override fun onDenied() {
+        binding.root.showSnackBar(R.string.permissions_denied, Snackbar.LENGTH_SHORT)
+    }
+
+    override fun onShowRationale(permissions: List<String>) {
+        binding.root.showSnackBar(
+            R.string.external_storage_required,
+            Snackbar.LENGTH_INDEFINITE, R.string.permissions_permit
+        ) {
+            requestPermissionsCompat(
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA),
+                RequestCode.READ_WRITE_EXTERNAL_STORAGE
+            )
         }
     }
 

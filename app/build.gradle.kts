@@ -110,4 +110,8 @@ dependencies {
 
     // UCrop
     implementation("com.github.yalantis:ucrop:2.2.6")
+
+    // FileOperator
+    implementation("ando.file:core:1.0.0")
+    implementation("ando.file:android-q:1.0.0")
 }

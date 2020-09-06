@@ -50,7 +50,6 @@ class NewPlantViewModel @ViewModelInject constructor(
         emit(plantId)
     }
 
-
     fun setAddPlantComplete(complete: Boolean) {
         addPlantComplete.value = complete
     }

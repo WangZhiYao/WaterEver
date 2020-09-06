@@ -1,5 +1,6 @@
 package me.zhiyao.waterever.ui.plant.create.description
 
+import ando.file.core.FileUtils
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +10,14 @@ import androidx.fragment.app.activityViewModels
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import me.zhiyao.waterever.R
+import me.zhiyao.waterever.constants.Constants
 import me.zhiyao.waterever.constants.PlantState
 import me.zhiyao.waterever.data.db.model.Plant
 import me.zhiyao.waterever.databinding.FragmentNewPlantDescriptionBinding
 import me.zhiyao.waterever.exts.showSnackBar
 import me.zhiyao.waterever.ui.base.BaseFragment
 import me.zhiyao.waterever.ui.plant.create.NewPlantViewModel
+import java.io.File
 
 /**
  *
@@ -45,6 +48,19 @@ class NewPlantDescriptionFragment : BaseFragment() {
     }
 
     private fun savePlant() {
+        viewModel.plantFeatureImage?.let { imagePath ->
+            val fileName = "${System.currentTimeMillis()}.jpg"
+            if (FileUtils.copyFile(
+                    File(imagePath),
+                    fileName,
+                    Constants.FEATURE_IMAGE_DIR
+                )
+            ) {
+                viewModel.plantFeatureImage =
+                    File(Constants.FEATURE_IMAGE_DIR, fileName).absolutePath
+            }
+        }
+
         val plant = Plant(
             viewModel.plantName!!,
             PlantState.ALIVE,
@@ -53,6 +69,7 @@ class NewPlantDescriptionFragment : BaseFragment() {
             binding.etNewPlantDescription.text.toString(),
             System.currentTimeMillis()
         )
+
         viewModel.addPlant(plant, viewModel.plantTagIds).observe(viewLifecycleOwner, { plantId ->
             if (plantId == -1L) {
                 binding.root.showSnackBar(R.string.new_plant_failed, Snackbar.LENGTH_SHORT)
