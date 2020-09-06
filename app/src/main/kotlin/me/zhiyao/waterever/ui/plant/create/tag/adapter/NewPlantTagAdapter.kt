@@ -68,7 +68,7 @@ class NewPlantTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 }
             }
             VIEW_TYPE_EMPTY -> (holder as TipsViewHolder).bind(
-                holder.itemView.context.getString(R.string.categories_empty_notice)
+                holder.itemView.context.getString(R.string.new_plant_tag_empty_notice)
             )
         }
     }

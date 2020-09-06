@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">WaterEver</string>
 
+    <!-- MainActivity -->
     <string name="nav_header_title">WaterEver</string>
     <string name="nav_header_subtitle">Made with ❤ by 339</string>
 
@@ -10,36 +11,39 @@
     <string name="main_menu_more">更多</string>
     <string name="main_menu_settings">设置</string>
 
+    <!-- NewPlantActivity -->
     <string name="new_plant_label">新植物</string>
-    <string name="new_plant_next_step">下一步</string>
-    <string name="new_plant_category">分类</string>
-    <string name="new_plant_no_category">未分类</string>
-    <string name="new_plant_no_tag">无标签</string>
-    <string name="new_plant_complete">完成</string>
     <string name="new_plant_failed">添加植物失败</string>
 
+    <!-- NewPlantNameFragment -->
     <string name="new_plant_name_label">名称(1/5)</string>
     <string name="new_plant_name">植物名称</string>
     <string name="new_plant_name_can_not_be_empty">请填写植物名</string>
+    <string name="new_plant_name_next_step">下一步</string>
 
+    <!-- NewPlantFeatureImageFragment -->
     <string name="new_plant_feature_image_label">图片(2/5)</string>
     <string name="new_plant_feature_image_skip">跳过</string>
     <string name="new_plant_feature_image_next_step">下一步</string>
 
+    <!-- NewPlantCategoryFragment -->
     <string name="new_plant_category_label">分类(3/5)</string>
-    <string name="new_plant_category_empty_notice">暂无标签，点击右上角添加</string>
+    <string name="new_plant_category_empty_notice">暂无分类，点击右上角添加</string>
     <string name="new_plant_category_skip">跳过</string>
     <string name="new_plant_category_next_step">下一步</string>
 
+    <!-- NewPlantTagFragment -->
     <string name="new_plant_tag_label">标签(4/5)</string>
     <string name="new_plant_tag_empty_notice">暂无标签，点击右上角添加</string>
     <string name="new_plant_tag_skip">跳过</string>
     <string name="new_plant_tag_next_step">下一步</string>
 
+    <!-- NewPlantDescriptionFragment -->
     <string name="new_plant_description_label">备注(5/5)</string>
     <string name="new_plant_description">添加备注</string>
     <string name="new_plant_description_complete">完成</string>
 
+    <!-- CategoriesActivity -->
     <string name="categories_label">分类</string>
     <string name="categories_empty_notice">暂无分类，点击右上角添加</string>
     <string name="categories_new">新增分类</string>
@@ -49,6 +53,7 @@
     <string name="dialog_categories_new">新增分类</string>
     <string name="dialog_categories_add">添加</string>
 
+    <!-- TagsActivity -->
     <string name="tags_label">标签</string>
     <string name="tags_empty_notice">暂无标签，点击右上角添加</string>
     <string name="tags_new">新增标签</string>
@@ -58,6 +63,7 @@
     <string name="dialog_tags_new">新增标签</string>
     <string name="dialog_tags_add">添加</string>
 
+    <!-- SettingsActivity -->
     <string name="settings_label">设置</string>
 
     <string name="home_plant_recent_record">最近活动：%s</string>

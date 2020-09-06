@@ -9,7 +9,6 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="home_card_corner_radius">4dp</dimen>
-    <dimen name="new_plant_card_corner_radius">8dp</dimen>
 
     <dimen name="margin_8dp">8dp</dimen>
     <dimen name="margin_16dp">16dp</dimen>

@@ -39,7 +39,7 @@
         android:layout_marginStart="@dimen/margin_16dp"
         android:layout_marginEnd="@dimen/margin_16dp"
         android:layout_marginBottom="@dimen/margin_16dp"
-        android:text="@string/new_plant_next_step"
+        android:text="@string/new_plant_name_next_step"
         android:textColor="@android:color/white"
         app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
