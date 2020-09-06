@@ -13,14 +13,14 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import coil.api.load
-import coil.transform.CircleCropTransformation
 import com.google.android.material.snackbar.Snackbar
 import com.yalantis.ucrop.UCrop
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import dagger.hilt.android.AndroidEntryPoint
 import me.zhiyao.waterever.R
+import me.zhiyao.waterever.config.GlideApp
+import me.zhiyao.waterever.config.GlideEngine
 import me.zhiyao.waterever.constants.RequestCode
 import me.zhiyao.waterever.databinding.FragmentNewPlantFeatureImageBinding
 import me.zhiyao.waterever.exts.checkSelfPermissionCompat
@@ -30,7 +30,6 @@ import me.zhiyao.waterever.exts.showSnackBar
 import me.zhiyao.waterever.log.Logger
 import me.zhiyao.waterever.ui.base.BaseFragment
 import me.zhiyao.waterever.ui.plant.create.NewPlantViewModel
-import me.zhiyao.waterever.utils.CoilImageEngine
 import java.io.File
 
 /**
@@ -91,7 +90,7 @@ class NewPlantFeatureImageFragment : BaseFragment() {
             .maxSelectable(1)
             .spanCount(3)
             .theme(R.style.MatisseStyle)
-            .imageEngine(CoilImageEngine())
+            .imageEngine(GlideEngine())
             .forResult(RequestCode.IMAGE_SELECTION)
     }
 
@@ -159,9 +158,10 @@ class NewPlantFeatureImageFragment : BaseFragment() {
 
     private fun setFeatureImage(imagePath: String) {
         viewModel.plantFeatureImage = imagePath
-        binding.ivPlantFeatureImage.load(File(imagePath)) {
-            transformations(CircleCropTransformation())
-        }
+        GlideApp.with(binding.ivPlantFeatureImage)
+            .load(imagePath)
+            .circleCrop()
+            .into(binding.ivPlantFeatureImage)
         binding.btnNext.setText(R.string.new_plant_feature_image_next_step)
     }
 

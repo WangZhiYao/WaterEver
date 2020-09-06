@@ -90,8 +90,9 @@ dependencies {
     implementation("androidx.navigation:navigation-ui:2.3.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.3.0")
 
-    // Coil
-    implementation("io.coil-kt:coil:0.11.0")
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.11.0")
+    kapt("com.github.bumptech.glide:compiler:4.11.0")
 
     // Matisse
     implementation("com.zhihu.android:matisse:0.5.3-beta3")

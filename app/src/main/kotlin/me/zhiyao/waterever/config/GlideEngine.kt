@@ -1,11 +1,9 @@
-package me.zhiyao.waterever.utils
+package me.zhiyao.waterever.config
 
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageView
-import coil.Coil
-import coil.request.LoadRequest
 import com.zhihu.matisse.engine.ImageEngine
 
 /**
@@ -13,7 +11,7 @@ import com.zhihu.matisse.engine.ImageEngine
  * @author WangZhiYao
  * @date 2020/8/18
  */
-class CoilImageEngine : ImageEngine {
+class GlideEngine : ImageEngine {
     override fun loadImage(
         context: Context?,
         resizeX: Int,
@@ -21,19 +19,12 @@ class CoilImageEngine : ImageEngine {
         imageView: ImageView?,
         uri: Uri?
     ) {
+
         if (context != null && imageView != null) {
-
-            imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-
-            val imageLoader = Coil.imageLoader(context)
-
-            val request = LoadRequest.Builder(context)
-                .data(uri)
-                .size(resizeX, resizeY)
-                .target(imageView)
-                .build()
-
-            imageLoader.execute(request)
+            GlideApp.with(context)
+                .load(uri)
+                .override(resizeX, resizeY)
+                .into(imageView)
         }
     }
 
@@ -44,7 +35,12 @@ class CoilImageEngine : ImageEngine {
         imageView: ImageView?,
         uri: Uri?
     ) {
-
+        if (context != null && imageView != null) {
+            GlideApp.with(context)
+                .load(uri)
+                .override(resizeX, resizeY)
+                .into(imageView)
+        }
     }
 
     override fun supportAnimatedGif(): Boolean {
@@ -58,7 +54,13 @@ class CoilImageEngine : ImageEngine {
         imageView: ImageView?,
         uri: Uri?
     ) {
-
+        if (context != null && imageView != null) {
+            GlideApp.with(context)
+                .load(uri)
+                .override(resize)
+                .placeholder(placeholder)
+                .into(imageView)
+        }
     }
 
     override fun loadThumbnail(
@@ -69,18 +71,11 @@ class CoilImageEngine : ImageEngine {
         uri: Uri?
     ) {
         if (context != null && imageView != null) {
-            imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-
-            val imageLoader = Coil.imageLoader(context)
-
-            val request = LoadRequest.Builder(context)
-                .data(uri)
-                .size(resize)
+            GlideApp.with(context)
+                .load(uri)
+                .override(resize)
                 .placeholder(placeholder)
-                .target(imageView)
-                .build()
-
-            imageLoader.execute(request)
+                .into(imageView)
         }
     }
 }
