@@ -66,27 +66,11 @@ class NewPlantCategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                     )
 
                     holder.itemView.setOnClickListener {
-                        if (selectedCategory == category) {
-                            selectedCategory = null
+                        selectedCategory = if (selectedCategory == category) {
+                            null
                         } else {
-                            var lastPosition: Int? = null
-
-                            if (selectedCategory != null) {
-                                categories?.let { categories ->
-                                    for ((index, value) in categories.withIndex()) {
-                                        if (value == selectedCategory) {
-                                            lastPosition = index
-                                            break
-                                        }
-                                    }
-                                }
-                            }
-
-                            selectedCategory = category
-
-                            lastPosition?.let {
-                                notifyItemChanged(it)
-                            }
+                            removeLastSelected()
+                            category
                         }
 
                         onCategoryClickListener?.onCategoryClicked(selectedCategory)
@@ -105,6 +89,20 @@ class NewPlantCategoryAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
     override fun getItemViewType(position: Int): Int =
         if (categories.isNullOrEmpty()) VIEW_TYPE_EMPTY else VIEW_TYPE_CATEGORY
+
+    private fun removeLastSelected() {
+        if (selectedCategory != null) {
+            categories?.let { categories ->
+                for ((index, value) in categories.withIndex()) {
+                    if (value == selectedCategory) {
+                        selectedCategory = null
+                        notifyItemChanged(index)
+                        return
+                    }
+                }
+            }
+        }
+    }
 
     interface OnCategoryClickListener {
 

@@ -73,7 +73,8 @@ class NewPlantTagAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    override fun getItemCount(): Int = tags?.size ?: 0
+    override fun getItemCount(): Int =
+        if (tags.isNullOrEmpty()) 1 else tags!!.size
 
     override fun getItemViewType(position: Int): Int =
         if (tags.isNullOrEmpty()) VIEW_TYPE_EMPTY else VIEW_TYPE_TAG
