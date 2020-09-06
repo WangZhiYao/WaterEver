@@ -11,6 +11,9 @@
     <string name="main_menu_more">更多</string>
     <string name="main_menu_settings">设置</string>
 
+    <!-- PlantsFragment -->
+    <string name="plants_empty_notice">暂无植物，点击右下角菜单添加</string>
+
     <!-- NewPlantActivity -->
     <string name="new_plant_label">新植物</string>
     <string name="new_plant_failed">添加植物失败</string>

@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import me.zhiyao.waterever.databinding.FragmentHomeBinding
+import me.zhiyao.waterever.log.Logger
 import me.zhiyao.waterever.ui.base.BaseFragment
 import me.zhiyao.waterever.ui.main.home.adapter.HomeItemAdapter
 
@@ -19,6 +20,10 @@ import me.zhiyao.waterever.ui.main.home.adapter.HomeItemAdapter
  */
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
+
+    companion object {
+        private const val TAG = "HomeFragment"
+    }
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -38,7 +43,11 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun initView() {
-        binding.rvHome.layoutManager = LinearLayoutManager(context)
+        try {
+            binding.rvHome.layoutManager = LinearLayoutManager(requireContext())
+        } catch (ex: IllegalStateException) {
+            Logger.e(TAG, ex)
+        }
 
         adapter = HomeItemAdapter()
         binding.rvHome.adapter = adapter

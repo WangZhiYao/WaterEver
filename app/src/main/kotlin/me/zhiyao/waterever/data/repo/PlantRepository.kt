@@ -7,6 +7,7 @@ import androidx.paging.map
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import me.zhiyao.waterever.data.db.dao.*
+import me.zhiyao.waterever.data.db.entities.PlantWithCategoryTags
 import me.zhiyao.waterever.data.db.model.Category
 import me.zhiyao.waterever.data.db.model.Plant
 import me.zhiyao.waterever.data.db.model.Tag
@@ -43,6 +44,10 @@ class PlantRepository(
                 homeItemMapper.map(plantGrowthRecord)
             }
         }
+    }
+
+    fun getAllAlivePlants(): Flow<List<PlantWithCategoryTags>> {
+        return plantDao.queryAllAlivePlants()
     }
 
     fun getCategories(): Flow<List<Category>> {
