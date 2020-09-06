@@ -16,6 +16,6 @@ class CategoryViewHolder(private val binding: ItemCategoryBinding) :
     fun bind(category: Category, isSelectionMode: Boolean, isChecked: Boolean) {
         binding.tvCategoryName.text = category.name
         binding.cbCategory.visibility = if (isSelectionMode) View.VISIBLE else View.GONE
-        binding.cbCategory.isChecked = if (isSelectionMode) isChecked else false
+        binding.cbCategory.isChecked = isSelectionMode && isChecked
     }
 }

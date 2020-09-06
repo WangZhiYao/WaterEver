@@ -16,6 +16,6 @@ class TagViewHolder(private val binding: ItemTagBinding) :
     fun bind(tag: Tag, isSelectionMode: Boolean, isChecked: Boolean) {
         binding.tvTagName.text = tag.name
         binding.cbTag.visibility = if (isSelectionMode) View.VISIBLE else View.GONE
-        binding.cbTag.isChecked = if (isSelectionMode) isChecked else false
+        binding.cbTag.isChecked = isSelectionMode && isChecked
     }
 }

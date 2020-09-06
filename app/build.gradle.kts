@@ -4,6 +4,7 @@ plugins {
     kotlin("android.extensions")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
+    id("org.sonarqube").version("2.7")
 }
 
 android {
