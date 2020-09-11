@@ -3,6 +3,7 @@ package me.zhiyao.waterever.ui.plant.create.category
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +30,8 @@ class NewPlantCategoryFragment : BaseFragment(), NewPlantCategoryAdapter.OnCateg
 
     private lateinit var binding: FragmentNewPlantCategoryBinding
 
-    private val viewModel by activityViewModels<NewPlantViewModel>()
+    private val viewModel by viewModels<NewPlantCategoryViewModel>()
+    private val parentViewModel by activityViewModels<NewPlantViewModel>()
 
     private var adapter: NewPlantCategoryAdapter? = null
 
@@ -68,7 +70,7 @@ class NewPlantCategoryFragment : BaseFragment(), NewPlantCategoryAdapter.OnCateg
             adapter?.setCategories(categories)
         })
 
-        viewModel.plantCategoryId?.let { categoryId ->
+        parentViewModel.plantCategoryId?.let { categoryId ->
             viewModel.queryCategoryById(categoryId).observe(viewLifecycleOwner, { category ->
                 category?.run {
                     adapter?.setSelectedCategory(this)
@@ -95,7 +97,7 @@ class NewPlantCategoryFragment : BaseFragment(), NewPlantCategoryAdapter.OnCateg
     }
 
     override fun onCategoryClicked(selectedCategory: Category?) {
-        viewModel.plantCategoryId = selectedCategory?.id
+        parentViewModel.plantCategoryId = selectedCategory?.id
         binding.btnNext.setText(
             if (selectedCategory == null) R.string.new_plant_category_skip
             else R.string.new_plant_category_next_step

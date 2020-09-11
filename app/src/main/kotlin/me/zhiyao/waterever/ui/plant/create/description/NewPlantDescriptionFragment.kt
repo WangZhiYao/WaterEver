@@ -76,7 +76,7 @@ class NewPlantDescriptionFragment : BaseFragment() {
             } else {
                 Toast.makeText(requireContext(), R.string.new_plant_success, Toast.LENGTH_SHORT)
                     .show()
-                viewModel.setAddPlantComplete(true)
+                viewModel.setComplete(true)
             }
         })
     }

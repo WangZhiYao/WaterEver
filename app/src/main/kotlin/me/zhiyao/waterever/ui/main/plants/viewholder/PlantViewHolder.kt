@@ -8,7 +8,6 @@ import me.zhiyao.waterever.config.GlideRequest
 import me.zhiyao.waterever.data.db.entities.PlantWithCategoryTags
 import me.zhiyao.waterever.databinding.ItemPlantsPlantBinding
 import me.zhiyao.waterever.exts.dp2px
-import me.zhiyao.waterever.log.Logger
 import me.zhiyao.waterever.utils.BitmapUtils
 
 /**
@@ -20,15 +19,8 @@ class PlantViewHolder(
     private val binding: ItemPlantsPlantBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    companion object {
-        private const val TAG = "PlantViewHolder"
-    }
-
     fun bind(plantWithCategoryTags: PlantWithCategoryTags) {
-        Logger.d(TAG, plantWithCategoryTags.toString())
-
         val plant = plantWithCategoryTags.plant
-
 
         binding.ivPlantFeatureImage.run {
             val requests = GlideApp.with(this)

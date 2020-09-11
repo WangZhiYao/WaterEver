@@ -3,6 +3,7 @@ package me.zhiyao.waterever.ui.plant.create.tag
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +29,8 @@ class NewPlantTagFragment : BaseFragment(), NewPlantTagAdapter.OnTagClickListene
 
     private lateinit var binding: FragmentNewPlantTagBinding
 
-    private val viewModel by activityViewModels<NewPlantViewModel>()
+    private val viewModel by viewModels<NewPlantTagViewModel>()
+    private val parentViewModel by activityViewModels<NewPlantViewModel>()
 
     private var adapter: NewPlantTagAdapter? = null
 
@@ -59,7 +61,7 @@ class NewPlantTagFragment : BaseFragment(), NewPlantTagAdapter.OnTagClickListene
 
         binding.btnNext.setOnClickListener {
             adapter?.selectedList?.let { tagIds ->
-                viewModel.plantTagIds = tagIds
+                parentViewModel.plantTagIds = tagIds
             }
 
             findNavController().navigate(R.id.action_tag_to_description)
@@ -70,7 +72,7 @@ class NewPlantTagFragment : BaseFragment(), NewPlantTagAdapter.OnTagClickListene
         viewModel.tags.observe(viewLifecycleOwner, { tags ->
             adapter?.setTags(tags)
         })
-        viewModel.plantTagIds?.let {
+        parentViewModel.plantTagIds?.let {
             adapter?.selectedList = it.toMutableList()
         }
     }
