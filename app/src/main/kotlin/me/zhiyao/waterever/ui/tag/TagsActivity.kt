@@ -1,11 +1,11 @@
 package me.zhiyao.waterever.ui.tag
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
@@ -33,9 +33,9 @@ class TagsActivity : BaseActivity(), TagAdapter.OnItemLongClickListener {
     private lateinit var adapter: TagAdapter
 
     companion object {
-        fun start(fragment: Fragment) {
-            val intent = Intent(fragment.requireContext(), TagsActivity::class.java)
-            fragment.startActivity(intent)
+        fun start(context: Context) {
+            val intent = Intent(context, TagsActivity::class.java)
+            context.startActivity(intent)
         }
     }
 

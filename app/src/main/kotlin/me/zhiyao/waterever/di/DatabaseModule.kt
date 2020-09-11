@@ -10,7 +10,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import me.zhiyao.waterever.data.db.AppDatabase
-import me.zhiyao.waterever.data.db.dao.*
 import me.zhiyao.waterever.data.db.ioThread
 import javax.inject.Singleton
 
@@ -27,8 +26,8 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext appContext: Context): AppDatabase {
-        return Room.databaseBuilder(appContext, AppDatabase::class.java, DB_NAME)
+    fun provideDatabase(@ApplicationContext appContext: Context) =
+        Room.databaseBuilder(appContext, AppDatabase::class.java, DB_NAME)
             .addCallback(object : RoomDatabase.Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
                     super.onCreate(db)
@@ -38,35 +37,34 @@ object DatabaseModule {
                 }
             })
             .build()
-    }
 
     @Provides
     @Singleton
-    fun providePlantDao(appDatabase: AppDatabase): PlantDao {
-        return appDatabase.plantDao()
-    }
+    fun providePlantDao(appDatabase: AppDatabase) =
+        appDatabase.plantDao()
 
     @Provides
     @Singleton
-    fun provideCategoryDao(appDatabase: AppDatabase): CategoryDao {
-        return appDatabase.categoryDao()
-    }
+    fun provideCategoryDao(appDatabase: AppDatabase) =
+        appDatabase.categoryDao()
 
     @Provides
     @Singleton
-    fun provideTagDao(appDatabase: AppDatabase): TagDao {
-        return appDatabase.tagDao()
-    }
+    fun provideTagDao(appDatabase: AppDatabase) =
+        appDatabase.tagDao()
 
     @Provides
     @Singleton
-    fun provideGrowthRecordDao(appDatabase: AppDatabase): GrowthRecordDao {
-        return appDatabase.growthRecordDao()
-    }
+    fun providePlantTagRelationDao(appDatabase: AppDatabase) =
+        appDatabase.plantTagRelationDao()
 
     @Provides
     @Singleton
-    fun providePlantTagRelationDao(appDatabase: AppDatabase): PlantTagRelationDao {
-        return appDatabase.plantTagRelationDao()
-    }
+    fun provideGrowthRecordDao(appDatabase: AppDatabase) =
+        appDatabase.growthRecordDao()
+
+    @Provides
+    @Singleton
+    fun provideImageDao(appDatabase: AppDatabase) =
+        appDatabase.imageDao()
 }

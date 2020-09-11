@@ -7,7 +7,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import me.zhiyao.waterever.data.db.model.Category
-import me.zhiyao.waterever.data.repo.PlantRepository
+import me.zhiyao.waterever.data.repo.CategoryRepository
 
 /**
  *
@@ -15,21 +15,21 @@ import me.zhiyao.waterever.data.repo.PlantRepository
  * @date 2020/8/19
  */
 class CategoriesViewModel @ViewModelInject constructor(
-    private val plantRepository: PlantRepository
+    private val categoryRepository: CategoryRepository
 ) : ViewModel() {
 
     val categories: LiveData<List<Category>> =
-        plantRepository.getCategories().asLiveData()
+        categoryRepository.getCategories().asLiveData()
 
     fun addCategory(category: Category) {
         viewModelScope.launch {
-            plantRepository.addCategory(category)
+            categoryRepository.addCategory(category)
         }
     }
 
     fun deleteCategories(categories: List<Category>) {
         viewModelScope.launch {
-            plantRepository.deleteCategories(categories)
+            categoryRepository.deleteCategories(categories)
         }
     }
 }

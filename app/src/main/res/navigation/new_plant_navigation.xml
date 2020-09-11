@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/new_plant_navigation"
-    app:startDestination="@id/fg_plant_name">
+    app:startDestination="@id/fg_new_plant_name">
 
     <fragment
-        android:id="@+id/fg_plant_name"
+        android:id="@+id/fg_new_plant_name"
         android:name="me.zhiyao.waterever.ui.plant.create.name.NewPlantNameFragment"
         android:label="@string/new_plant_name_label"
         tools:layout="@layout/fragment_new_plant_name">
         <action
             android:id="@+id/action_name_to_feature_image"
-            app:destination="@id/fg_plant_feature_image"
+            app:destination="@id/fg_new_plant_feature_image"
             app:enterAnim="@anim/anim_slide_right_in"
             app:exitAnim="@anim/anim_slide_left_out"
             app:popEnterAnim="@anim/anim_slide_left_in"
@@ -20,13 +20,13 @@
     </fragment>
 
     <fragment
-        android:id="@+id/fg_plant_feature_image"
+        android:id="@+id/fg_new_plant_feature_image"
         android:name="me.zhiyao.waterever.ui.plant.create.feature.NewPlantFeatureImageFragment"
         android:label="@string/new_plant_feature_image_label"
         tools:layout="@layout/fragment_new_plant_feature_image">
         <action
             android:id="@+id/action_feature_image_to_category"
-            app:destination="@id/fg_plant_category"
+            app:destination="@id/fg_new_plant_category"
             app:enterAnim="@anim/anim_slide_right_in"
             app:exitAnim="@anim/anim_slide_left_out"
             app:popEnterAnim="@anim/anim_slide_left_in"
@@ -34,13 +34,13 @@
     </fragment>
 
     <fragment
-        android:id="@+id/fg_plant_category"
+        android:id="@+id/fg_new_plant_category"
         android:name="me.zhiyao.waterever.ui.plant.create.category.NewPlantCategoryFragment"
         android:label="@string/new_plant_category_label"
         tools:layout="@layout/fragment_new_plant_category">
         <action
             android:id="@+id/action_category_to_tag"
-            app:destination="@id/fg_plant_tag"
+            app:destination="@id/fg_new_plant_tag"
             app:enterAnim="@anim/anim_slide_right_in"
             app:exitAnim="@anim/anim_slide_left_out"
             app:popEnterAnim="@anim/anim_slide_left_in"
@@ -48,13 +48,13 @@
     </fragment>
 
     <fragment
-        android:id="@+id/fg_plant_tag"
+        android:id="@+id/fg_new_plant_tag"
         android:name="me.zhiyao.waterever.ui.plant.create.tag.NewPlantTagFragment"
         android:label="@string/new_plant_tag_label"
         tools:layout="@layout/fragment_new_plant_tag">
         <action
             android:id="@+id/action_tag_to_description"
-            app:destination="@id/fg_plant_description"
+            app:destination="@id/fg_new_plant_description"
             app:enterAnim="@anim/anim_slide_right_in"
             app:exitAnim="@anim/anim_slide_left_out"
             app:popEnterAnim="@anim/anim_slide_left_in"
@@ -62,9 +62,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/fg_plant_description"
+        android:id="@+id/fg_new_plant_description"
         android:name="me.zhiyao.waterever.ui.plant.create.description.NewPlantDescriptionFragment"
         android:label="@string/new_plant_description_label"
-        tools:layout="@layout/fragment_new_plant_description"></fragment>
+        tools:layout="@layout/fragment_new_plant_description" />
 
 </navigation>

@@ -1,12 +1,13 @@
 package me.zhiyao.waterever.ui.plant.create
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
-import me.zhiyao.waterever.data.db.model.Category
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import me.zhiyao.waterever.data.db.model.Plant
-import me.zhiyao.waterever.data.db.model.Tag
 import me.zhiyao.waterever.data.db.model.relations.PlantTagRelation
 import me.zhiyao.waterever.data.repo.PlantRepository
+import me.zhiyao.waterever.data.repo.PlantTagRelationRepository
 
 /**
  *
@@ -14,10 +15,11 @@ import me.zhiyao.waterever.data.repo.PlantRepository
  * @date 2020/8/18
  */
 class NewPlantViewModel @ViewModelInject constructor(
-    private val plantRepository: PlantRepository
+    private val plantRepository: PlantRepository,
+    private val plantTagRelationRepository: PlantTagRelationRepository
 ) : ViewModel() {
 
-    private val addPlantComplete: MutableLiveData<Boolean> = MutableLiveData()
+    private val complete = MutableLiveData<Boolean>()
 
     var plantName: String? = null
 
@@ -27,16 +29,7 @@ class NewPlantViewModel @ViewModelInject constructor(
 
     var plantTagIds: List<Long>? = null
 
-    val categories: LiveData<List<Category>> =
-        plantRepository.getCategories().asLiveData()
-
-    val tags: LiveData<List<Tag>> =
-        plantRepository.getTags().asLiveData()
-
-    fun queryCategoryById(categoryId: Long): LiveData<Category?> =
-        plantRepository.queryCategoryById(categoryId).asLiveData()
-
-    fun addPlant(plant: Plant, tagIds: List<Long>?): LiveData<Long?> = liveData {
+    fun addPlant(plant: Plant, tagIds: List<Long>?) = liveData {
         val plantId = plantRepository.addPlant(plant)
         if (plantId != -1) {
             tagIds?.let {
@@ -44,17 +37,15 @@ class NewPlantViewModel @ViewModelInject constructor(
                 for (tagId in it) {
                     plantTagRelationList.add(PlantTagRelation(plantId, tagId))
                 }
-                plantRepository.addPlantTagRelation(plantTagRelationList)
+                plantTagRelationRepository.addPlantTagRelation(plantTagRelationList)
             }
         }
         emit(plantId)
     }
 
-    fun setAddPlantComplete(complete: Boolean) {
-        addPlantComplete.value = complete
+    fun setComplete(complete: Boolean) {
+        this.complete.value = complete
     }
 
-    fun isAddPlantComplete(): LiveData<Boolean> {
-        return addPlantComplete
-    }
+    fun isCompleted() = complete
 }

@@ -10,7 +10,7 @@ import me.zhiyao.waterever.ui.main.home.entity.HomeItem
  */
 class HomeItemMapper : BaseMapper<PlantGrowthRecord, HomeItem> {
 
-    override fun map(input: PlantGrowthRecord): HomeItem =
+    override fun map(input: PlantGrowthRecord) =
         HomeItem(
             input.plantWithCategoryTags.plant,
             input.plantWithCategoryTags.category,

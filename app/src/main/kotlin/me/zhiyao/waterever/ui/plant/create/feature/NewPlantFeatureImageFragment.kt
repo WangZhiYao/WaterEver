@@ -68,6 +68,7 @@ class NewPlantFeatureImageFragment : BaseFragment(), PermissionManager.OnPermiss
             attemptToShowImageSelector()
         }
         binding.btnNext.setOnClickListener {
+            it.isEnabled = false
             findNavController().navigate(R.id.action_feature_image_to_category)
         }
     }

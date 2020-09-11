@@ -41,7 +41,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initView() {
-        navController = findNavController(R.id.main_nav_host_fragment)
+        navController = findNavController(R.id.main_nav_host)
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home,

@@ -13,21 +13,26 @@ import me.zhiyao.waterever.constants.ReminderType
 class Converters {
 
     @TypeConverter
-    fun fromPlantState(plantState: PlantState): Int = plantState.getId()
+    fun fromPlantState(plantState: PlantState) =
+        plantState.getId()
 
     @TypeConverter
-    fun toPlantState(plantStateId: Int): PlantState? = PlantState.getPlantState(plantStateId)
+    fun toPlantState(plantStateId: Int) =
+        PlantState.getPlantState(plantStateId)
 
     @TypeConverter
-    fun fromGrowthRecordType(growthRecordType: GrowthRecordType): Int = growthRecordType.getId()
+    fun fromGrowthRecordType(growthRecordType: GrowthRecordType) =
+        growthRecordType.getId()
 
     @TypeConverter
-    fun toGrowthRecordType(growthRecordTypeId: Int): GrowthRecordType? =
+    fun toGrowthRecordType(growthRecordTypeId: Int) =
         GrowthRecordType.getPlantGrowthRecordType(growthRecordTypeId)
 
     @TypeConverter
-    fun formReminderType(reminderType: ReminderType): Int = reminderType.getId()
+    fun formReminderType(reminderType: ReminderType) =
+        reminderType.getId()
 
     @TypeConverter
-    fun toReminderType(id: Int): ReminderType? = ReminderType.getReminderType(id)
+    fun toReminderType(id: Int) =
+        ReminderType.getReminderType(id)
 }

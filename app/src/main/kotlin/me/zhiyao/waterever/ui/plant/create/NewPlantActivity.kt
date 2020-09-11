@@ -45,14 +45,14 @@ class NewPlantActivity : BaseActivity() {
     override fun showBack(): Boolean = false
 
     private fun initView() {
-        navController = findNavController(R.id.new_plant_nav_host_fragment)
+        navController = findNavController(R.id.new_plant_nav_host)
         val appBarConfiguration = AppBarConfiguration.Builder()
             .build()
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
     private fun initData() {
-        viewModel.isAddPlantComplete().observe(this, { isComplete ->
+        viewModel.isCompleted().observe(this, { isComplete ->
             if (isComplete) {
                 finish()
             }

@@ -7,7 +7,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import me.zhiyao.waterever.data.repo.PlantRepository
+import me.zhiyao.waterever.data.repo.GrowthRecordRepository
 import me.zhiyao.waterever.ui.main.home.entity.HomeItem
 
 /**
@@ -16,11 +16,11 @@ import me.zhiyao.waterever.ui.main.home.entity.HomeItem
  * @date 2020/6/28
  */
 class HomeViewModel @ViewModelInject constructor(
-    plantRepository: PlantRepository
+    private val growthRecordRepository: GrowthRecordRepository
 ) : ViewModel() {
 
     val growthRecordList: LiveData<PagingData<HomeItem>> =
-        plantRepository.getHomeItemList()
+        growthRecordRepository.getHomeItemList()
             .cachedIn(viewModelScope)
             .asLiveData()
 }

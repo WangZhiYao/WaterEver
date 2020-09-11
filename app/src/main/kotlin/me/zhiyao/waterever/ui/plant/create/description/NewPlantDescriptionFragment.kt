@@ -43,6 +43,7 @@ class NewPlantDescriptionFragment : BaseFragment() {
 
     private fun initView() {
         binding.btnComplete.setOnClickListener {
+            it.isEnabled = false
             savePlant()
         }
     }
@@ -76,7 +77,7 @@ class NewPlantDescriptionFragment : BaseFragment() {
             } else {
                 Toast.makeText(requireContext(), R.string.new_plant_success, Toast.LENGTH_SHORT)
                     .show()
-                viewModel.setAddPlantComplete(true)
+                viewModel.setComplete(true)
             }
         })
     }

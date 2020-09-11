@@ -70,6 +70,7 @@ class NewPlantNameFragment : BaseFragment() {
             binding.etNewPlantName.requestFocus()
             binding.etNewPlantName.error = getString(R.string.new_plant_name_can_not_be_empty)
         } else {
+            binding.btnNext.isEnabled = false
             viewModel.plantName = binding.etNewPlantName.text.toString()
             findNavController().navigate(R.id.action_name_to_feature_image)
         }

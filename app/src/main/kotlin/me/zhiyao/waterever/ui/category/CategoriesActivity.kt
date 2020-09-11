@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
@@ -37,11 +36,6 @@ class CategoriesActivity : BaseActivity(), CategoryAdapter.OnCategoryClickListen
         fun start(activity: Activity) {
             val intent = Intent(activity, CategoriesActivity::class.java)
             activity.startActivity(intent)
-        }
-
-        fun start(fragment: Fragment) {
-            val intent = Intent(fragment.requireContext(), CategoriesActivity::class.java)
-            fragment.startActivity(intent)
         }
     }
 
