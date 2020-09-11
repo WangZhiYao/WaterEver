@@ -66,7 +66,7 @@ dependencies {
 
     // Google
     implementation("com.google.android:flexbox:2.0.1")
-    implementation("com.google.android.material:material:1.2.0")
+    implementation("com.google.android.material:material:1.2.1")
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.28-alpha")
@@ -83,7 +83,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
 
     // Paging
-    implementation("androidx.paging:paging-runtime-ktx:3.0.0-alpha05")
+    implementation("androidx.paging:paging-runtime-ktx:3.0.0-alpha06")
 
     // Navigation
     implementation("androidx.navigation:navigation-fragment:2.3.0")
