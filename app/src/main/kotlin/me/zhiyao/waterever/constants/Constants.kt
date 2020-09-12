@@ -1,6 +1,6 @@
 package me.zhiyao.waterever.constants
 
-import ando.file.FileOperator
+import me.zhiyao.waterever.utils.StorageHelper
 
 /**
  *
@@ -11,7 +11,7 @@ object Constants {
 
     const val IMAGE_AUTHORITY = "me.zhiyao.waterever.fileprovider"
 
-    val CACHE_DIR = FileOperator.getCacheDir()
+    val CACHE_DIR = StorageHelper.getCacheDir()
 
-    val FEATURE_IMAGE_DIR = FileOperator.getFilesPath("feature_image")
+    val FEATURE_IMAGE_DIR = StorageHelper.getFileDir("feature_image")
 }

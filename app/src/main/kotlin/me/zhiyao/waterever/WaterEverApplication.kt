@@ -1,8 +1,8 @@
 package me.zhiyao.waterever
 
-import ando.file.FileOperator
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
+import me.zhiyao.waterever.utils.StorageHelper
 
 /**
  *
@@ -14,6 +14,6 @@ class WaterEverApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        FileOperator.init(this, BuildConfig.DEBUG)
+        StorageHelper.init(this)
     }
 }

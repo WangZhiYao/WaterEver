@@ -1,6 +1,5 @@
 package me.zhiyao.waterever.ui.plant.create.description
 
-import ando.file.core.FileUtils
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +15,7 @@ import me.zhiyao.waterever.databinding.FragmentNewPlantDescriptionBinding
 import me.zhiyao.waterever.exts.showSnackBar
 import me.zhiyao.waterever.ui.base.BaseFragment
 import me.zhiyao.waterever.ui.plant.create.NewPlantViewModel
+import me.zhiyao.waterever.utils.StorageHelper
 import java.io.File
 
 /**
@@ -49,15 +49,18 @@ class NewPlantDescriptionFragment : BaseFragment() {
 
     private fun savePlant() {
         viewModel.plantFeatureImage?.let { imagePath ->
-            val fileName = FileUtils.getFileNameFromPath(imagePath)
-            if (FileUtils.copyFile(
+            val fileName = StorageHelper.getFileNameFromPath(imagePath)
+            if (!StorageHelper.copyFile(
                     File(imagePath),
-                    fileName!!,
-                    Constants.FEATURE_IMAGE_DIR
+                    File(Constants.FEATURE_IMAGE_DIR, fileName!!)
                 )
             ) {
+                binding.root.showSnackBar(R.string.new_plant_failed)
+                return
+            } else {
                 viewModel.plantFeatureImage =
                     File(Constants.FEATURE_IMAGE_DIR, fileName).absolutePath
+                StorageHelper.delete(imagePath)
             }
         }
 
