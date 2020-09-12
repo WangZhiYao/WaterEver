@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import me.zhiyao.waterever.R
 import me.zhiyao.waterever.constants.Constants
@@ -42,7 +41,7 @@ class NewPlantDescriptionFragment : BaseFragment() {
     }
 
     private fun initView() {
-        binding.btnComplete.setOnClickListener {
+        binding.fabComplete.setOnClickListener {
             it.isEnabled = false
             savePlant()
         }
@@ -50,10 +49,10 @@ class NewPlantDescriptionFragment : BaseFragment() {
 
     private fun savePlant() {
         viewModel.plantFeatureImage?.let { imagePath ->
-            val fileName = "${System.currentTimeMillis()}.jpg"
+            val fileName = FileUtils.getFileNameFromPath(imagePath)
             if (FileUtils.copyFile(
                     File(imagePath),
-                    fileName,
+                    fileName!!,
                     Constants.FEATURE_IMAGE_DIR
                 )
             ) {
@@ -73,7 +72,7 @@ class NewPlantDescriptionFragment : BaseFragment() {
 
         viewModel.addPlant(plant, viewModel.plantTagIds).observe(viewLifecycleOwner, { plantId ->
             if (plantId == -1L) {
-                binding.root.showSnackBar(R.string.new_plant_failed, Snackbar.LENGTH_SHORT)
+                binding.root.showSnackBar(R.string.new_plant_failed)
             } else {
                 Toast.makeText(requireContext(), R.string.new_plant_success, Toast.LENGTH_SHORT)
                     .show()

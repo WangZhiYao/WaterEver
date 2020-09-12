@@ -14,6 +14,15 @@ import me.zhiyao.waterever.ui.widgets.TipsViewHolder
  * @author WangZhiYao
  * @date 2020/8/18
  */
+
+fun <T : View> T.showSnackBar(msgId: Int) {
+    showSnackBar(context.getString(msgId))
+}
+
+fun <T : View> T.showSnackBar(msg: String) {
+    showSnackBar(msg, Snackbar.LENGTH_SHORT)
+}
+
 fun <T : View> T.showSnackBar(msgId: Int, length: Int) {
     showSnackBar(context.getString(msgId), length)
 }

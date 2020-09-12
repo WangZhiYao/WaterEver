@@ -59,7 +59,7 @@ class NewPlantTagFragment : BaseFragment(), NewPlantTagAdapter.OnTagClickListene
 
         binding.rvNewPlantTag.adapter = adapter
 
-        binding.btnNext.setOnClickListener {
+        binding.fabNext.setOnClickListener {
             adapter?.selectedList?.let { tagIds ->
                 parentViewModel.plantTagIds = tagIds
             }
@@ -96,8 +96,9 @@ class NewPlantTagFragment : BaseFragment(), NewPlantTagAdapter.OnTagClickListene
     }
 
     override fun onTagClicked(tagIds: List<Long>) {
-        binding.btnNext.setText(
-            if (tagIds.isEmpty()) R.string.new_plant_tag_skip else R.string.new_plant_tag_next_step
+        binding.fabNext.setImageResource(
+            if (tagIds.isEmpty()) R.drawable.ic_menu_skip_white
+            else R.drawable.ic_menu_check_white
         )
     }
 }

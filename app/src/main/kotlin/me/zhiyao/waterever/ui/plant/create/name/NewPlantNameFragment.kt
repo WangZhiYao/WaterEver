@@ -48,7 +48,7 @@ class NewPlantNameFragment : BaseFragment() {
         }
 
         binding.etNewPlantName.doAfterTextChanged {
-            binding.btnNext.isEnabled = !it.isNullOrBlank()
+            binding.fabNext.isEnabled = !it.isNullOrBlank()
             binding.etNewPlantName.error = if (!it.isNullOrBlank()) {
                 null
             } else {
@@ -56,7 +56,7 @@ class NewPlantNameFragment : BaseFragment() {
             }
         }
 
-        binding.btnNext.setOnClickListener { next() }
+        binding.fabNext.setOnClickListener { next() }
     }
 
     private fun initData() {
@@ -70,7 +70,7 @@ class NewPlantNameFragment : BaseFragment() {
             binding.etNewPlantName.requestFocus()
             binding.etNewPlantName.error = getString(R.string.new_plant_name_can_not_be_empty)
         } else {
-            binding.btnNext.isEnabled = false
+            binding.fabNext.isEnabled = false
             viewModel.plantName = binding.etNewPlantName.text.toString()
             findNavController().navigate(R.id.action_name_to_feature_image)
         }

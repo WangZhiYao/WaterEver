@@ -22,29 +22,21 @@
     <string name="new_plant_name_label">名称(1/5)</string>
     <string name="new_plant_name">植物名称</string>
     <string name="new_plant_name_can_not_be_empty">请填写植物名</string>
-    <string name="new_plant_name_next_step">下一步</string>
 
     <!-- NewPlantFeatureImageFragment -->
     <string name="new_plant_feature_image_label">图片(2/5)</string>
-    <string name="new_plant_feature_image_skip">跳过</string>
-    <string name="new_plant_feature_image_next_step">下一步</string>
 
     <!-- NewPlantCategoryFragment -->
     <string name="new_plant_category_label">分类(3/5)</string>
     <string name="new_plant_category_empty_notice">暂无分类，点击右上角添加</string>
-    <string name="new_plant_category_skip">跳过</string>
-    <string name="new_plant_category_next_step">下一步</string>
 
     <!-- NewPlantTagFragment -->
     <string name="new_plant_tag_label">标签(4/5)</string>
     <string name="new_plant_tag_empty_notice">暂无标签，点击右上角添加</string>
-    <string name="new_plant_tag_skip">跳过</string>
-    <string name="new_plant_tag_next_step">下一步</string>
 
     <!-- NewPlantDescriptionFragment -->
     <string name="new_plant_description_label">备注(5/5)</string>
     <string name="new_plant_description">添加备注</string>
-    <string name="new_plant_description_complete">完成</string>
 
     <!-- CategoriesActivity -->
     <string name="categories_label">分类</string>

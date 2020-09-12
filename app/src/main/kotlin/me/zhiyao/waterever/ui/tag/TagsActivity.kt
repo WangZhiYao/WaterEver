@@ -9,7 +9,6 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import me.zhiyao.waterever.R
 import me.zhiyao.waterever.data.db.model.Tag
@@ -102,10 +101,7 @@ class TagsActivity : BaseActivity(), TagAdapter.OnItemLongClickListener {
             input(allowEmpty = false) { _, charSequence ->
                 val tagName = charSequence.toString()
                 if (adapter.isTagExist(tagName)) {
-                    binding.root.showSnackBar(
-                        R.string.tags_already_exist,
-                        Snackbar.LENGTH_SHORT
-                    )
+                    binding.root.showSnackBar(R.string.tags_already_exist)
                 } else {
                     viewModel.addTag(Tag(tagName, System.currentTimeMillis()))
                 }

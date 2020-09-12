@@ -60,7 +60,7 @@ class NewPlantCategoryFragment : BaseFragment(), NewPlantCategoryAdapter.OnCateg
 
         binding.rvCategories.adapter = adapter
 
-        binding.btnNext.setOnClickListener {
+        binding.fabNext.setOnClickListener {
             it.isEnabled = false
             findNavController().navigate(R.id.action_category_to_tag)
         }
@@ -99,9 +99,9 @@ class NewPlantCategoryFragment : BaseFragment(), NewPlantCategoryAdapter.OnCateg
 
     override fun onCategoryClicked(selectedCategory: Category?) {
         parentViewModel.plantCategoryId = selectedCategory?.id
-        binding.btnNext.setText(
-            if (selectedCategory == null) R.string.new_plant_category_skip
-            else R.string.new_plant_category_next_step
+        binding.fabNext.setImageResource(
+            if (selectedCategory == null) R.drawable.ic_menu_skip_white
+            else R.drawable.ic_menu_check_white
         )
     }
 }

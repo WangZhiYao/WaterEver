@@ -9,7 +9,6 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import me.zhiyao.waterever.R
 import me.zhiyao.waterever.data.db.model.Category
@@ -111,10 +110,7 @@ class CategoriesActivity : BaseActivity(), CategoryAdapter.OnCategoryClickListen
             input(allowEmpty = false) { _, charSequence ->
                 val category = charSequence.toString()
                 if (adapter.isCategoryExist(category)) {
-                    binding.root.showSnackBar(
-                        R.string.categories_already_exist,
-                        Snackbar.LENGTH_SHORT
-                    )
+                    binding.root.showSnackBar(R.string.categories_already_exist)
                 } else {
                     viewModel.addCategory(Category(category, System.currentTimeMillis()))
                 }

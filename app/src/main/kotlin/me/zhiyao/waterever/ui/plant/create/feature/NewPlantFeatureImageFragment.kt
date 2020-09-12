@@ -25,14 +25,13 @@ import me.zhiyao.waterever.config.GlideApp
 import me.zhiyao.waterever.constants.Constants
 import me.zhiyao.waterever.constants.RequestCode
 import me.zhiyao.waterever.databinding.FragmentNewPlantFeatureImageBinding
-import me.zhiyao.waterever.exts.checkSelfPermissionCompat
-import me.zhiyao.waterever.exts.requestPermissionsCompat
-import me.zhiyao.waterever.exts.showSnackBar
+import me.zhiyao.waterever.exts.*
 import me.zhiyao.waterever.log.Logger
 import me.zhiyao.waterever.ui.base.BaseFragment
 import me.zhiyao.waterever.ui.plant.create.NewPlantViewModel
 import me.zhiyao.waterever.utils.PermissionManager
 import java.io.File
+import java.util.*
 
 /**
  *
@@ -67,7 +66,7 @@ class NewPlantFeatureImageFragment : BaseFragment(), PermissionManager.OnPermiss
         binding.ivPlantFeatureImage.setOnClickListener {
             attemptToShowImageSelector()
         }
-        binding.btnNext.setOnClickListener {
+        binding.fabNext.setOnClickListener {
             it.isEnabled = false
             findNavController().navigate(R.id.action_feature_image_to_category)
         }
@@ -84,8 +83,18 @@ class NewPlantFeatureImageFragment : BaseFragment(), PermissionManager.OnPermiss
             && checkSelfPermissionCompat(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
         ) {
             openImageSelector()
-        } else {
+        } else if (shouldShowRequestPermissionRationaleCompat(Manifest.permission.CAMERA)
+            || shouldShowRequestPermissionRationaleCompat(Manifest.permission.READ_EXTERNAL_STORAGE)
+        ) {
             requestPermission()
+        } else {
+            binding.root.showSnackBar(
+                R.string.external_storage_required,
+                Snackbar.LENGTH_SHORT,
+                R.string.permissions_permit
+            ) {
+                requestPermission()
+            }
         }
     }
 
@@ -146,7 +155,7 @@ class NewPlantFeatureImageFragment : BaseFragment(), PermissionManager.OnPermiss
                 Uri.fromFile(
                     File(
                         Constants.CACHE_DIR,
-                        Constants.TEMP_FEATURE_IMAGE_NAME
+                        "${UUID.randomUUID().short()}.jpg"
                     )
                 )
             )
@@ -164,7 +173,7 @@ class NewPlantFeatureImageFragment : BaseFragment(), PermissionManager.OnPermiss
             .load(imagePath)
             .circleCrop()
             .into(binding.ivPlantFeatureImage)
-        binding.btnNext.setText(R.string.new_plant_feature_image_next_step)
+        binding.fabNext.setImageResource(R.drawable.ic_menu_check_white)
     }
 
     override fun onRequestPermissionsResult(
@@ -180,13 +189,14 @@ class NewPlantFeatureImageFragment : BaseFragment(), PermissionManager.OnPermiss
     }
 
     override fun onDenied() {
-        binding.root.showSnackBar(R.string.permissions_denied, Snackbar.LENGTH_SHORT)
+        binding.root.showSnackBar(R.string.permissions_denied)
     }
 
     override fun onShowRationale(permissions: List<String>) {
         binding.root.showSnackBar(
             R.string.external_storage_required,
-            Snackbar.LENGTH_INDEFINITE, R.string.permissions_permit
+            Snackbar.LENGTH_INDEFINITE,
+            R.string.permissions_permit
         ) {
             requestPermissionsCompat(
                 arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA),
@@ -218,10 +228,7 @@ class NewPlantFeatureImageFragment : BaseFragment(), PermissionManager.OnPermiss
                         UCrop.RESULT_ERROR -> {
                             val errorMessage =
                                 UCrop.getError(data)?.message ?: getString(R.string.error_unknown)
-                            binding.root.showSnackBar(
-                                errorMessage,
-                                Snackbar.LENGTH_SHORT
-                            )
+                            binding.root.showSnackBar(errorMessage)
                         }
                     }
                 }
