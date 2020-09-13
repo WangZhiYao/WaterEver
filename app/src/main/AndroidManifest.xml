@@ -26,9 +26,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.plant.create.NewPlantActivity"
-            android:label="@string/new_plant_label" />
+        <activity android:name=".ui.plant.create.NewPlantActivity" />
 
         <activity
             android:name=".ui.category.CategoriesActivity"
@@ -45,6 +43,10 @@
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:label="@string/settings_label" />
+
+        <activity
+            android:name=".ui.image.ImageViewerActivity"
+            android:theme="@style/AppTheme.FullScreen" />
 
         <!-- UCrop -->
         <activity

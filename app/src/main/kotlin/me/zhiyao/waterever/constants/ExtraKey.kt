@@ -7,5 +7,7 @@ package me.zhiyao.waterever.constants
  */
 object ExtraKey {
 
-    const val SELECTED_CATEGORY_ID = "SELECTED_CATEGORY_ID"
+    const val IMAGES = "IMAGES"
+
+    const val IMAGE_INDEX = "IMAGE_INDEX"
 }

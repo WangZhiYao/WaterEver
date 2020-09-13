@@ -8,7 +8,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import me.zhiyao.waterever.databinding.FragmentNewGrowthRecordImageBinding
+import me.zhiyao.waterever.log.Logger
 import me.zhiyao.waterever.ui.base.BaseFragment
+import me.zhiyao.waterever.ui.image.ImageViewerActivity
 import me.zhiyao.waterever.ui.record.create.NewGrowthRecordViewModel
 import me.zhiyao.waterever.ui.record.create.image.adapter.NewGrowthRecordImageAdapter
 import me.zhiyao.waterever.ui.record.create.image.viewholder.OnImageClickListener
@@ -25,6 +27,10 @@ class NewGrowthRecordImageFragment : BaseFragment(), OnImageClickListener {
     private val parentViewModel by activityViewModels<NewGrowthRecordViewModel>()
 
     private var adapter: NewGrowthRecordImageAdapter? = null
+
+    companion object {
+        private const val TAG = "NewGrowthRecordImageFragment"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,7 +63,18 @@ class NewGrowthRecordImageFragment : BaseFragment(), OnImageClickListener {
     }
 
     override fun onImageClicked(imagePath: String) {
-        // TODO: 2020/9/13 打开PhotoView
+        parentViewModel.photoPaths?.let { images ->
+            try {
+                val index = images.indexOf(imagePath)
+                ImageViewerActivity.start(
+                    requireContext(),
+                    images,
+                    if (index == -1) 0 else index
+                )
+            } catch (ex: IllegalStateException) {
+                Logger.e(TAG, ex)
+            }
+        }
     }
 
     override fun onRemoveClicked(imagePath: String) {
