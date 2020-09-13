@@ -2,5 +2,5 @@
 <paths>
     <external-path
         name="images"
-        path="Android/data/me.zhiyao.waterever/files/temp" />
+        path="Pictures" />
 </paths>

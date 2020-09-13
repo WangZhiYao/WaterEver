@@ -8,12 +8,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(30)
 
     defaultConfig {
         applicationId = "me.zhiyao.waterever"
         minSdkVersion(21)
-        targetSdkVersion(29)
+        targetSdkVersion(30)
         versionCode = 1
         versionName = "1.0"
 
@@ -96,7 +96,7 @@ dependencies {
     kapt("com.github.bumptech.glide:compiler:4.11.0")
 
     // Matisse
-    implementation("com.zhihu.android:matisse:0.5.3-beta3")
+    implementation("com.github.yccheok:Matisse:2.1")
 
     // PhotoView
     implementation("com.github.chrisbanes:PhotoView:2.3.0")

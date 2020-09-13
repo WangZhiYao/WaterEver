@@ -42,4 +42,9 @@ object RepositoryModule {
     @Singleton
     fun provideGrowthRecordRepository(growthRecordDao: GrowthRecordDao) =
         GrowthRecordRepository(growthRecordDao, HomeItemMapper())
+
+    @Provides
+    @Singleton
+    fun provideImageRepository(imageDao: ImageDao) =
+        ImageRepository(imageDao)
 }

@@ -1,6 +1,7 @@
 package me.zhiyao.waterever.log
 
 import android.util.Log
+import me.zhiyao.waterever.constants.Constants
 import java.io.PrintWriter
 import java.io.StringWriter
 
@@ -11,7 +12,6 @@ import java.io.StringWriter
  */
 object Logger {
 
-    private const val TAG = "WaterEver"
     private const val MAX_LOG_SEGMENT_LENGTH = 2000
 
     fun v(tag: String, msg: String) = log(Log.VERBOSE, tag, msg)
@@ -31,7 +31,7 @@ object Logger {
             t.printStackTrace(pw)
             log(Log.ERROR, tag, sw.toString())
         } catch (e: java.lang.Exception) {
-            log(Log.ASSERT, TAG, t.toString())
+            log(Log.ASSERT, Constants.APP_NAME, t.toString())
         }
     }
 
@@ -45,7 +45,7 @@ object Logger {
             val methodName = stackTrace.methodName
             sb.append(".").append(methodName)
         } catch (ex: Exception) {
-            log(Log.ASSERT, TAG, ex.toString())
+            log(Log.ASSERT, Constants.APP_NAME, ex.toString())
         } finally {
             sb.append("]").append(" ").append(tempMsg)
         }
@@ -67,13 +67,13 @@ object Logger {
 
     private fun log(level: Int, msg: String) {
         when (level) {
-            Log.VERBOSE -> Log.v(TAG, msg)
-            Log.DEBUG -> Log.d(TAG, msg)
-            Log.INFO -> Log.i(TAG, msg)
-            Log.WARN -> Log.w(TAG, msg)
-            Log.ERROR -> Log.e(TAG, msg)
-            Log.ASSERT -> Log.wtf(TAG, msg)
-            else -> Log.wtf(TAG, msg)
+            Log.VERBOSE -> Log.v(Constants.APP_NAME, msg)
+            Log.DEBUG -> Log.d(Constants.APP_NAME, msg)
+            Log.INFO -> Log.i(Constants.APP_NAME, msg)
+            Log.WARN -> Log.w(Constants.APP_NAME, msg)
+            Log.ERROR -> Log.e(Constants.APP_NAME, msg)
+            Log.ASSERT -> Log.wtf(Constants.APP_NAME, msg)
+            else -> Log.wtf(Constants.APP_NAME, msg)
         }
     }
 }

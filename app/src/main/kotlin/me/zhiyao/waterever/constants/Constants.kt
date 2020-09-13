@@ -1,5 +1,6 @@
 package me.zhiyao.waterever.constants
 
+import me.zhiyao.waterever.BuildConfig
 import me.zhiyao.waterever.utils.StorageHelper
 
 /**
@@ -9,7 +10,9 @@ import me.zhiyao.waterever.utils.StorageHelper
  */
 object Constants {
 
-    const val IMAGE_AUTHORITY = "me.zhiyao.waterever.fileprovider"
+    const val APP_NAME = "WaterEver"
+
+    const val IMAGE_AUTHORITY = "${BuildConfig.APPLICATION_ID}.fileprovider"
 
     val CACHE_DIR = StorageHelper.getCacheDir()
 

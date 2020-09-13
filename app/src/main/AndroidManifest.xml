@@ -38,7 +38,7 @@
             android:name=".ui.tag.TagsActivity"
             android:label="@string/tags_label" />
 
-        <activity android:name=".ui.record.NewGrowthRecordActivity" />
+        <activity android:name=".ui.record.create.NewGrowthRecordActivity" />
 
         <activity android:name=".ui.reminder.NewReminderActivity" />
 
@@ -59,7 +59,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths_private" />
+                android:resource="@xml/file_paths_public" />
         </provider>
 
     </application>

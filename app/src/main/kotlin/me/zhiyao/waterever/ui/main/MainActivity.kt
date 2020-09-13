@@ -14,7 +14,7 @@ import me.zhiyao.waterever.R
 import me.zhiyao.waterever.databinding.ActivityMainBinding
 import me.zhiyao.waterever.ui.base.BaseActivity
 import me.zhiyao.waterever.ui.plant.create.NewPlantActivity
-import me.zhiyao.waterever.ui.record.NewGrowthRecordActivity
+import me.zhiyao.waterever.ui.record.create.NewGrowthRecordActivity
 import me.zhiyao.waterever.ui.reminder.NewReminderActivity
 
 /**

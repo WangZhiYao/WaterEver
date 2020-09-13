@@ -16,6 +16,7 @@
 
     <!-- NewPlantActivity -->
     <string name="new_plant_label">新植物</string>
+    <string name="new_plant_success">添加植物成功</string>
     <string name="new_plant_failed">添加植物失败</string>
 
     <!-- NewPlantNameFragment -->
@@ -64,6 +65,30 @@
     <string name="home_plant_recent_record">最近活动：%s</string>
     <string name="home_plant_no_record">最近没有活动</string>
 
+    <!-- NewGrowthRecordActivity -->
+    <string name="new_growth_record_success">添加记录成功</string>
+    <string name="new_growth_record_failed">添加记录失败</string>
+
+    <!-- GrowthRecordPlantFragment -->
+    <string name="new_growth_record_plant_label">选择植物</string>
+    <string name="new_growth_record_plant_new">新增植物</string>
+    <string name="new_growth_record_plant_empty_notice">暂无植物，点击右上角添加</string>
+    <string name="new_growth_record_plant_next_step">下一步</string>
+
+    <!-- GrowthRecordTypeFragment -->
+    <string name="new_growth_record_type_label">记录类型</string>
+    <string name="new_growth_record_type_next_step">下一步</string>
+
+    <!-- GrowthRecordImageFragment -->
+    <string name="new_growth_record_image_label">图片</string>
+    <string name="new_growth_record_image_next_step">下一步</string>
+
+    <!-- GrowthRecordDescriptionFragment -->
+    <string name="new_growth_record_description_label">备注</string>
+    <string name="new_growth_record_description">添加备注</string>
+    <string name="new_growth_record_description_complete">完成</string>
+
+    <!-- GrowthRecordType -->
     <string name="growth_record_type_watering">浇水</string>
     <string name="growth_record_type_change_soil">换土</string>
     <string name="growth_record_type_fertilize">施肥</string>
@@ -85,6 +110,5 @@
     <string name="external_storage_not_available">未获取读取权限无法获取图片</string>
 
     <string name="error_unknown">未知错误</string>
-    <string name="new_plant_success">添加新植物成功</string>
 
 </resources>

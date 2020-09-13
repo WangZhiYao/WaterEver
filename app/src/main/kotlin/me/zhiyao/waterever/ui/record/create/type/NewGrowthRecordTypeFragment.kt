@@ -1,53 +1,48 @@
-package me.zhiyao.waterever.ui.plant.create.feature
+package me.zhiyao.waterever.ui.record.create.type
 
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.yalantis.ucrop.UCrop
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.engine.impl.GlideEngine
 import com.zhihu.matisse.internal.entity.CaptureStrategy
-import dagger.hilt.android.AndroidEntryPoint
 import me.zhiyao.waterever.R
-import me.zhiyao.waterever.config.GlideApp
 import me.zhiyao.waterever.constants.Constants
+import me.zhiyao.waterever.constants.GrowthRecordType
 import me.zhiyao.waterever.constants.RequestCode
-import me.zhiyao.waterever.databinding.FragmentNewPlantFeatureImageBinding
-import me.zhiyao.waterever.exts.*
-import me.zhiyao.waterever.log.Logger
+import me.zhiyao.waterever.databinding.FragmentNewGrowthRecordTypeBinding
+import me.zhiyao.waterever.exts.checkSelfPermissionCompat
+import me.zhiyao.waterever.exts.requestPermissionsCompat
+import me.zhiyao.waterever.exts.shouldShowRequestPermissionRationaleCompat
+import me.zhiyao.waterever.exts.showSnackBar
 import me.zhiyao.waterever.ui.base.BaseFragment
-import me.zhiyao.waterever.ui.plant.create.NewPlantViewModel
+import me.zhiyao.waterever.ui.record.create.NewGrowthRecordViewModel
 import me.zhiyao.waterever.utils.PermissionManager
-import java.io.File
-import java.util.*
 
 /**
  *
  * @author WangZhiYao
- * @date 2020/9/3
+ * @date 2020/9/11
  */
-@AndroidEntryPoint
-class NewPlantFeatureImageFragment : BaseFragment(), PermissionManager.OnPermissionListener {
+class NewGrowthRecordTypeFragment : BaseFragment(), PermissionManager.OnPermissionListener {
 
     companion object {
-        private const val TAG = "NewPlantFeatureImageFragment"
+        private const val TAG = "NewGrowthRecordTypeFragment"
     }
 
-    private lateinit var binding: FragmentNewPlantFeatureImageBinding
+    private lateinit var binding: FragmentNewGrowthRecordTypeBinding
 
-    private val viewModel by activityViewModels<NewPlantViewModel>()
+    private val parentViewModel by activityViewModels<NewGrowthRecordViewModel>()
 
     private var permissionManager: PermissionManager? = null
 
@@ -56,26 +51,52 @@ class NewPlantFeatureImageFragment : BaseFragment(), PermissionManager.OnPermiss
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentNewPlantFeatureImageBinding.inflate(layoutInflater, container, false)
+        binding = FragmentNewGrowthRecordTypeBinding.inflate(layoutInflater, container, false)
         initView()
         initData()
         return binding.root
     }
 
     private fun initView() {
-        binding.ivPlantFeatureImage.setOnClickListener {
-            attemptToShowImageSelector()
-        }
-        binding.fabNext.setOnClickListener {
-            it.isEnabled = false
-            findNavController().navigate(R.id.action_feature_image_to_category)
-        }
+        binding.tvNewGrowthRecordTypeWatering.setOnClickListener { nextStep(GrowthRecordType.WATERING) }
+        binding.tvNewGrowthRecordTypeChangeSoil.setOnClickListener { nextStep(GrowthRecordType.CHANGE_SOIL) }
+        binding.tvNewGrowthRecordTypeFertilize.setOnClickListener { nextStep(GrowthRecordType.FERTILIZE) }
+        binding.tvNewGrowthRecordTypePhotos.setOnClickListener { nextStep(GrowthRecordType.PHOTOS) }
     }
 
     private fun initData() {
-        viewModel.plantFeatureImage?.let {
-            setFeatureImage(it)
+        parentViewModel.growthRecordType?.run {
+            setSelectedType(this)
         }
+    }
+
+    private fun nextStep(growthRecordType: GrowthRecordType) {
+        setSelectedType(growthRecordType)
+        parentViewModel.growthRecordType = growthRecordType
+        when (growthRecordType) {
+            GrowthRecordType.WATERING ->
+                findNavController().navigate(R.id.action_type_to_description)
+            GrowthRecordType.CHANGE_SOIL ->
+                findNavController().navigate(R.id.action_type_to_description)
+            GrowthRecordType.FERTILIZE ->
+                findNavController().navigate(R.id.action_type_to_description)
+            GrowthRecordType.PHOTOS -> attemptToShowImageSelector()
+        }
+    }
+
+    private fun setSelectedType(growthRecordType: GrowthRecordType) {
+        binding.tvNewGrowthRecordTypeWatering.setBackgroundColor(
+            if (growthRecordType == GrowthRecordType.WATERING) Color.LTGRAY else Color.WHITE
+        )
+        binding.tvNewGrowthRecordTypeChangeSoil.setBackgroundColor(
+            if (growthRecordType == GrowthRecordType.CHANGE_SOIL) Color.LTGRAY else Color.WHITE
+        )
+        binding.tvNewGrowthRecordTypeFertilize.setBackgroundColor(
+            if (growthRecordType == GrowthRecordType.FERTILIZE) Color.LTGRAY else Color.WHITE
+        )
+        binding.tvNewGrowthRecordTypePhotos.setBackgroundColor(
+            if (growthRecordType == GrowthRecordType.PHOTOS) Color.LTGRAY else Color.WHITE
+        )
     }
 
     private fun attemptToShowImageSelector() {
@@ -103,7 +124,7 @@ class NewPlantFeatureImageFragment : BaseFragment(), PermissionManager.OnPermiss
             .choose(MimeType.ofImage())
             .capture(true)
             .captureStrategy(CaptureStrategy(true, Constants.IMAGE_AUTHORITY, Constants.APP_NAME))
-            .maxSelectable(1)
+            .maxSelectable(9)
             .spanCount(3)
             .theme(R.style.MatisseStyle)
             .imageEngine(GlideEngine())
@@ -121,59 +142,6 @@ class NewPlantFeatureImageFragment : BaseFragment(), PermissionManager.OnPermiss
             .setOnPermissionListener(this)
 
         permissionManager!!.request()
-    }
-
-    private fun openImageCrop(sourcePath: String) {
-        try {
-            val options = UCrop.Options()
-
-            with(options) {
-                setStatusBarColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.colorPrimaryDark
-                    )
-                )
-                setToolbarColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.colorPrimary
-                    )
-                )
-                setToolbarWidgetColor(Color.WHITE)
-                setCircleDimmedLayer(true)
-                setActiveControlsWidgetColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.colorAccent
-                    )
-                )
-            }
-
-            UCrop.of(
-                Uri.fromFile(File(sourcePath)),
-                Uri.fromFile(
-                    File(
-                        Constants.CACHE_DIR,
-                        "${UUID.randomUUID().short()}.jpg"
-                    )
-                )
-            )
-                .withAspectRatio(1f, 1f)
-                .withOptions(options)
-                .start(requireContext(), this)
-        } catch (ex: IllegalStateException) {
-            Logger.e(TAG, ex)
-        }
-    }
-
-    private fun setFeatureImage(imagePath: String) {
-        viewModel.plantFeatureImage = imagePath
-        GlideApp.with(binding.ivPlantFeatureImage)
-            .load(imagePath)
-            .circleCrop()
-            .into(binding.ivPlantFeatureImage)
-        binding.fabNext.setImageResource(R.drawable.ic_menu_check_white)
     }
 
     override fun onRequestPermissionsResult(
@@ -195,8 +163,7 @@ class NewPlantFeatureImageFragment : BaseFragment(), PermissionManager.OnPermiss
     override fun onShowRationale(permissions: List<String>) {
         binding.root.showSnackBar(
             R.string.external_storage_required,
-            Snackbar.LENGTH_INDEFINITE,
-            R.string.permissions_permit
+            Snackbar.LENGTH_INDEFINITE, R.string.permissions_permit
         ) {
             requestPermissionsCompat(
                 arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA),
@@ -211,24 +178,11 @@ class NewPlantFeatureImageFragment : BaseFragment(), PermissionManager.OnPermiss
             when (requestCode) {
                 RequestCode.IMAGE_SELECTION -> {
                     if (resultCode == Activity.RESULT_OK) {
-                        Matisse.obtainPathResult(data)?.let {
-                            if (it.isNotEmpty()) {
-                                openImageCrop(it[0])
+                        Matisse.obtainPathResult(data).let {
+                            if (!it.isNullOrEmpty()) {
+                                parentViewModel.photoPaths = it
+                                findNavController().navigate(R.id.action_type_to_image)
                             }
-                        }
-                    }
-                }
-                RequestCode.IMAGE_CROP -> {
-                    when (resultCode) {
-                        Activity.RESULT_OK -> {
-                            UCrop.getOutput(data)?.path?.let {
-                                setFeatureImage(it)
-                            }
-                        }
-                        UCrop.RESULT_ERROR -> {
-                            val errorMessage =
-                                UCrop.getError(data)?.message ?: getString(R.string.error_unknown)
-                            binding.root.showSnackBar(errorMessage)
                         }
                     }
                 }
