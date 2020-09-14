@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import me.zhiyao.waterever.R
 import me.zhiyao.waterever.databinding.FragmentNewGrowthRecordImageBinding
 import me.zhiyao.waterever.log.Logger
 import me.zhiyao.waterever.ui.base.BaseFragment
@@ -62,14 +64,21 @@ class NewGrowthRecordImageFragment : BaseFragment(), OnImageClickListener {
         }
     }
 
-    override fun onImageClicked(imagePath: String) {
+    override fun onImageClicked(view: View, imagePath: String) {
         parentViewModel.photoPaths?.let { images ->
             try {
                 val index = images.indexOf(imagePath)
+                val compat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    requireActivity(), view, getString(
+                        R.string.transition_plant_image
+                    )
+                )
+
                 ImageViewerActivity.start(
                     requireContext(),
                     images,
-                    if (index == -1) 0 else index
+                    if (index == -1) 0 else index,
+                    compat
                 )
             } catch (ex: IllegalStateException) {
                 Logger.e(TAG, ex)

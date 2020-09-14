@@ -3,6 +3,7 @@ package me.zhiyao.waterever.ui.image
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -23,11 +24,16 @@ class ImageViewerActivity : BaseActivity() {
     private var adapter: ImageViewerAdapter? = null
 
     companion object {
-        fun start(context: Context, images: List<String>, index: Int) {
+        fun start(
+            context: Context,
+            images: List<String>,
+            index: Int,
+            compat: ActivityOptionsCompat?
+        ) {
             val intent = Intent(context, ImageViewerActivity::class.java)
             intent.putStringArrayListExtra(ExtraKey.IMAGES, ArrayList(images))
             intent.putExtra(ExtraKey.IMAGE_INDEX, index)
-            context.startActivity(intent)
+            context.startActivity(intent, compat?.toBundle())
         }
     }
 

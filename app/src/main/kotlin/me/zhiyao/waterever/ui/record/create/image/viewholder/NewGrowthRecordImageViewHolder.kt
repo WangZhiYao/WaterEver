@@ -19,7 +19,7 @@ class NewGrowthRecordImageViewHolder(
                 .load(imagePath)
                 .into(this)
             setOnClickListener {
-                onImageClickListener.onImageClicked(imagePath)
+                onImageClickListener.onImageClicked(this, imagePath)
             }
         }
 

@@ -1,5 +1,7 @@
 package me.zhiyao.waterever.ui.record.create.image.viewholder
 
+import android.view.View
+
 /**
  *
  * @author WangZhiYao
@@ -7,7 +9,7 @@ package me.zhiyao.waterever.ui.record.create.image.viewholder
  */
 interface OnImageClickListener {
 
-    fun onImageClicked(imagePath: String)
+    fun onImageClicked(view: View, imagePath: String)
 
     fun onRemoveClicked(imagePath: String)
 }

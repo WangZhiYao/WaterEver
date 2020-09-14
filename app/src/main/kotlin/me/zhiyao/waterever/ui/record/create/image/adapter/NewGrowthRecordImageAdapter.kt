@@ -1,6 +1,7 @@
 package me.zhiyao.waterever.ui.record.create.image.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import me.zhiyao.waterever.databinding.ItemNewGrowthRecordImageBinding
@@ -49,8 +50,8 @@ class NewGrowthRecordImageAdapter : RecyclerView.Adapter<NewGrowthRecordImageVie
     override fun onBindViewHolder(holder: NewGrowthRecordImageViewHolder, position: Int) {
         images?.let {
             holder.bind(it[position], object : OnImageClickListener {
-                override fun onImageClicked(imagePath: String) {
-                    onImageClickListener?.onImageClicked(imagePath)
+                override fun onImageClicked(view: View, imagePath: String) {
+                    onImageClickListener?.onImageClicked(view, imagePath)
                 }
 
                 override fun onRemoveClicked(imagePath: String) {

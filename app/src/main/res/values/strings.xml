@@ -94,6 +94,8 @@
     <string name="growth_record_type_fertilize">施肥</string>
     <string name="growth_record_type_photos">照片</string>
 
+    <string name="transition_plant_image">plant_image</string>
+
     <string name="time_unit_day">天</string>
     <string name="time_unit_hour">小时</string>
     <string name="time_unit_minute">分钟</string>
