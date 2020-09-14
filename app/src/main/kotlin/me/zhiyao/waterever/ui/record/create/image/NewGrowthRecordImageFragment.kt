@@ -16,6 +16,7 @@ import me.zhiyao.waterever.ui.image.ImageViewerActivity
 import me.zhiyao.waterever.ui.record.create.NewGrowthRecordViewModel
 import me.zhiyao.waterever.ui.record.create.image.adapter.NewGrowthRecordImageAdapter
 import me.zhiyao.waterever.ui.record.create.image.viewholder.OnImageClickListener
+import java.util.*
 
 /**
  *
@@ -71,17 +72,25 @@ class NewGrowthRecordImageFragment : BaseFragment(), OnImageClickListener {
     override fun onImageClicked(view: View, imagePath: String) {
         parentViewModel.photoPaths?.let { images ->
             try {
-                val index = images.indexOf(imagePath)
                 val compat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                     requireActivity(), view, getString(
                         R.string.transition_plant_image
                     )
                 )
 
+                // TODO: 2020/9/14 传递整个图片列表且共享返回动画正确
+                /*val index = images.indexOf(imagePath)
                 ImageViewerActivity.start(
                     requireContext(),
                     images,
                     if (index == -1) 0 else index,
+                    compat
+                )*/
+
+                ImageViewerActivity.start(
+                    requireContext(),
+                    Collections.singletonList(imagePath),
+                    0,
                     compat
                 )
             } catch (ex: IllegalStateException) {
