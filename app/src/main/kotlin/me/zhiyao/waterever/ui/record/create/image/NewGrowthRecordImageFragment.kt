@@ -56,6 +56,10 @@ class NewGrowthRecordImageFragment : BaseFragment(), OnImageClickListener {
             it.layoutManager = GridLayoutManager(it.context, 3)
             it.adapter = adapter
         }
+
+        binding.fabNext.setOnClickListener {
+            findNavController().navigate(R.id.action_image_to_description)
+        }
     }
 
     private fun initData() {

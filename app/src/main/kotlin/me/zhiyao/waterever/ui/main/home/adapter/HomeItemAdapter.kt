@@ -67,7 +67,7 @@ class HomeItemAdapter :
                 GrowthRecordType.FERTILIZE ->
                     (holder as HomeFertilizeViewHolder).bind(homeItem)
                 GrowthRecordType.PHOTOS ->
-                    (holder as HomeWateringViewHolder).bind(homeItem)
+                    (holder as HomePhotosViewHolder).bind(homeItem)
             }
         }
     }
