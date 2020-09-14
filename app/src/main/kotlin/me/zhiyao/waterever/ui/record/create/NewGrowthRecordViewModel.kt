@@ -8,8 +8,10 @@ import me.zhiyao.waterever.constants.GrowthRecordType
 import me.zhiyao.waterever.data.db.model.GrowthRecord
 import me.zhiyao.waterever.data.db.model.Image
 import me.zhiyao.waterever.data.db.model.Plant
+import me.zhiyao.waterever.data.db.model.relations.PlantGrowthRecordRelation
 import me.zhiyao.waterever.data.repo.GrowthRecordRepository
 import me.zhiyao.waterever.data.repo.ImageRepository
+import me.zhiyao.waterever.data.repo.PlantGrowthRecordRelationRepository
 
 /**
  *
@@ -18,6 +20,7 @@ import me.zhiyao.waterever.data.repo.ImageRepository
  */
 class NewGrowthRecordViewModel @ViewModelInject constructor(
     private val growthRecordRepository: GrowthRecordRepository,
+    private val plantGrowthRecordRelationRepository: PlantGrowthRecordRelationRepository,
     private val imageRepository: ImageRepository
 ) : ViewModel() {
 
@@ -31,19 +34,26 @@ class NewGrowthRecordViewModel @ViewModelInject constructor(
 
     var description: String? = null
 
-    fun addGrowthRecord(growthRecord: GrowthRecord, photoPaths: List<String>?) = liveData {
-        val growthRecordId = growthRecordRepository.addGrowthRecord(growthRecord)
-        if (growthRecordId != -1) {
-            photoPaths?.let {
-                val images = ArrayList<Image>()
-                for (photoPath in it) {
-                    images.add(Image(growthRecordId, photoPath, System.currentTimeMillis()))
+    fun addGrowthRecord(plant: Plant, growthRecord: GrowthRecord, photoPaths: List<String>?) =
+        liveData {
+            val growthRecordId = growthRecordRepository.addGrowthRecord(growthRecord)
+            if (growthRecordId != -1) {
+                val plantGrowthRecordRelation =
+                    PlantGrowthRecordRelation(plant.id, growthRecordId)
+                plantGrowthRecordRelationRepository.addPlantGrowthRecordRelation(
+                    plantGrowthRecordRelation
+                )
+
+                photoPaths?.let {
+                    val images = ArrayList<Image>()
+                    for (photoPath in it) {
+                        images.add(Image(growthRecordId, photoPath, System.currentTimeMillis()))
+                    }
+                    imageRepository.addImages(images)
                 }
-                imageRepository.addImages(images)
             }
+            emit(growthRecordId)
         }
-        emit(growthRecordId)
-    }
 
     fun setComplete(complete: Boolean) {
         this.complete.value = complete

@@ -65,6 +65,11 @@ object DatabaseModule {
 
     @Provides
     @Singleton
+    fun providePlantGrowthRecordRelationDao(appDatabase: AppDatabase) =
+        appDatabase.plantGrowthRecordRelationDao()
+
+    @Provides
+    @Singleton
     fun provideImageDao(appDatabase: AppDatabase) =
         appDatabase.imageDao()
 }

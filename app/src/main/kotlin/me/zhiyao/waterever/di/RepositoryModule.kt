@@ -45,6 +45,13 @@ object RepositoryModule {
 
     @Provides
     @Singleton
+    fun providePlantGrowthRecordRelationRepository(
+        plantGrowthRecordRelationDao: PlantGrowthRecordRelationDao
+    ) =
+        PlantGrowthRecordRelationRepository(plantGrowthRecordRelationDao)
+
+    @Provides
+    @Singleton
     fun provideImageRepository(imageDao: ImageDao) =
         ImageRepository(imageDao)
 }

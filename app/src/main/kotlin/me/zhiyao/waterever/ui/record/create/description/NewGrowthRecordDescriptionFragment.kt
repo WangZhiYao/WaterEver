@@ -45,13 +45,13 @@ class NewGrowthRecordDescriptionFragment : BaseFragment() {
 
     private fun saveGrowthRecord() {
         val growthRecord = GrowthRecord(
-            parentViewModel.plant!!.id,
             parentViewModel.growthRecordType!!,
             binding.etNewGrowthRecordDescription.text.toString(),
             System.currentTimeMillis()
         )
 
         parentViewModel.addGrowthRecord(
+            parentViewModel.plant!!,
             growthRecord,
             if (parentViewModel.growthRecordType == GrowthRecordType.PHOTOS) parentViewModel.photoPaths
             else null

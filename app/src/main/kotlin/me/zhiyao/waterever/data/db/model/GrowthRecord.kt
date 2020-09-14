@@ -1,6 +1,8 @@
 package me.zhiyao.waterever.data.db.model
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import me.zhiyao.waterever.constants.GrowthRecordType
 
 /**
@@ -8,24 +10,8 @@ import me.zhiyao.waterever.constants.GrowthRecordType
  * @author WangZhiYao
  * @date 2020/8/10
  */
-@Entity(
-    tableName = "growth_records",
-    foreignKeys = [
-        ForeignKey(
-            entity = Plant::class,
-            parentColumns = ["plant_id"],
-            childColumns = ["plant_id"],
-            onDelete = ForeignKey.CASCADE,
-            onUpdate = ForeignKey.CASCADE
-        )
-    ],
-    indices = [
-        Index(value = ["plant_id"])
-    ]
-)
+@Entity(tableName = "growth_records")
 data class GrowthRecord(
-    @ColumnInfo(name = "plant_id")
-    val plantId: Long,
     @ColumnInfo(name = "growth_record_type")
     val type: GrowthRecordType,
     var description: String?,
