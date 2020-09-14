@@ -11,6 +11,7 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "tags")
 data class Tag(
+    @ColumnInfo(name = "tag_name")
     val name: String,
     @ColumnInfo(name = "create_time")
     val createTime: Long

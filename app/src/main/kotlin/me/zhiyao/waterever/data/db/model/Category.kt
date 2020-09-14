@@ -11,6 +11,7 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "categories")
 data class Category(
+    @ColumnInfo(name = "category_name")
     val name: String,
     @ColumnInfo(name = "create_time")
     val createTime: Long

@@ -24,7 +24,9 @@ import me.zhiyao.waterever.constants.PlantState
     ]
 )
 data class Plant(
+    @ColumnInfo(name = "plant_name")
     var name: String,
+    @ColumnInfo(name = "plant_state")
     var state: PlantState,
     @ColumnInfo(name = "feature_image")
     var featureImage: String?,

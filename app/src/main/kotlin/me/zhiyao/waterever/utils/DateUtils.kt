@@ -20,24 +20,24 @@ object DateUtils {
         return sdf.format(Date(timestamp))
     }
 
-    fun toTimeInterval(context: Context, timestamp: Long): String {
-        val days = TimeUnit.MILLISECONDS.toDays(timestamp)
+    fun toTimeInterval(context: Context, timeInterval: Long): String {
+        val days = TimeUnit.MILLISECONDS.toDays(timeInterval)
         if (days > 0) {
             if (days > 3) {
-                return toDateString(timestamp, PATTERN_YYYY_MM_DD)
+                return toDateString(timeInterval, PATTERN_YYYY_MM_DD)
             }
             return context.getString(R.string.time_interval_day, days)
         }
-        val hours = TimeUnit.MILLISECONDS.toHours(timestamp)
+        val hours = TimeUnit.MILLISECONDS.toHours(timeInterval)
         if (hours > 0) {
             return context.getString(R.string.time_interval_hour, hours)
         }
-        val minutes = TimeUnit.MILLISECONDS.toMinutes(timestamp)
+        val minutes = TimeUnit.MILLISECONDS.toMinutes(timeInterval)
         if (minutes > 0) {
             return context.getString(R.string.time_interval_minute, minutes)
         }
 
-        val seconds = TimeUnit.MILLISECONDS.toSeconds(timestamp).coerceAtLeast(1)
+        val seconds = TimeUnit.MILLISECONDS.toSeconds(timeInterval).coerceAtLeast(1)
         return context.getString(R.string.time_interval_second, seconds)
     }
 }

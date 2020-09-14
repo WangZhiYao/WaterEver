@@ -59,7 +59,7 @@ class HomeItemAdapter :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         getItem(position)?.let { homeItem ->
-            when (homeItem.growthRecord.recordType) {
+            when (homeItem.growthRecord.type) {
                 GrowthRecordType.WATERING ->
                     (holder as HomeWateringViewHolder).bind(homeItem)
                 GrowthRecordType.CHANGE_SOIL ->
@@ -74,7 +74,7 @@ class HomeItemAdapter :
 
     override fun getItemViewType(position: Int): Int {
         getItem(position)?.let { homeItem ->
-            return when (homeItem.growthRecord.recordType) {
+            return when (homeItem.growthRecord.type) {
                 GrowthRecordType.WATERING -> VIEW_TYPE_WATERING
                 GrowthRecordType.CHANGE_SOIL -> VIEW_TYPE_CHANGE_SOIL
                 GrowthRecordType.FERTILIZE -> VIEW_TYPE_FERTILIZE

@@ -26,8 +26,8 @@ import me.zhiyao.waterever.constants.GrowthRecordType
 data class GrowthRecord(
     @ColumnInfo(name = "plant_id")
     val plantId: Long,
-    @ColumnInfo(name = "record_type")
-    val recordType: GrowthRecordType,
+    @ColumnInfo(name = "growth_record_type")
+    val type: GrowthRecordType,
     var description: String?,
     @ColumnInfo(name = "create_time")
     val createTime: Long

@@ -14,6 +14,6 @@ import me.zhiyao.waterever.data.db.model.Plant
 @Dao
 interface PlantDao : BaseDao<Plant> {
 
-    @Query("SELECT * FROM plants WHERE state = 1 ORDER BY create_time DESC")
+    @Query("SELECT * FROM plants WHERE plant_state = 1 ORDER BY create_time DESC")
     fun queryAllAlivePlants(): Flow<List<PlantWithCategoryTags>>
 }
