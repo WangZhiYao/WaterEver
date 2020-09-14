@@ -36,10 +36,6 @@ import me.zhiyao.waterever.utils.PermissionManager
  */
 class NewGrowthRecordTypeFragment : BaseFragment(), PermissionManager.OnPermissionListener {
 
-    companion object {
-        private const val TAG = "NewGrowthRecordTypeFragment"
-    }
-
     private lateinit var binding: FragmentNewGrowthRecordTypeBinding
 
     private val parentViewModel by activityViewModels<NewGrowthRecordViewModel>()
@@ -58,10 +54,10 @@ class NewGrowthRecordTypeFragment : BaseFragment(), PermissionManager.OnPermissi
     }
 
     private fun initView() {
-        binding.tvNewGrowthRecordTypeWatering.setOnClickListener { nextStep(GrowthRecordType.WATERING) }
-        binding.tvNewGrowthRecordTypeChangeSoil.setOnClickListener { nextStep(GrowthRecordType.CHANGE_SOIL) }
-        binding.tvNewGrowthRecordTypeFertilize.setOnClickListener { nextStep(GrowthRecordType.FERTILIZE) }
-        binding.tvNewGrowthRecordTypePhotos.setOnClickListener { nextStep(GrowthRecordType.PHOTOS) }
+        binding.llNewGrowthRecordTypeWatering.setOnClickListener { nextStep(GrowthRecordType.WATERING) }
+        binding.llNewGrowthRecordTypeChangeSoil.setOnClickListener { nextStep(GrowthRecordType.CHANGE_SOIL) }
+        binding.llNewGrowthRecordTypeFertilize.setOnClickListener { nextStep(GrowthRecordType.FERTILIZE) }
+        binding.llNewGrowthRecordTypePhotos.setOnClickListener { nextStep(GrowthRecordType.PHOTOS) }
     }
 
     private fun initData() {
@@ -85,16 +81,16 @@ class NewGrowthRecordTypeFragment : BaseFragment(), PermissionManager.OnPermissi
     }
 
     private fun setSelectedType(growthRecordType: GrowthRecordType) {
-        binding.tvNewGrowthRecordTypeWatering.setBackgroundColor(
+        binding.llNewGrowthRecordTypeWatering.setBackgroundColor(
             if (growthRecordType == GrowthRecordType.WATERING) Color.LTGRAY else Color.WHITE
         )
-        binding.tvNewGrowthRecordTypeChangeSoil.setBackgroundColor(
+        binding.llNewGrowthRecordTypeChangeSoil.setBackgroundColor(
             if (growthRecordType == GrowthRecordType.CHANGE_SOIL) Color.LTGRAY else Color.WHITE
         )
-        binding.tvNewGrowthRecordTypeFertilize.setBackgroundColor(
+        binding.llNewGrowthRecordTypeFertilize.setBackgroundColor(
             if (growthRecordType == GrowthRecordType.FERTILIZE) Color.LTGRAY else Color.WHITE
         )
-        binding.tvNewGrowthRecordTypePhotos.setBackgroundColor(
+        binding.llNewGrowthRecordTypePhotos.setBackgroundColor(
             if (growthRecordType == GrowthRecordType.PHOTOS) Color.LTGRAY else Color.WHITE
         )
     }

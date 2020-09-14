@@ -22,15 +22,11 @@ import me.zhiyao.waterever.ui.widgets.SpacingItemDecoration
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
 
-    companion object {
-        private const val TAG = "HomeFragment"
-    }
-
     private lateinit var binding: FragmentHomeBinding
 
     private val viewModel by viewModels<HomeViewModel>()
 
-    private lateinit var adapter: HomeItemAdapter
+    private var adapter: HomeItemAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,7 +52,7 @@ class HomeFragment : BaseFragment() {
     private fun initData() {
         viewModel.growthRecordList.observe(viewLifecycleOwner, { homeItemList ->
             lifecycleScope.launchWhenCreated {
-                adapter.submitData(homeItemList)
+                adapter?.submitData(homeItemList)
             }
         })
     }

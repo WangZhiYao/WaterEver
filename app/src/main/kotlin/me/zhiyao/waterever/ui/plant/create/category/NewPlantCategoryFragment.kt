@@ -56,7 +56,7 @@ class NewPlantCategoryFragment : BaseFragment(), NewPlantCategoryAdapter.OnCateg
 
         binding.rvCategories.let {
             it.layoutManager = LinearLayoutManager(it.context)
-            it.addItemDecoration(SpacingItemDecoration(4.dp2px(it.context)))
+            it.addItemDecoration(SpacingItemDecoration(8.dp2px(it.context)))
             it.adapter = adapter
         }
 

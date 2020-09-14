@@ -21,8 +21,7 @@ import me.zhiyao.waterever.ui.main.home.viewholder.HomeWateringViewHolder
  * @author WangZhiYao
  * @date 2020/8/13
  */
-class HomeItemAdapter :
-    PagingDataAdapter<HomeItem, RecyclerView.ViewHolder>(HomeItemComparator) {
+class HomeItemAdapter : PagingDataAdapter<HomeItem, RecyclerView.ViewHolder>(HomeItemComparator) {
 
     companion object {
         private const val VIEW_TYPE_WATERING = 1
@@ -32,28 +31,28 @@ class HomeItemAdapter :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        when (viewType) {
-            VIEW_TYPE_WATERING -> return HomeWateringViewHolder(
+        return when (viewType) {
+            VIEW_TYPE_WATERING -> HomeWateringViewHolder(
                 ItemHomeWateringBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
             )
-            VIEW_TYPE_CHANGE_SOIL -> return HomeChangeSoilViewHolder(
+            VIEW_TYPE_CHANGE_SOIL -> HomeChangeSoilViewHolder(
                 ItemHomeChangeSoilBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
             )
-            VIEW_TYPE_FERTILIZE -> return HomeFertilizeViewHolder(
+            VIEW_TYPE_FERTILIZE -> HomeFertilizeViewHolder(
                 ItemHomeFertilizeBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
             )
-            VIEW_TYPE_PHOTOS -> return HomePhotosViewHolder(
+            VIEW_TYPE_PHOTOS -> HomePhotosViewHolder(
                 ItemHomePhotosBinding.inflate(
                     LayoutInflater.from(parent.context), parent, false
                 )
             )
-            else -> return parent.emptyViewHolder()
+            else -> parent.emptyViewHolder()
         }
     }
 

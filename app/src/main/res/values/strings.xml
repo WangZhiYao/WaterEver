@@ -106,6 +106,8 @@
     <string name="time_interval_minute">%d分钟前</string>
     <string name="time_interval_second">%d秒前</string>
 
+    <string name="plant_create_time_prefix">创建于：%s</string>
+
     <string name="external_storage_required">需要获取读取存储权限才可以获取相册图片</string>
     <string name="permissions_permit">授予权限</string>
     <string name="permissions_denied">获取权限失败</string>

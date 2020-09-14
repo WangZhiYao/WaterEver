@@ -10,11 +10,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import me.zhiyao.waterever.R
 import me.zhiyao.waterever.data.db.entities.PlantWithCategoryTags
 import me.zhiyao.waterever.databinding.FragmentNewGrowthRecordPlantBinding
+import me.zhiyao.waterever.exts.dp2px
 import me.zhiyao.waterever.log.Logger
 import me.zhiyao.waterever.ui.base.BaseFragment
 import me.zhiyao.waterever.ui.plant.create.NewPlantActivity
 import me.zhiyao.waterever.ui.record.create.NewGrowthRecordViewModel
 import me.zhiyao.waterever.ui.record.create.plant.adapter.NewGrowthRecordPlantAdapter
+import me.zhiyao.waterever.ui.widgets.SpacingItemDecoration
 
 /**
  *
@@ -55,6 +57,7 @@ class NewGrowthRecordPlantFragment : BaseFragment(),
 
         binding.rvPlants.let {
             it.layoutManager = LinearLayoutManager(it.context)
+            it.addItemDecoration(SpacingItemDecoration(8.dp2px(it.context), true))
             it.adapter = adapter
         }
 

@@ -3,6 +3,7 @@ package me.zhiyao.waterever.ui.main.home.viewholder
 import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import me.zhiyao.waterever.R
 import me.zhiyao.waterever.config.GlideApp
 import me.zhiyao.waterever.config.GlideRequest
 import me.zhiyao.waterever.databinding.ItemHomePhotosBinding
@@ -42,8 +43,12 @@ class HomePhotosViewHolder(
 
             binding.tvPlantName.text = plant.name
 
-            binding.tvPlantCreateTime.text =
-                DateUtils.toDateString(plant.createTime, DateUtils.PATTERN_YYYY_MM_DD)
+            binding.tvPlantCreateTime.let {
+                it.text = it.context.getString(
+                    R.string.plant_create_time_prefix,
+                    DateUtils.toDateString(plant.createTime, DateUtils.PATTERN_YYYY_MM_DD)
+                )
+            }
         }
 
         homeItem.growthRecord.let { growthRecord ->

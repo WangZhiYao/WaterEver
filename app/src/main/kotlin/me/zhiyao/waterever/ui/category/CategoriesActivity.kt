@@ -58,7 +58,7 @@ class CategoriesActivity : BaseActivity(), CategoryAdapter.OnCategoryClickListen
 
         binding.rvCategories.let {
             it.layoutManager = LinearLayoutManager(this)
-            it.addItemDecoration(SpacingItemDecoration(4.dp2px(this)))
+            it.addItemDecoration(SpacingItemDecoration(8.dp2px(this)))
             it.adapter = adapter
         }
     }
