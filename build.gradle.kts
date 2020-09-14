@@ -4,7 +4,6 @@ buildscript {
         google()
         jcenter()
         maven("https://jitpack.io")
-        maven("https://dl.bintray.com/javakam/maven")
     }
     dependencies {
         classpath("com.android.tools.build:gradle:4.0.1")
@@ -21,7 +20,6 @@ allprojects {
         google()
         jcenter()
         maven("https://jitpack.io")
-        maven("https://dl.bintray.com/javakam/maven")
     }
 }
 
