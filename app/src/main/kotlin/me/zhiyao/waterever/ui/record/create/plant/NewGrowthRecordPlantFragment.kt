@@ -50,16 +50,13 @@ class NewGrowthRecordPlantFragment : BaseFragment(),
     private fun initView() {
         setHasOptionsMenu(true)
 
-        try {
-            binding.rvPlants.layoutManager = LinearLayoutManager(requireContext())
-        } catch (ex: IllegalStateException) {
-            Logger.e(TAG, ex)
-        }
-
         adapter = NewGrowthRecordPlantAdapter()
         adapter!!.setOnPlantClickListener(this)
 
-        binding.rvPlants.adapter = adapter
+        binding.rvPlants.let {
+            it.layoutManager = LinearLayoutManager(it.context)
+            it.adapter = adapter
+        }
 
         parentViewModel.plant?.let {
             adapter!!.setSelectedPlant(it)

@@ -16,6 +16,7 @@
             android:background="@android:color/white"
             android:padding="16dp"
             android:text="@string/growth_record_type_watering"
+            android:textColor="@color/colorText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -28,6 +29,7 @@
             android:background="@android:color/white"
             android:padding="16dp"
             android:text="@string/growth_record_type_change_soil"
+            android:textColor="@color/colorText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_new_growth_record_type_watering" />
@@ -40,6 +42,7 @@
             android:background="@android:color/white"
             android:padding="16dp"
             android:text="@string/growth_record_type_fertilize"
+            android:textColor="@color/colorText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_new_growth_record_type_change_soil" />
@@ -52,6 +55,7 @@
             android:background="@android:color/white"
             android:padding="16dp"
             android:text="@string/growth_record_type_photos"
+            android:textColor="@color/colorText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_new_growth_record_type_fertilize" />

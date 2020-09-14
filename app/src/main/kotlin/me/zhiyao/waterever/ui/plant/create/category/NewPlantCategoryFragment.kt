@@ -10,11 +10,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import me.zhiyao.waterever.R
 import me.zhiyao.waterever.data.db.model.Category
 import me.zhiyao.waterever.databinding.FragmentNewPlantCategoryBinding
+import me.zhiyao.waterever.exts.dp2px
 import me.zhiyao.waterever.log.Logger
 import me.zhiyao.waterever.ui.base.BaseFragment
 import me.zhiyao.waterever.ui.category.CategoriesActivity
 import me.zhiyao.waterever.ui.plant.create.NewPlantViewModel
 import me.zhiyao.waterever.ui.plant.create.category.adapter.NewPlantCategoryAdapter
+import me.zhiyao.waterever.ui.widgets.SpacingItemDecoration
 
 /**
  *
@@ -49,16 +51,14 @@ class NewPlantCategoryFragment : BaseFragment(), NewPlantCategoryAdapter.OnCateg
     private fun initView() {
         setHasOptionsMenu(true)
 
-        try {
-            binding.rvCategories.layoutManager = LinearLayoutManager(requireContext())
-        } catch (ex: IllegalStateException) {
-            Logger.e(TAG, ex)
-        }
-
         adapter = NewPlantCategoryAdapter()
         adapter!!.setOnCategoryClickListener(this)
 
-        binding.rvCategories.adapter = adapter
+        binding.rvCategories.let {
+            it.layoutManager = LinearLayoutManager(it.context)
+            it.addItemDecoration(SpacingItemDecoration(4.dp2px(it.context)))
+            it.adapter = adapter
+        }
 
         binding.fabNext.setOnClickListener {
             it.isEnabled = false

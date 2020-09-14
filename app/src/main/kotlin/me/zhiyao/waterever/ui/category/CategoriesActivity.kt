@@ -13,9 +13,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import me.zhiyao.waterever.R
 import me.zhiyao.waterever.data.db.model.Category
 import me.zhiyao.waterever.databinding.ActivityCategoriesBinding
+import me.zhiyao.waterever.exts.dp2px
 import me.zhiyao.waterever.exts.showSnackBar
 import me.zhiyao.waterever.ui.base.BaseActivity
 import me.zhiyao.waterever.ui.category.adapter.CategoryAdapter
+import me.zhiyao.waterever.ui.widgets.SpacingItemDecoration
 
 /**
  *
@@ -54,8 +56,11 @@ class CategoriesActivity : BaseActivity(), CategoryAdapter.OnCategoryClickListen
         adapter.setOnCategoryClickListener(this)
         adapter.setOnItemLongClickListener(this)
 
-        binding.rvCategories.layoutManager = LinearLayoutManager(this)
-        binding.rvCategories.adapter = adapter
+        binding.rvCategories.let {
+            it.layoutManager = LinearLayoutManager(this)
+            it.addItemDecoration(SpacingItemDecoration(4.dp2px(this)))
+            it.adapter = adapter
+        }
     }
 
     private fun initData() {

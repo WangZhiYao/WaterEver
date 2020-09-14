@@ -10,12 +10,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import me.zhiyao.waterever.R
 import me.zhiyao.waterever.databinding.FragmentNewGrowthRecordImageBinding
+import me.zhiyao.waterever.exts.dp2px
 import me.zhiyao.waterever.log.Logger
 import me.zhiyao.waterever.ui.base.BaseFragment
 import me.zhiyao.waterever.ui.image.ImageViewerActivity
 import me.zhiyao.waterever.ui.record.create.NewGrowthRecordViewModel
 import me.zhiyao.waterever.ui.record.create.image.adapter.NewGrowthRecordImageAdapter
 import me.zhiyao.waterever.ui.record.create.image.viewholder.OnImageClickListener
+import me.zhiyao.waterever.ui.widgets.GridSpacingItemDecoration
 import java.util.*
 
 /**
@@ -55,6 +57,7 @@ class NewGrowthRecordImageFragment : BaseFragment(), OnImageClickListener {
 
         binding.rvImages.let {
             it.layoutManager = GridLayoutManager(it.context, 3)
+            it.addItemDecoration(GridSpacingItemDecoration(4.dp2px(it.context), 3))
             it.adapter = adapter
         }
 

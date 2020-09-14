@@ -8,9 +8,10 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import me.zhiyao.waterever.databinding.FragmentPlantsBinding
-import me.zhiyao.waterever.log.Logger
+import me.zhiyao.waterever.exts.dp2px
 import me.zhiyao.waterever.ui.base.BaseFragment
 import me.zhiyao.waterever.ui.main.plants.adapter.PlantAdapter
+import me.zhiyao.waterever.ui.widgets.SpacingItemDecoration
 
 /**
  *
@@ -42,14 +43,13 @@ class PlantsFragment : BaseFragment() {
     }
 
     private fun initView() {
-        try {
-            binding.rvPlants.layoutManager = LinearLayoutManager(requireContext())
-        } catch (ex: IllegalStateException) {
-            Logger.e(TAG, ex)
-        }
-
         adapter = PlantAdapter()
-        binding.rvPlants.adapter = adapter
+
+        binding.rvPlants.let {
+            it.layoutManager = LinearLayoutManager(it.context)
+            it.addItemDecoration(SpacingItemDecoration(4.dp2px(it.context)))
+            it.adapter = adapter
+        }
     }
 
     private fun initData() {

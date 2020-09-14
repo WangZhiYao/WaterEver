@@ -9,9 +9,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import me.zhiyao.waterever.databinding.FragmentHomeBinding
-import me.zhiyao.waterever.log.Logger
+import me.zhiyao.waterever.exts.dp2px
 import me.zhiyao.waterever.ui.base.BaseFragment
 import me.zhiyao.waterever.ui.main.home.adapter.HomeItemAdapter
+import me.zhiyao.waterever.ui.widgets.SpacingItemDecoration
 
 /**
  *
@@ -43,18 +44,17 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun initView() {
-        try {
-            binding.rvHome.layoutManager = LinearLayoutManager(requireContext())
-        } catch (ex: IllegalStateException) {
-            Logger.e(TAG, ex)
-        }
-
         adapter = HomeItemAdapter()
-        binding.rvHome.adapter = adapter
+
+        binding.rvHome.let {
+            it.layoutManager = LinearLayoutManager(it.context)
+            it.addItemDecoration(SpacingItemDecoration(8.dp2px(it.context), true))
+            it.adapter = adapter
+        }
     }
 
     private fun initData() {
-        viewModel.growthRecordList.observe(this, { homeItemList ->
+        viewModel.growthRecordList.observe(viewLifecycleOwner, { homeItemList ->
             lifecycleScope.launchWhenCreated {
                 adapter.submitData(homeItemList)
             }
